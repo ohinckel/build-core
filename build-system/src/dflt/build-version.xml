@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="xp-framework-version" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
   
-  <target name="xp.build.mode" depends="ivy-info">
+  <target name="xp.build.mode" depends="xp.setup.ivy">
     <condition property="xp.build.mode.release">
       <equals arg1="${ivy.status}" arg2="release"/>
     </condition>
@@ -13,6 +13,21 @@
     <condition property="xp.build.mode.integration">
       <equals arg1="${ivy.status}" arg2="integration"/>
     </condition>
+  </target>
+
+  <target name="xp.get.resolver" depends="xp.get.resolver.integration, xp.get.resolver.release"/>
+
+  <target name="xp.get.resolver.integration" if="xp.build.mode.integration">
+    <property name="xp.publish.resolver" value="shared-publish-snapshots"/>
+    <property name="xp.overwrite" value="true"/>
+  </target>
+
+  <target name="xp.get.resolver.milestone" if="xp.build.mode.milestone">
+    <property name="xp.publish.resolver" value="shared-publish-milestones"/>
+  </target>
+
+  <target name="xp.get.resolver.release" if="xp.build.mode.release">
+    <property name="xp.publish.resolver" value="shared-publish-releases"/>
   </target>
 
   <target name="xp.build.number.release" depends="xp.build.mode" if="xp.build.mode.release">
