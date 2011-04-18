@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="xp-framework-compile" basedir=".">
-  <target name="xp.compile.sources" extensionOf="compile" depends="xp.compile.sources.php, xp.compile.sources.xsl"/>
+  <target name="xp.compile.sources" extensionOf="compile"
+   depends="xp.fetch.dependencies, xp.compile.sources.php, xp.compile.sources.xsl"
+  />
 
   <target name="xp.compile.sources.php" depends="xp.compile.generatefilter">
     <copy todir="${build.target.classes}">
@@ -43,5 +45,4 @@
       <filter token="module.fullname" value="${ivy.organisation}.${ivy.module}-${ivy.revision}"/>
     </filterset>
   </target>
-
 </project>

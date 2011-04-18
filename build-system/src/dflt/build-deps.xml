@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="xp-framework-deps" basedir="."  xmlns:ivy="antlib:org.apache.ivy.ant">
+
+  <target name="xp.fetch.dependencies" depends="ivy-info">
+    <!-- Declare all libs as "dependant" on ivy.xml - once this file has been
+     ! changed, all libs will be re-fetched if necessary -->
+    <dependset>
+      <srcfilelist dir="${basedir}" files="ivy.xml"/>
+      <targetfileset dir="${build.target}/lib" includes="**/*"/>
+    </dependset>
+
+    <!-- Fetch libs -->
+    <ivy:resolve/>
+    <ivy:retrieve
+     pattern="${build.target}/lib/[conf]/[type]/[artifact]-[revision].[ext]"
+    />
+
+    <!-- Touch libs, so they are newer than ivy.xml -->
+    <touch>
+      <fileset dir="${build.target}/lib" includes="**/*"/>
+    </touch>
+  </target>
+
+  <target name="xp.extract.checkbootstrap" depends="xp.fetch.dependencies">
+    <dependset verbose="true">
+      <srcfileset dir="${build.target}/lib" includes="*/bootstrap/*.zip"/>
+      <targetfileset dir="${build.target}" includes="bootstrap/**"/>
+    </dependset>
+    
+    <available property="xp.bootstrap.exists" file="${build.target}/bootstrap/ivy.pth"/>
+  </target>
+
+  <target name="xp.extract.bootstrap" depends="xp.fetch.dependencies, xp.extract.checkbootstrap, xp.extract.bootstrap.unzip"/>
+
+  <target name="xp.extract.bootstrap.unzip" depends="xp.extract.checkbootstrap, xp.fetch.dependencies" unless="xp.bootstrap.exists">
+    <fileset id="build.bootstrap"
+     dir="${build.target}/lib"
+     includes="*/bootstrap/*.zip"
+    />
+
+    <unzip dest="${build.target}/bootstrap">
+      <fileset refid="build.bootstrap"/>
+    </unzip>
+
+    <touch>
+      <fileset dir="${build.target}/bootstrap" includes="**/*"/>
+    </touch>
+  </target>
+</project>

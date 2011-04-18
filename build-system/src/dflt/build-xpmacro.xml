@@ -1,17 +1,14 @@
 <?xml version="1.0"?>
-<project name="xp-framework-macro" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+<project name="xp-framework-macro" basedir=".">
   
   <macrodef name="xar">
     <attribute name="target"/>
     <attribute name="dir"/>
     
     <sequential>
+
       <!-- Build classpath for xar -->
-      <ivy:cachefileset
-       type="xar"
-       conf="default"
-       setid="xar.path.dependencies"
-      />
+      <fileset id="xar.path.dependencies" dir="${build.target}/lib" includes="default/xar/*.xar"/>
       <xar-with-cp target="@{target}" dir="@{dir}">
         <classpath>
           <fileset refid="xar.path.dependencies"/>
