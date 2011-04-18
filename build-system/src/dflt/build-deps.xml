@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="xp-framework-deps" basedir="."  xmlns:ivy="antlib:org.apache.ivy.ant">
 
-  <target name="xp.fetch.dependencies" depends="ivy-info">
-    <!-- Declare all libs as "dependant" on ivy.xml - once this file has been
-     ! changed, all libs will be re-fetched if necessary -->
+  <target name="xp.fetch.dependencies.clear">
+    <!--
+     ! Declare all libs as "dependant" on ivy.xml - once this file has been
+     ! changed, all libs will be re-fetched if necessary
+     -->
     <dependset>
       <srcfilelist dir="${basedir}" files="ivy.xml"/>
-      <targetfileset dir="${build.target}/lib" includes="**/*"/>
+      <targetfileset dir="${build.target}" includes="lib/**/*"/>
     </dependset>
+
+    <available file="${build.target}/lib" property="xp.fetch.dependencies.exist"/>
+  </target>
+
+  <target name="xp.fetch.dependencies" depends="ivy-info, xp.fetch.dependencies.clear" unless="xp.fetch.dependencies.exist">
 
     <!-- Fetch libs -->
     <ivy:resolve/>
