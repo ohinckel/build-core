@@ -23,12 +23,10 @@
     <ivy:configure file="${xp.build.home}/settings/ivysettings.xml" override="true"/>
   </target>
   
-  <target name="ivy-info" depends="xp.setup.ivy"/>
-
-  <target name="xp.setup.paths" extensionOf="prepare" depends="ivy-info, xp.extract.bootstrap">
+  <target name="xp.setup.paths" extensionOf="prepare" depends="xp.setup.ivy, xp.extract.bootstrap">
   </target>
   
-  <target name="xp.clean.ivycache" extensionOf="clean" depends="ivy-info">
+  <target name="xp.clean.ivycache" extensionOf="clean" depends="xp.setup.ivy">
     <ivy:cleancache/>
   </target>
   

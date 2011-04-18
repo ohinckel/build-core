@@ -53,7 +53,7 @@
     </copy>
   </target>
 
-  <target name="xp.app.package" extensionOf="package" depends="ivy-info, xp.build.number">
+  <target name="xp.app.package" extensionOf="package" depends="xp.setup.ivy, xp.build.number">
     <zip destfile="${build.target}/${ivy.module}-app-${ivy.new.revision}.zip">
       <zipfileset dir="${build.target}/app" prefix="${ivy.module}"/>
     </zip>

@@ -34,7 +34,7 @@
     </copy>
   </target>
 
-  <target name="xp.compile.generatefilter" depends="ivy-info">
+  <target name="xp.compile.generatefilter" depends="xp.setup.ivy">
     <!-- Predefined filterset used on compile -->
     <filterset id="xp.filterset.compile" begintoken="@@" endtoken="@@">
       <filter token="user" value="${user.name}"/>

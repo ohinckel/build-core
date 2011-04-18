@@ -14,7 +14,7 @@
     <available file="${build.target}/lib" property="xp.fetch.dependencies.exist"/>
   </target>
 
-  <target name="xp.fetch.dependencies" depends="ivy-info, xp.fetch.dependencies.clear" unless="xp.fetch.dependencies.exist">
+  <target name="xp.fetch.dependencies" depends="xp.setup.ivy, xp.fetch.dependencies.clear" unless="xp.fetch.dependencies.exist">
 
     <!-- Fetch libs -->
     <ivy:resolve/>

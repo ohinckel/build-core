@@ -2,7 +2,7 @@
 <project name="xp-framework-tagdeploy" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
   
   <target name="publish:tag" description="Publish latest app artifact into tag"
-   depends="xp.provide.dependencies, ivy-info, xp.get.tagname, xp.publish.get.wc, xp.build.number"
+   depends="xp.provide.dependencies, xp.setup.ivy, xp.get.tagname, xp.publish.get.wc, xp.build.number"
   >
     <echo>===> Deploying to tag ${xp.build.tag}</echo>
     <echo>     Repository: ${ivy.extra.repository}</echo>
