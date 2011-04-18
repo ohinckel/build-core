@@ -11,7 +11,7 @@
       <targetfileset dir="${build.target}" includes="lib/**/*"/>
     </dependset>
 
-    <available file="${build.target}/lib" property="xp.fetch.dependencies.exist"/>
+    <available file="${build.target}/lib/.extracted" property="xp.fetch.dependencies.exist"/>
   </target>
 
   <target name="xp.fetch.dependencies" depends="xp.setup.ivy, xp.fetch.dependencies.clear" unless="xp.fetch.dependencies.exist">
@@ -23,6 +23,7 @@
     />
 
     <!-- Touch libs, so they are newer than ivy.xml -->
+    <touch file="${build.target}/lib/.extracted"/>
     <touch>
       <fileset dir="${build.target}/lib" includes="**/*"/>
     </touch>
@@ -36,8 +37,6 @@
     
     <available property="xp.bootstrap.exists" file="${build.target}/bootstrap/.extracted"/>
   </target>
-
-  <target name="xp.extract.bootstrap" depends="xp.fetch.dependencies, xp.extract.checkbootstrap, xp.extract.bootstrap.unzip"/>
 
   <target name="xp.extract.bootstrap.unzip" depends="xp.extract.checkbootstrap, xp.fetch.dependencies" unless="xp.bootstrap.exists">
     <fileset id="build.bootstrap"
@@ -54,4 +53,9 @@
       <fileset dir="${build.target}/bootstrap" includes="**/*"/>
     </touch>
   </target>
+
+  <target
+   name="xp.extract.bootstrap"
+   extensionOf="prepare"
+   depends="xp.fetch.dependencies, xp.extract.checkbootstrap, xp.extract.bootstrap.unzip"/>
 </project>
