@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="xp-framework-test" basedir=".">
-  <available property="build.test.exist.unittest.ini" file="${basedir}/unittest.ini"/>
+  <available property="xp.test.exist.unittest.ini" file="${basedir}/unittest.ini"/>
 
   <target name="xp.test.createpath">
     <!-- Build classpath for unittests -->
@@ -25,7 +25,7 @@
     <mkdir dir="${build.target}/testresults"/>
   </target>
 
-  <target name="xp.test.byini" unless="skip.tests" depends="xp.test.createpath">
+  <target name="xp.test.byini" unless="skip.tests" depends="xp.test.createpath" if="xp.test.exist.unittest.ini">
     <echo>===> Testing ${ivy.organisation}#${ivy.module} - by configuration</echo>
 
     <!-- Execute unittest for each .ini file -->
@@ -61,5 +61,5 @@
     </exec>
   </target>
 
-  <target name="xp.test" extensionOf="test" depends="xp.test.byini,xp.test.bypackage"/>
+  <target name="xp.test" extensionOf="test" depends="xp.test.byini, xp.test.bypackage"/>
 </project>
