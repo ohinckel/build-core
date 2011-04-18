@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="xp-framework-package" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
   
-  <target name="xp.package.sources" extensionOf="package" depends="ivy-info, xp.build.number">
+  <target name="xp.package.sources" extensionOf="package" depends="xp.setup.ivy, xp.build.number">
     <xar
      dir="${build.target.classes}"
      target="${build.target}/${ivy.module}-${ivy.new.revision}.xar"
@@ -13,14 +13,14 @@
     <pathconvert property="xp.tests.exist" refid="tests" setonempty="false"/>
   </target>
 
-  <target name="xp.package.tests" extensionOf="package" depends="ivy-info, xp.build.number, xp.package.tests.exist" if="xp.tests.exist">
+  <target name="xp.package.tests" extensionOf="package" depends="xp.setup.ivy, xp.build.number, xp.package.tests.exist" if="xp.tests.exist">
     <xar
      dir="${build.target.testClasses}"
      target="${build.target}/${ivy.module}-test-${ivy.new.revision}.xar"
     />
   </target>
 
-  <target name="xp.package.meta" extensionOf="package" depends="ivy-info, xp.package.sources, xp.package.tests">
+  <target name="xp.package.meta" extensionOf="package" depends="xp.setup.ivy, xp.package.sources, xp.package.tests">
     <echo>===> Packaging ${ivy.organisation}#${ivy.module}</echo>
 
     <ivy:resolve/>
