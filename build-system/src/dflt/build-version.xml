@@ -56,10 +56,12 @@
    ! Evaluate build number, then store to xp.properties
    !-->
   <target name="xp.build.number.evaluate" depends="xp.build.number.release, xp.build.number.milestone, xp.build.number.integration" unless="ivy.new.revision">
+    <property name="xp.property.fromfile" value="true"/>
     <echoproperties destfile="${build.target}/xp.properties">
       <propertyset>
         <propertyref name="ivy.new.revision"/>
         <propertyref name="xp.publish.resolver"/>
+        <propertyref name="xp.property.fromfile"/>
       </propertyset>
     </echoproperties>
   </target>
@@ -69,7 +71,7 @@
    ! to do expensive number calculation...
    !-->
   <target name="xp.build.number.load">
-    <property file="${build.number}/xp.properties"/>
+    <property file="${build.target}/xp.properties"/>
   </target>
 
   <target name="xp.build.number" depends="xp.build.number.load, xp.build.number.evaluate">
