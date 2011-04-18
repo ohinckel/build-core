@@ -29,12 +29,12 @@
   </target>
 
   <target name="xp.extract.checkbootstrap" depends="xp.fetch.dependencies">
-    <dependset verbose="true">
+    <dependset>
       <srcfileset dir="${build.target}/lib" includes="*/bootstrap/*.zip"/>
       <targetfileset dir="${build.target}" includes="bootstrap/**"/>
     </dependset>
     
-    <available property="xp.bootstrap.exists" file="${build.target}/bootstrap/ivy.pth"/>
+    <available property="xp.bootstrap.exists" file="${build.target}/bootstrap/.extracted"/>
   </target>
 
   <target name="xp.extract.bootstrap" depends="xp.fetch.dependencies, xp.extract.checkbootstrap, xp.extract.bootstrap.unzip"/>
@@ -49,6 +49,7 @@
       <fileset refid="build.bootstrap"/>
     </unzip>
 
+    <touch file="${build.target}/bootstrap/.extracted"/>
     <touch>
       <fileset dir="${build.target}/bootstrap" includes="**/*"/>
     </touch>
