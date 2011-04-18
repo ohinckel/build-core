@@ -17,7 +17,7 @@
 
   <target name="xp.get.resolver" depends="xp.get.resolver.integration, xp.get.resolver.release"/>
 
-  <target name="xp.get.resolver.integration" if="xp.build.mode.integration" >
+  <target name="xp.get.resolver.integration" if="xp.build.mode.integration">
     <echo>Current build mode: integration</echo>
     <property name="xp.publish.resolver" value="shared-publish-snapshots"/>
     <property name="xp.overwrite" value="true"/>
