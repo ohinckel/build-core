@@ -17,24 +17,27 @@
 
   <target name="xp.get.resolver" depends="xp.get.resolver.integration, xp.get.resolver.release"/>
 
-  <target name="xp.get.resolver.integration" if="xp.build.mode.integration">
+  <target name="xp.get.resolver.integration" if="xp.build.mode.integration" >
+    <echo>Current build mode: integration</echo>
     <property name="xp.publish.resolver" value="shared-publish-snapshots"/>
     <property name="xp.overwrite" value="true"/>
   </target>
 
   <target name="xp.get.resolver.milestone" if="xp.build.mode.milestone">
+    <echo>Current build mode: milestone</echo>
     <property name="xp.publish.resolver" value="shared-publish-milestones"/>
   </target>
 
   <target name="xp.get.resolver.release" if="xp.build.mode.release">
+    <echo>Current build mode: release</echo>
     <property name="xp.publish.resolver" value="shared-publish-releases"/>
   </target>
 
-  <target name="xp.build.number.release" depends="xp.build.mode" if="xp.build.mode.release">
+  <target name="xp.build.number.release" depends="xp.build.mode" if="xp.build.mode.release" unless="ivy.new.revision">
     <property name="ivy.new.revision" value="${ivy.revision}"/>
   </target>
 
-  <target name="xp.build.number.milestone" depends="xp.build.mode, xp.get.resolver" if="xp.build.mode.milestone">
+  <target name="xp.build.number.milestone" depends="xp.build.mode, xp.get.resolver" if="xp.build.mode.milestone" unless="ivy.new.revision">
     <ivy:buildnumber 
      organisation="${ivy.organisation}"
      module="${ivy.module}"
@@ -45,9 +48,32 @@
     />
   </target>
 
-  <target name="xp.build.number.integration" depends="xp.build.mode, xp.get.resolver" if="xp.build.mode.integration">
+  <target name="xp.build.number.integration" depends="xp.build.mode, xp.get.resolver" if="xp.build.mode.integration" unless="ivy.new.revision">
     <property name="ivy.new.revision" value="${ivy.revision}-SNAPSHOT"/>
   </target>
 
-  <target name="xp.build.number" depends="xp.build.number.release, xp.build.number.milestone, xp.build.number.integration"/>
+  <!--
+   ! Evaluate build number, then store to xp.properties
+   !-->
+  <target name="xp.build.number.evaluate" depends="xp.build.number.release, xp.build.number.milestone, xp.build.number.integration" unless="ivy.new.revision">
+    <echoproperties destfile="${build.target}/xp.properties">
+      <propertyset>
+        <propertyref name="ivy.new.revision"/>
+        <propertyref name="xp.publish.resolver"/>
+      </propertyset>
+    </echoproperties>
+  </target>
+
+  <!--
+   ! First, try to load last settings from xp.properties; if succeeds, no need
+   ! to do expensive number calculation...
+   !-->
+  <target name="xp.build.number.load">
+    <property file="${build.number}/xp.properties"/>
+  </target>
+
+  <target name="xp.build.number" depends="xp.build.number.load, xp.build.number.evaluate">
+    <echo>Current build version: ${ivy.new.revision}</echo>
+  </target>
+
 </project>
