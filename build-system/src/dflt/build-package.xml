@@ -22,17 +22,5 @@
 
   <target name="xp.package.meta" extensionOf="package" depends="xp.setup.ivy, xp.package.sources, xp.package.tests">
     <echo>===> Packaging ${ivy.organisation}#${ivy.module}</echo>
-
-    <ivy:resolve/>
-    <ivy:deliver 
-     deliverpattern="${build.target}/ivy-${ivy.new.revision}.xml"
-     pubrevision="${ivy.new.revision}"
-    />
-
-    <ivy:makepom
-     ivyfile="${build.target}/ivy-${ivy.new.revision}.xml"
-     pomfile="${build.target}/${ivy.module}-${ivy.new.revision}.pom"
-     printIvyInfo="false"
-    />
   </target>
 </project>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="xp-framework-metadata" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+
+  <target name="xp.metadata" extensionOf="package" depends="xp.metadata.depends, xp.metadata.generate"/>
+  
+  <target name="xp.metadata.depends" depends="xp.setup.ivy">
+    <dependset verbose="true">
+      <srcfilelist dir="${basedir}" files="ivy.xml"/>
+      <targetfileset dir="${build.target}">
+        <include name="ivy-*.xml"/>
+        <include name="*.pom"/>
+      </targetfileset>
+    </dependset>
+
+    <available file="${build.target}/ivy-${ivy.new.revision}.xml" property="xp.metadata.exists"/>
+  </target>
+
+  <target name="xp.metadata.generate" extensionOf="package" unless="xp.metadata.exists">
+    <ivy:deliver
+     deliverpattern="${build.target}/ivy-${ivy.new.revision}.xml"
+     pubrevision="${ivy.new.revision}"
+    />
+
+    <ivy:makepom
+     ivyfile="${build.target}/ivy-${ivy.new.revision}.xml"
+     pomfile="${build.target}/${ivy.module}-${ivy.new.revision}.pom"
+     printIvyInfo="false"
+    />
+  </target>
+</project>
