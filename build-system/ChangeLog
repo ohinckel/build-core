@@ -5,6 +5,29 @@ $Id$
 Version ?-?-?, released ????-??-??
 ----------------------------------
 
+Features
+--------
+- Renamed ivy-info to xp.setup.ivy to follow standards
+  (kiesel)
+- Implemented caching for ivy-related tasks, so lengthy operations can be
+  fast-forwarded when being executed a subsequent time
+  (kiesel)
+- Refactored ivy integration, so all ivy-related tasks will be done as
+  early as possible in the build phase; this includes:
+  . fetching dependencies
+  . delivering metadata files (ivy.xml, *.pom)
+  . determining new build number
+  (kiesel)
+- Refactored dependency delivery, so all dependencies are delivered to lib/
+  (kiesel)
+
+Bugfixes
+--------
+- Fixed target to run unittest.ini-based tests to only be invoked when a
+  unittest.ini actually exists.
+  (kiesel)
+
+
 Version 1.2.4, released 2011-04-18
 ----------------------------------
 
