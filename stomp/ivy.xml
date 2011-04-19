@@ -28,7 +28,7 @@
   <dependencies>
     <dependency 
      org="net.xp_framework" 
-     name="xp-core" 
+     name="core"
      rev="5.8.1"
     />
   </dependencies>
