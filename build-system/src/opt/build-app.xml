@@ -1,32 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="xp-framework-app" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+<project name="xp-framework-app" basedir=".">
   <target name="xp.app.compile" extensionOf="compile">
     <copy todir="${build.target.app}">
       <fileset refid="build.appSourceDirectory"/>
       <fileset refid="build.configSourceDirectory"/>
+      <filterset refid="xp.filterset.compile"/>
     </copy>
     <copy todir="${build.target.app}/src">
       <fileset refid="build.sources.fileset.php"/>
+      <filterset refid="xp.filterset.compile"/>
       <cutdirsmapper dirs="1"/>
     </copy>
     <copy todir="${build.target.app}/xsl">
       <fileset refid="build.sources.fileset.xsl"/>
+      <filterset refid="xp.filterset.compile"/>
       <cutdirsmapper dirs="1"/>
     </copy>
   </target>
 
   <target name="xp.app.pre-package" extensionOf="pre-package">
     <!-- Retrieve all dependee artifacts and put them into lib/ -->
-    <ivy:retrieve type="xar" conf="default" pattern="${build.target.app}/lib/[artifact]-[revision].[ext]"/>
+    <copy todir="${build.target.app}/lib">
+      <fileset dir="${build.target}/lib/default/xar"/>
+      <flattenmapper/>
+    </copy>
 
     <!-- Retrieve bootstrap -->
-    <ivy:cachefileset type="bootstrap" conf="default" setid="bootstrap.fileset"/>
     <unzip dest="${build.target.app}/lib/bootstrap">
-      <fileset refid="bootstrap.fileset"/>
+      <fileset dir="${build.target}/lib/default/bootstrap" includes="*.zip"/>
     </unzip>
 
     <!-- Build .pth file -->
-    <ivy:cachefileset type="xar" conf="default" setid="package.fileset"/>
     <fileset id="pth.fileset" dir="${build.target.app}" includes="lib/*.xar"/>
 
     <pathconvert property="package.fileset" pathsep="&#10;" dirsep="/">
