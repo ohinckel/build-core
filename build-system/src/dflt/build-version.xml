@@ -30,11 +30,11 @@
     <property name="xp.publish.resolver" value="shared-publish-releases"/>
   </target>
 
-  <target name="xp.build.number.release" depends="xp.build.mode" if="xp.build.mode.release" unless="ivy.new.revision">
+  <target name="xp.build.number.release" depends="xp.build.mode" if="xp.build.mode.release" unless="xp.property.fromfile">
     <property name="ivy.new.revision" value="${ivy.revision}"/>
   </target>
 
-  <target name="xp.build.number.milestone" depends="xp.build.mode, xp.get.resolver" if="xp.build.mode.milestone" unless="ivy.new.revision">
+  <target name="xp.build.number.milestone" depends="xp.build.mode, xp.get.resolver" if="xp.build.mode.milestone" unless="xp.property.fromfile">
     <ivy:buildnumber 
      organisation="${ivy.organisation}"
      module="${ivy.module}"
@@ -45,7 +45,7 @@
     />
   </target>
 
-  <target name="xp.build.number.integration" depends="xp.build.mode, xp.get.resolver" if="xp.build.mode.integration" unless="ivy.new.revision">
+  <target name="xp.build.number.integration" depends="xp.build.mode, xp.get.resolver" if="xp.build.mode.integration" unless="xp.property.fromfile">
     <property name="ivy.new.revision" value="${ivy.revision}-SNAPSHOT"/>
   </target>
 
@@ -54,8 +54,9 @@
    !-->
   <target name="xp.build.number.evaluate"
    depends="xp.build.number.release, xp.build.number.milestone, xp.build.number.integration"
-   unless="ivy.new.revision"
+   unless="xp.property.fromfile"
   >
+    <echo>Determining next build number...</echo>
     <property name="xp.property.fromfile" value="true"/>
     <echoproperties destfile="${build.target}/xp.properties">
       <propertyset>
