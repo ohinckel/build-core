@@ -4,13 +4,15 @@
 
   <target name="xp.test.createpath">
     <!-- Build classpath for unittests -->
-    <fileset id="test.path.dependencies" dir="${build.target}/lib" includes="test/xar/*.xar"/>
+    <fileset id="path.deps.overlay" dir="${build.target}/lib" includes="test/overlay/*.xar"/>
+    <fileset id="path.deps" dir="${build.target}/lib" includes="test/xar/*.xar"/>
     <pathconvert property="test.path" pathsep="&#10;">
       <path>
+        <fileset refid="path.deps.overlay"/>
+        <pathelement path="${build.target}/bootstrap"/>
         <pathelement path="${build.target.testClasses}"/>
         <pathelement path="${build.target.classes}"/>
-        <fileset refid="test.path.dependencies"/>
-        <pathelement path="${build.target}/bootstrap"/>
+        <fileset refid="path.deps"/>
       </path>
     </pathconvert>
 
