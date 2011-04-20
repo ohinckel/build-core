@@ -55,8 +55,21 @@
     </touch>
   </target>
 
+  <target name="xp.fetch.generatepth">
+
+    <!-- Build classpath for default conf -->
+    <gen-pth conf="default"/>
+
+    <!-- Build classpath for test conf: add test classes -->
+    <gen-pth conf="test">
+      <additional-paths>
+        <pathelement path="${build.target.testClasses}"/>
+      </additional-paths>
+    </gen-pth>
+  </target>
+
   <target
    name="xp.extract.bootstrap"
    extensionOf="prepare"
-   depends="xp.fetch.dependencies, xp.extract.checkbootstrap, xp.extract.bootstrap.unzip"/>
+   depends="xp.fetch.dependencies, xp.extract.checkbootstrap, xp.extract.bootstrap.unzip, xp.fetch.generatepth"/>
 </project>

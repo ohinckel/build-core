@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="xp-framework-app" basedir=".">
+
   <target name="xp.app.compile" extensionOf="compile">
     <copy todir="${build.target.app}">
       <fileset refid="build.appSourceDirectory"/>

@@ -6,43 +6,48 @@
     <attribute name="dir"/>
     
     <sequential>
-
-      <!-- Build classpath for xar -->
-      <fileset id="xar.path.dependencies" dir="${build.target}/lib" includes="default/xar/*.xar"/>
-      <xar-with-cp target="@{target}" dir="@{dir}">
-        <classpath>
-          <fileset refid="xar.path.dependencies"/>
-          <path>
-            <pathelement path="${build.target}/bootstrap"/>
-          </path>
-        </classpath>
-      </xar-with-cp>
+      <xar-with-cp target="@{target}" dir="@{dir}"/>
     </sequential>
   </macrodef>
 
   <macrodef name="xar-with-cp">
     <attribute name="target"/>
     <attribute name="dir"/>
-    <element name="classpath"/>
 
     <sequential>
-      <pathconvert property="xar.path" pathsep="&#10;">
-        <classpath/>
-      </pathconvert>
-
-      <!-- Generate ivy.pth for use by xar -->
-      <echo file="${build.target}/bootstrap/ivy.pth">${xar.path}</echo>
-
       <exec
        executable="xar"
        failonerror="true"
        dir="@{dir}"
       >
-        <env key="USE_XP" value="${build.target}/bootstrap"/>
+        <env key="USE_XP" value="${build.target}/bootstrap/default/"/>
         <arg value="cf"/>
         <arg value="@{target}"/>
         <arg value="."/>
       </exec>
     </sequential>
   </macrodef>
+
+  <macrodef name="gen-pth">
+    <attribute name="conf"/>
+    <element name="additional-paths" optional="true"/>
+
+    <sequential>
+      <fileset id="path.deps.overlay" dir="${build.target}/lib" includes="@{conf}/overlay/*.xar"/>
+      <fileset id="path.deps" dir="${build.target}/lib" includes="@{conf}/xar/*.xar"/>
+      <pathconvert property="xp.pth.@{conf}" pathsep="&#10;">
+        <path>
+          <fileset refid="path.deps.overlay"/>
+          <pathelement path="${build.target}/bootstrap/@{conf}/"/>
+          <additional-paths/>
+          <pathelement path="${build.target.classes}"/>
+          <fileset refid="path.deps"/>
+        </path>
+      </pathconvert>
+
+      <!-- Generate ivy.pth for use by tests -->
+      <echo file="${build.target}/bootstrap/@{conf}/project.pth">${xp.pth.@{conf}}</echo>
+    </sequential>
+  </macrodef>
+
 </project>
