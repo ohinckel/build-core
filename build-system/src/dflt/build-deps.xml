@@ -39,13 +39,14 @@
   </target>
 
   <target name="xp.extract.bootstrap.unzip" depends="xp.extract.checkbootstrap, xp.fetch.dependencies" unless="xp.bootstrap.exists">
-    <fileset id="build.bootstrap"
-     dir="${build.target}/lib"
-     includes="*/bootstrap/*.zip"
-    />
+    <!-- Unzip bootstrap for default conf -->
+    <unzip dest="${build.target}/bootstrap/default">
+      <fileset dir="${build.target}/lib" includes="default/bootstrap/*.zip"/>
+    </unzip>
 
-    <unzip dest="${build.target}/bootstrap">
-      <fileset refid="build.bootstrap"/>
+    <!-- Unzip bootstrap for test conf -->
+    <unzip dest="${build.target}/bootstrap/test">
+      <fileset dir="${build.target}/lib" includes="test/bootstrap/*.zip"/>
     </unzip>
 
     <touch file="${build.target}/bootstrap/.extracted"/>
