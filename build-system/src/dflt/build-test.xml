@@ -38,8 +38,8 @@
       <env key="USE_XP" value="${test.use_xp}"/>
       <arg value="-l"/>
       <arg value="unittest.XmlTestListener"/>
-      <mapper type="glob" from="*.ini" to="*.xml"/>
-      <targetfile prefix="testresult-"/>
+      <mapper type="glob" from="*.ini" to="*-result.xml"/>
+      <targetfile/>
       <srcfile/>
       <fileset refid="build.testConfigurations"/>
     </apply>
