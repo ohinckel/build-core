@@ -7,6 +7,12 @@ Version ?-?-?, released ????-??-??
 
 Features
 --------
+- Changed bootstrap extracting, so every config will have its own bootstrap
+  directories extracted
+  (kiesel, ilankin)
+- Added experimental support to define overlay artifacts that would be pre-
+  pended to the class path
+  (kiesel, ilankin)
 - Renamed ivy-info to xp.setup.ivy to follow standards
   (kiesel)
 - Implemented caching for ivy-related tasks, so lengthy operations can be
