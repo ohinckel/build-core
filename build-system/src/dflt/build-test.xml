@@ -4,6 +4,7 @@
 
   <target name="xp.test.createpath">
     <mkdir dir="${build.target}/testresults"/>
+    <delete dir="${build.target}/testresults" includes="*.xml"/>
   </target>
 
   <target name="xp.test.byini" unless="skip.tests" depends="xp.test.createpath" if="xp.test.exist.unittest.ini">
