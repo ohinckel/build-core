@@ -5,7 +5,7 @@
     <echo>===> Installing ${ivy.organisation}#${ivy.module} @ local</echo>
 
     <ivy:publish
-     artifactspattern="${build.target}/[artifact]-[revision].[ext]"
+     artifactspattern="${build.target}/[artifact]-[revision](-[classifier]).[ext]"
      revision="${ivy.new.revision}"
      resolver="local"
      overwrite="true"
@@ -20,7 +20,7 @@
     <property name="xp.overwrite" value="false"/>
 
     <ivy:publish
-     artifactspattern="${build.target}/[artifact]-[revision].[ext]"
+     artifactspattern="${build.target}/[artifact]-[revision](-[classifier]).[ext]"
      revision="${ivy.new.revision}"
      resolver="${xp.publish.resolver}"
      overwrite="${xp.overwrite}"
