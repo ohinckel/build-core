@@ -28,6 +28,24 @@
     </sequential>
   </macrodef>
 
+  <macrodef name="xar-from-system">
+    <attribute name="target"/>
+    <attribute name="dir"/>
+
+    <sequential>
+      <exec
+       executable="xar"
+       failonerror="true"
+       dir="@{dir}"
+      >
+        <arg value="cf"/>
+        <arg value="@{target}"/>
+        <arg value="."/>
+      </exec>
+    </sequential>
+  </macrodef>
+
+
   <macrodef name="gen-pth">
     <attribute name="conf"/>
     <element name="additional-paths" optional="true"/>
