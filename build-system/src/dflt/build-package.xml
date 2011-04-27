@@ -23,4 +23,25 @@
   <target name="xp.package.meta" extensionOf="package" depends="xp.setup.ivy, xp.package.sources, xp.package.tests">
     <echo>===> Packaging ${ivy.organisation}#${ivy.module}</echo>
   </target>
+
+  <target name="xp.package.source.artifact" extensionOf="package" depends="xp.setup.ivy">
+    <zip file="${build.target}/${ivy.module}-sources-${ivy.new.revision}.zip">
+      <mappedresources>
+        <fileset refid="build.sources.fileset.php"/>
+        <cutdirsmapper dirs="1"/>
+      </mappedresources>
+      <mappedresources>
+        <fileset refid="build.sources.fileset.xsl"/>
+        <cutdirsmapper dirs="1"/>
+      </mappedresources>
+      <mappedresources>
+        <fileset refid="build.testSourceDirectory"/>
+        <cutdirsmapper dirs="1"/>
+      </mappedresources>
+      <mappedresources>
+        <fileset refid="build.testConfigurations"/>
+        <cutdirsmapper dirs="1"/>
+      </mappedresources>
+    </zip>
+  </target>
 </project>
