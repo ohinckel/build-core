@@ -8,7 +8,7 @@
      -->
     <dependset>
       <srcfilelist dir="${basedir}" files="ivy.xml"/>
-      <targetfileset dir="${build.target}" includes="lib/**/*"/>
+      <targetfileset dir="${build.target}/lib"/>
     </dependset>
 
     <available file="${build.target}/lib/.extracted" property="xp.fetch.dependencies.exist"/>
@@ -23,7 +23,7 @@
     />
 
     <!-- Touch libs, so they are newer than ivy.xml -->
-    <touch file="${build.target}/lib/.extracted"/>
+    <touch mkdirs="true" file="${build.target}/lib/.extracted"/>
     <touch>
       <fileset dir="${build.target}/lib" includes="**/*"/>
     </touch>
@@ -49,7 +49,7 @@
       <fileset dir="${build.target}/lib" includes="test/bootstrap/*.zip"/>
     </unzip>
 
-    <touch file="${build.target}/bootstrap/.extracted"/>
+    <touch mkdirs="true" file="${build.target}/bootstrap/.extracted"/>
     <touch>
       <fileset dir="${build.target}/bootstrap" includes="**/*"/>
     </touch>
