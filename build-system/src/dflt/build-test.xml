@@ -4,10 +4,15 @@
 
   <target name="xp.test.createpath">
     <mkdir dir="${build.target}/testresults"/>
-    <delete dir="${build.target}/testresults" includes="*.xml"/>
+    <delete>
+      <fileset dir="${build.target}/testresults" includes="*.xml"/>
+    </delete>
+
+    <!-- Check for existance of some unittest .ini -->
+    <pathconvert property="xp.unittest.has.configuration" refid="build.testConfigurations" setonempty="false"/>
   </target>
 
-  <target name="xp.test.byini" unless="skip.tests" depends="xp.test.createpath" if="xp.test.exist.unittest.ini">
+  <target name="xp.test.byini" unless="skip.tests" depends="xp.test.createpath" if="xp.unittest.has.configuration">
     <echo>===> Testing ${ivy.organisation}#${ivy.module} - by configuration</echo>
 
     <!-- Execute unittest for each .ini file -->

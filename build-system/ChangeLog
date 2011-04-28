@@ -7,6 +7,25 @@ Version ?-?-?, released ????-??-??
 
 Features
 --------
+- Made installer download build system dependencies and install them
+  all as well to speed up regular runs
+  (kiesel)
+- Added implementation to create sources artifact
+  (kiesel)
+
+Bugfixes
+--------
+- Made test target respect build.testConfigurations setting and pick
+  up those files, instead of unittest.ini in base directory
+  (kiesel)
+- Refactored "xar" macros
+  (kiesel)
+
+Version 1.3.0, released 2011-04-21
+----------------------------------
+
+Features
+--------
 - Changed bootstrap extracting, so every config will have its own bootstrap
   directories extracted
   (kiesel, ilankin)
