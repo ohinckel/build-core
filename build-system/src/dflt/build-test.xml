@@ -2,7 +2,7 @@
 <project name="xp-framework-test" basedir=".">
   <available property="xp.test.exist.unittest.ini" file="${basedir}/unittest.ini"/>
 
-  <target name="xp.test.createpath">
+  <target name="xp.unittest.mkresult">
     <mkdir dir="${build.target}/testresults"/>
     <delete>
       <fileset dir="${build.target}/testresults" includes="*.xml"/>
@@ -12,7 +12,7 @@
     <pathconvert property="xp.unittest.has.configuration" refid="build.testConfigurations" setonempty="false"/>
   </target>
 
-  <target name="xp.test.byini" unless="skip.tests" depends="xp.test.createpath" if="xp.unittest.has.configuration">
+  <target name="xp.unittest.from-ini" unless="skip.tests" depends="xp.unittest.mkresult" if="xp.unittest.has.configuration">
     <echo>===> Testing ${ivy.organisation}#${ivy.module} - by configuration</echo>
 
     <!-- Execute unittest for each .ini file -->
@@ -32,7 +32,7 @@
     </apply>
   </target>
 
-  <target name="xp.test.bypackage" if="build.testPackage" depends="xp.test.createpath">
+  <target name="xp.unittest.from-package" unless="skip.tests" if="build.testPackage" depends="xp.unittest.mkresult">
     <echo>===> Testing ${ivy.organisation}#${ivy.module} - by package</echo>
 
     <!-- Execute unittest -->
@@ -49,5 +49,5 @@
     </exec>
   </target>
 
-  <target name="xp.test" extensionOf="test" depends="xp.test.byini, xp.test.bypackage"/>
+  <target name="xp.unittest" extensionOf="test" depends="xp.unittest.from-ini, xp.unittest.from-package"/>
 </project>
