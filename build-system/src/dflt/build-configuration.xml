@@ -13,8 +13,8 @@
     <include name="xsl/**"/>
   </fileset>
   <fileset id="build.testSourceDirectory" dir="${basedir}/src/test/" erroronmissingdir="false"/>
-  <fileset id="build.testConfigurations" dir="${basedir}/src/resources/unittest/">
-    <include name="*.ini"/>
+  <fileset id="build.testConfigurations" dir="${basedir}/src/resources/" erroronmissingdir="false">
+    <include name="unittest/*.ini"/>
   </fileset>
 
   <!-- Override default publish resolver - defaults to "shared", override in build.xml -->

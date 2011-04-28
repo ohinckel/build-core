@@ -25,7 +25,10 @@
       <env key="USE_XP" value="${build.target}/bootstrap/test/"/>
       <arg value="-l"/>
       <arg value="unittest.XmlTestListener"/>
-      <mapper type="glob" from="*.ini" to="*-result.xml"/>
+      <chainedmapper>
+        <flattenmapper/>
+        <mapper type="glob" from="*.ini" to="*-result.xml"/>
+      </chainedmapper>
       <targetfile/>
       <srcfile/>
       <fileset refid="build.testConfigurations"/>
