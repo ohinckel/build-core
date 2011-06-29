@@ -21,7 +21,6 @@
   </info>
   <configurations>
     <conf name="default" visibility="public"/>
-    <conf name="test" visibility="public"/>
   </configurations>
   <publications>
     <artifact name="xp-tools" type="xar" ext="xar" conf="default"/>

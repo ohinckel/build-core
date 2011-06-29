@@ -33,22 +33,14 @@
     </copy>
   </target>
 
-  <target name="xp.package.sources" extensionOf="package" depends="ivy-info, xp.build.number">
-    <xar-with-cp
+  <target name="xp.package.sources" extensionOf="package" depends="xp.setup.ivy, xp.build.number">
+    <xar-from-system
      dir="${build.target}/classes"
      target="${build.target}/${ivy.module}-${ivy.new.revision}.xar"
-    >
-      <classpath>
-        <path>
-          <pathelement path="${basedir}/xp/skeleton"/>
-          <pathelement path="${basedir}/xp"/>
-          <pathelement path="${basedir}/xp/tools"/>
-        </path>
-      </classpath>
-    </xar-with-cp>
+    />
   </target>
   
-  <target name="xp.package.bootstrap" extensionOf="package" depends="ivy-info, xp.build.number">
+  <target name="xp.package.bootstrap" extensionOf="package" depends="xp.setup.ivy, xp.build.number">
     <zip
      destfile="${build.target}/${ivy.module}-bootstrap-${ivy.new.revision}.zip"
     >
