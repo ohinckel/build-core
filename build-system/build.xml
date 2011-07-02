@@ -8,7 +8,10 @@
   </fileset>
 
   <target name="xp.package.sources" extensionOf="package" depends="xp.build.number">
-    <zip basedir="${build.target}/classes" destfile="${build.target}/${ivy.module}-${ivy.new.revision}.zip"/>
+    <zip destfile="${build.target}/${ivy.module}-${ivy.new.revision}.zip">
+      <fileset dir="${build.target}/classes"/>
+      <zipfileset dir="${basedir}/lib" prefix="lib"/>
+    </zip>
   </target>
 
   <property name="xp.publish.resolver" value="public-authenticated"/>
