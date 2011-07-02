@@ -5,8 +5,13 @@ $Id$
 Version ?-?-?, released ????-??-??
 ----------------------------------
 
+Version 1.4.0, released 2011-07-02
+----------------------------------
+
 Features
 --------
+- Made dependencies part of dist zip
+  (kiesel)
 - Made installer download build system dependencies and install them
   all as well to speed up regular runs
   (kiesel)

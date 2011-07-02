@@ -9,8 +9,8 @@
 
   <target name="xp.package.sources" extensionOf="package" depends="xp.build.number">
     <zip destfile="${build.target}/${ivy.module}-${ivy.new.revision}.zip">
-      <fileset dir="${build.target}/classes"/>
-      <zipfileset dir="${basedir}/lib" prefix="lib"/>
+      <zipfileset dir="${build.target}/classes" prefix="${ivy.module}-${ivy.new.revision}/src"/>
+      <zipfileset dir="${basedir}/lib" prefix="${ivy.module}-${ivy.new.revision}/lib"/>
     </zip>
   </target>
 
