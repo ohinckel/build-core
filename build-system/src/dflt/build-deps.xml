@@ -49,7 +49,12 @@
       <fileset dir="${build.target}/lib" includes="test/bootstrap/*.zip"/>
     </unzip>
 
+    <!-- Copy configuration -->
+    <copy todir="${build.target}/bootstrap/test">
+      <fileset refid="build.configSourceDirectory"/>
+    </copy>
     <touch mkdirs="true" file="${build.target}/bootstrap/.extracted"/>
+
     <touch>
       <fileset dir="${build.target}/bootstrap" includes="**/*"/>
     </touch>
