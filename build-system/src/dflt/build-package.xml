@@ -24,7 +24,9 @@
     <echo>===> Packaging ${ivy.organisation}#${ivy.module}</echo>
   </target>
 
-  <target name="xp.package.source.artifact" extensionOf="package" depends="xp.setup.ivy">
+  <!-- FIXME: Temporarily disabled source packaging, as there is an issue
+   !   w/ stripping path elements -->
+  <target name="xp.package.source.artifact" depends="xp.setup.ivy">
     <zip file="${build.target}/${ivy.module}-${ivy.new.revision}-sources.zip">
       <mappedresources>
         <fileset refid="build.sources.fileset.php"/>
