@@ -2,10 +2,19 @@
 <project name="xp-framework-test" basedir=".">
   <available property="xp.test.exist.unittest.ini" file="${basedir}/unittest.ini"/>
 
+  <condition property="xp.unittest.usefallback">
+    <not>
+      <and>
+        <isset property="xp.test.exist.unittest.ini"/>
+        <isset property="build.testPackage"/>
+      </and>
+    </not>
+  </condition>
+
   <target name="xp.unittest.mkresult">
-    <mkdir dir="${build.target}/testresults"/>
+    <mkdir dir="${build.target}/test-results"/>
     <delete>
-      <fileset dir="${build.target}/testresults" includes="*.xml"/>
+      <fileset dir="${build.target}/test-results" includes="*.xml"/>
     </delete>
 
     <!-- Check for existance of some unittest .ini -->
@@ -19,15 +28,15 @@
     <apply
      executable="unittest"
      failonerror="true"
-     dir="${build.target}/testresults"
-     dest="${build.target}/testresults"
+     dir="${build.target}/test-results"
+     dest="${build.target}/test-results"
     >
       <env key="USE_XP" value="${build.target}/bootstrap/test/"/>
       <arg value="-l"/>
       <arg value="unittest.XmlTestListener"/>
       <chainedmapper>
         <flattenmapper/>
-        <mapper type="glob" from="*.ini" to="*-result.xml"/>
+        <mapper type="glob" from="*.ini" to="*.xml"/>
       </chainedmapper>
       <targetfile/>
       <srcfile/>
@@ -42,15 +51,22 @@
     <exec
      executable="unittest"
      failonerror="true"
-     dir="${build.target}/testresults"
+     dir="${build.target}/test-results"
     >
       <env key="USE_XP" value="${build.target}/bootstrap/test/"/>
       <arg value="-l"/>
       <arg value="unittest.XmlTestListener"/>
-      <arg value="${build.target}/testresults/testresult-package.xml"/>
+      <arg value="${build.target}/test-results/package.xml"/>
       <arg value="${build.testPackage}"/>
     </exec>
   </target>
 
-  <target name="xp.unittest" extensionOf="test" depends="xp.unittest.from-ini, xp.unittest.from-package"/>
+  <target name="xp.unittest.dummy" if="xp.unittest.usefallback">
+    <echo>Creating dummy testresult because no tests were found.</echo>
+    <echo file="${build.target}/test-results/dummy.xml">
+      &lt;testsuites&gt;&lt;testsuite name="(none)" tests="1" failures="0" errors="0" skipped="1"&gt;&lt;testcase name="(none)"/&gt;&lt;/testsuite&gt;&lt;/testsuites&gt;
+    </echo>
+  </target>
+
+  <target name="xp.unittest" extensionOf="test" depends="xp.unittest.from-ini, xp.unittest.from-package, xp.unittest.dummy"/>
 </project>
