@@ -1,14 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="xp-framework-build-lib" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
 
-  <target name="xp.lib.deliver" extensionOf="compile" depends="xp.fetch.dependencies">
+  <property name="lib.dir" value="${basedir}/lib"/>
+
+  <target name="xp.lib.deliver" extensionOf="prepare" depends="xp.fetch.dependencies">
 
     <!-- Deliver artifacts into libdir -->
-    <ivy:retrieve
-     sync="true"
-     type="xar"
-     pattern="${basedir}/lib/[artifact]-[revision].[ext]"
-    />
+    <sync todir="${lib.dir}">
+      <mappedresources>
+        <fileset dir="${build.target}/lib">
+          <include name="default/*/*.xar"/>
+          <exclude name="**/core-*.xar"/>
+          <exclude name="**/tools-*.xar"/>
+        </fileset>
+        <flattenmapper/>
+      </mappedresources>
+    </sync>
 
+    <!-- Build & replace .pth file -->
+    <fileset id="path.deps" dir="${lib.dir}" includes="*.xar"/>
+    <pathconvert property="xp.pth" pathsep="&#10;">
+      <path>
+        <path refid="build.sources"/>
+        <fileset refid="path.deps"/>
+      </path>
+      <map from="${basedir}/" to=""/>
+    </pathconvert>
+
+    <!-- Generate ivy.pth for use by tests -->
+    <delete>
+      <fileset dir="${basedir}" includes="*.pth"/>
+    </delete>
+    <echo file="${basedir}/project.pth">${xp.pth}</echo>
   </target>
 </project>

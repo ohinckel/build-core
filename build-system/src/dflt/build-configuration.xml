@@ -9,6 +9,8 @@
   <fileset id="build.sources.fileset.php" dir="${basedir}/src/main" erroronmissingdir="false">
     <include name="php/**"/>
   </fileset>
+  <path id="build.sources" path="${basedir}/src/main/php"/>
+
   <fileset id="build.sources.fileset.xsl" dir="${basedir}/src/main" erroronmissingdir="false">
     <include name="xsl/**"/>
   </fileset>

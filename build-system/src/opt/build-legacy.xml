@@ -10,6 +10,7 @@
     <include name="src/**"/>
     <exclude name="**/unittest/**"/>
   </fileset>
+  <path id="build.sources" path="${basedir}/src/"/>
   <fileset id="build.sources.fileset.xsl" dir="${basedir}" erroronmissingdir="false">
     <include name="xsl/**/*.xml"/>
     <include name="xsl/**/*.xsl"/>
