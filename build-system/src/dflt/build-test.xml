@@ -2,15 +2,6 @@
 <project name="xp-framework-test" basedir=".">
   <available property="xp.test.exist.unittest.ini" file="${basedir}/unittest.ini"/>
 
-  <condition property="xp.unittest.usefallback">
-    <not>
-      <and>
-        <isset property="xp.test.exist.unittest.ini"/>
-        <isset property="build.testPackage"/>
-      </and>
-    </not>
-  </condition>
-
   <target name="xp.unittest.mkresult">
     <mkdir dir="${build.target}/test-results"/>
     <delete>
@@ -61,7 +52,18 @@
     </exec>
   </target>
 
-  <target name="xp.unittest.dummy" if="xp.unittest.usefallback">
+  <target name="xp.unittest.dummy.check">
+    <condition property="xp.unittest.usefallback">
+      <not>
+        <or>
+          <isset property="xp.test.exist.unittest.ini"/>
+          <isset property="build.testPackage"/>
+        </or>
+      </not>
+    </condition>
+  </target>
+
+  <target name="xp.unittest.dummy" depends="xp.unittest.dummy.check" if="xp.unittest.usefallback">
     <echo>Creating dummy testresult because no tests were found.</echo>
     <echo file="${build.target}/test-results/dummy.xml">
       &lt;testsuites&gt;&lt;testsuite name="(none)" tests="1" failures="0" errors="0" skipped="1"&gt;&lt;testcase name="(none)"/&gt;&lt;/testsuite&gt;&lt;/testsuites&gt;
