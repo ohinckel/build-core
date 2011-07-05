@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="xp-framework-build-lib" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+
+  <target name="xp.lib.deliver" extensionOf="compile" depends="xp.fetch.dependencies">
+
+    <!-- Deliver artifacts into libdir -->
+    <ivy:retrieve
+     sync="true"
+     type="xar"
+     pattern="${basedir}/lib/[artifact]-[revision].[ext]"
+    />
+
+  </target>
+</project>
