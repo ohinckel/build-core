@@ -19,8 +19,8 @@
     <apply
      executable="unittest"
      failonerror="true"
-     dir="${build.target}/test-results"
-     dest="${build.target}/test-results"
+     dir="${build.target}/bootstrap/test/"
+     dest="${build.target}/test-results/"
     >
       <env key="USE_XP" value="${build.target}/bootstrap/test/"/>
       <arg value="-l"/>
@@ -42,7 +42,7 @@
     <exec
      executable="unittest"
      failonerror="true"
-     dir="${build.target}/test-results"
+     dir="${build.target}/bootstrap/test/"
     >
       <env key="USE_XP" value="${build.target}/bootstrap/test/"/>
       <arg value="-l"/>
