@@ -5,6 +5,18 @@ $Id$
 Version ?-?-?, released ????-??-??
 ----------------------------------
 
+Version 1.4.1, released 2011-07-05
+----------------------------------
+
+Features
+--------
+- Made "test" create dummy result when no tests were found, this makes
+  these builds pass in a CI server.
+  (kiesel)
+- Added implementation for dumping dependencies to lib/ directory
+  (kiesel)
+
+
 Version 1.4.0, released 2011-07-02
 ----------------------------------
 
