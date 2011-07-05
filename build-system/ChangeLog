@@ -5,6 +5,17 @@ $Id$
 Version ?-?-?, released ????-??-??
 ----------------------------------
 
+Version 1.4.2, released 2011-07-05
+----------------------------------
+
+Bugfixes
+--------
+- Fixed bug w/ encoding when filtering source files on UTF-8 locale'd systems
+  (kiesel)
+- Fixed detection of unittests for fallback
+  (kiesel)
+
+
 Version 1.4.1, released 2011-07-05
 ----------------------------------
 
