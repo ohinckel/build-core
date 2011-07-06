@@ -5,11 +5,18 @@ $Id$
 Version ?-?-?, released ????-??-??
 ----------------------------------
 
+Features
+--------
+- Added "xp.upgrade" target to automatically upgrade to the latest version
+  of the build system
+  (kiesel)
+
 Bugfixes
 --------
 - Made available a "local" repository by reordering includes in master
   ivysettings.xml
   (kiesel)
+
 
 Version 1.4.2, released 2011-07-05
 ----------------------------------

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<project name="xp-framework-build-upgrade" basedir=".">
+
+  <target name="xp.upgrade" description=" -> upgrade xp build system installation w/ latest">
+    <tempfile property="install.xml"/>
+    <get dest="${install.xml}" src="https://github.com/kiesel/xp-build-system/raw/master/build-system/src/installer.xml"/>
+
+    <!-- Perform upgrade -->
+    <ant antfile="${install.xml}"/>
+    <delete file="${install.xml}"/>
+    <echo>... XP Build System Version ${xp.build.version} says goodbye!</echo>
+  </target>
+</project>

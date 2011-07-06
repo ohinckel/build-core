@@ -28,10 +28,10 @@
    depends="xp.setup.ivy, xp.setup.xp, xp.get.resolver, xp.build.number, xp.extract.bootstrap"
   />
   
-  <target name="xp.clean.ivycache" extensionOf="clean" depends="xp.setup.ivy">
+  <target name="xp.clean.ivy" extensionOf="clean" depends="xp.setup.ivy">
     <ivy:cleancache/>
   </target>
-  
+
   <target name="xp.clean" extensionOf="clean">
     <delete dir="${build.target}"/>
   </target>
