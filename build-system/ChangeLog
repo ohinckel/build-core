@@ -5,6 +5,12 @@ $Id$
 Version ?-?-?, released ????-??-??
 ----------------------------------
 
+Bugfixes
+--------
+- Made available a "local" repository by reordering includes in master
+  ivysettings.xml
+  (kiesel)
+
 Version 1.4.2, released 2011-07-05
 ----------------------------------
 
