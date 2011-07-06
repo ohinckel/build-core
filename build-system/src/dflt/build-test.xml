@@ -71,7 +71,6 @@
   </target>
 
   <target name="xp.unittest.checkconf" depends="xp.setup.ivy">
-    <echoproperties/>
     <condition property="xp.test.checkconf">
       <contains string="${ivy.configurations}" substring="test"/>
     </condition>
