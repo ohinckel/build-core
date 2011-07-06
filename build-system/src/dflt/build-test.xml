@@ -70,5 +70,16 @@
     </echo>
   </target>
 
-  <target name="xp.unittest" extensionOf="test" depends="xp.unittest.from-ini, xp.unittest.from-package, xp.unittest.dummy"/>
+  <target name="xp.unittest.checkconf" depends="xp.setup.ivy">
+    <echoproperties/>
+    <condition property="xp.test.checkconf">
+      <contains string="${ivy.configurations}" substring="test"/>
+    </condition>
+  </target>
+
+  <target name="xp.unittest.conffailure" depends="xp.unittest.checkconf" unless="xp.test.checkconf">
+    <fail>"test" configuration required in ivy.xml when running tests.</fail>
+  </target>
+
+  <target name="xp.unittest" extensionOf="test" depends="xp.unittest.conffailure, xp.unittest.from-ini, xp.unittest.from-package, xp.unittest.dummy"/>
 </project>

@@ -10,6 +10,8 @@ Features
 - Added "xp.upgrade" target to automatically upgrade to the latest version
   of the build system
   (kiesel)
+- Detect missing "test" configuration prior to failure
+  (kiesel)
 
 Bugfixes
 --------
