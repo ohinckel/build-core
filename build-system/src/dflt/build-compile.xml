@@ -27,9 +27,11 @@
 
   <target name="xp.compile.tests" extensionOf="compile" depends="xp.compile.generatefilter">
     <mkdir dir="${build.target.testClasses}"/>
+
+    <!-- In contract to the regular sources, don't filter tests - some
+     !   contributed binary files may become corrupted, then -->
     <copy todir="${build.target.testClasses}" encoding="iso-8859-1">
       <fileset refid="build.testSourceDirectory"/>
-      <filterset refid="xp.filterset.compile"/>
       <cutdirsmapper dirs="1"/>
     </copy>
   </target>
