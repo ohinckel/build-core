@@ -15,6 +15,12 @@
     <include name="xsl/**/*.xml"/>
     <include name="xsl/**/*.xsl"/>
   </fileset>
+  <fileset id="build.sources.fileset.xp" dir="${basedir}" erroronmissingdir="false">
+    <include name="src/**/*.xp"/>
+    <exclude name="**/unittest/**"/>
+  </fileset>
+  <path id="build.sources.xp" path="${basedir}/src/"/>
+
 
   <fileset id="build.testSourceDirectory" dir="${basedir}/" erroronmissingdir="false">
     <include name="src/**/unittest/**"/>

@@ -18,6 +18,10 @@
   <fileset id="build.testConfigurations" dir="${basedir}/src/resources/" erroronmissingdir="false">
     <include name="unittest/*.ini"/>
   </fileset>
+  <fileset id="build.sources.fileset.xp" dir="${basedir}/src/main/" erroronmissingdir="false">
+    <include name="xp/**"/>
+  </fileset>
+  <path id="build.sources.xp" path="${basedir}/src/main/xp"/>
 
   <!-- Override default publish resolver - defaults to "shared", override in build.xml -->
   <!-- property name="xp.publish.resolver" value="shared-snapshots"/ -->
