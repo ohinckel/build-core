@@ -3,7 +3,7 @@
 
   <target name="xp.upgrade" description=" -> upgrade xp build system installation w/ latest">
     <tempfile property="install.xml"/>
-    <get dest="${install.xml}" src="https://github.com/kiesel/xp-build-system/raw/master/build-system/src/installer.xml"/>
+    <get dest="${install.xml}" src="https://github.com/kiesel/xp-build-system/raw/master/src/installer.xml"/>
 
     <!-- Perform upgrade -->
     <ant antfile="${install.xml}"/>
