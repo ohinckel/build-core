@@ -16,14 +16,15 @@ INST=`tempfile` && \
 
 This will install the system in
 
+```
 $HOME/
  ^- .ant/
    ^- lib/
    ^- xp-build/
-
+```
 
 For developers
 --------------
 To use the checked out version of this system, make sure you have
 a regular version installed, then set environment variable
-```XPBUILD_HOME``` to the src/ folder.
+```XPBUILD_HOME``` to the ```src/``` folder.
