@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="xp-framework-build-install" basedir=".">
+<project name="xp-framework-boot" basedir=".">
 
   <!-- Automatically download ivy & load library -->
   <property name="ivy.install.version" value="2.2.0" />
