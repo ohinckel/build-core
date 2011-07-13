@@ -6,7 +6,7 @@
   <include file="ivysettings-public.xml"/>
 
   <!-- global "ivy" local repository configuration -->
-  <include file="${ivy.default.settings.dir}/ivysettings-local.xml"/>
+  <include file="ivysettings-local.xml"/>
 
   <!-- repository settings -->
   <include file="${ivy.home}/ivysettings-repositories.xml"/>
