@@ -7,6 +7,23 @@ Version ?-?-?, released ????-??-??
 
 Features
 --------
+- Add support for branch build
+  (kiesel)
+- Include "local" repository configuration w/ build system
+  (kiesel)
+
+Bugfixes
+--------
+- Do not filter test classes; filtering breaks if test classes
+  contain either binary data or files not in iso-8859-1
+  (kiesel)
+
+
+Version 1.4.3, released 2011-07-06
+----------------------------------
+
+Features
+--------
 - Added "xp.upgrade" target to automatically upgrade to the latest version
   of the build system
   (kiesel)
