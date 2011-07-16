@@ -11,6 +11,8 @@ Features
   (kiesel)
 - Include "local" repository configuration w/ build system
   (kiesel)
+- Moved build files into different directory structure
+  (kiesel)
 
 Bugfixes
 --------
