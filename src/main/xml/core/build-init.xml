@@ -15,8 +15,14 @@
     
     <property name="xp.lookup.resolver" value="shared-lookup-${ivy.status}"/>
     <property name="xp.publish.resolver" value="shared-publish-${ivy.status}"/>
-    
-    <ivy:configure file="${xp.build.home}/settings/ivysettings.xml" override="true"/>
+
+    <pathconvert property="xp.build.settings">
+      <dirset dir="${xp.build.home}">
+        <include name="resources/xml/settings/"/>
+        <include name="settings/"/>
+      </dirset>
+    </pathconvert>
+    <ivy:configure file="${xp.build.settings}/ivysettings.xml" override="true"/>
   </target>
   
   <target name="xp.setup.xp">

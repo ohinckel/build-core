@@ -9,7 +9,13 @@
 
   <target name="xp.package.sources" extensionOf="package" depends="xp.build.number">
     <zip destfile="${build.target}/${ivy.module}-${ivy.new.revision}.zip">
-      <zipfileset dir="${build.target}/classes" prefix="${ivy.module}-${ivy.new.revision}/src"/>
+      <mappedresources>
+        <zipfileset dir="${build.target}/classes" prefix="${ivy.module}-${ivy.new.revision}/src"/>
+        <chainedmapper>
+          <cutdirsmapper dirs="2"/>
+          <globmapper from="*" to="${ivy.module}-${ivy.new.revision}/src/*"/>
+        </chainedmapper>
+      </mappedresources>
       <zipfileset dir="${basedir}/lib" prefix="${ivy.module}-${ivy.new.revision}/lib"/>
     </zip>
   </target>
