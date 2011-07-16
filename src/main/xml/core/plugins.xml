@@ -9,44 +9,49 @@
     </sequential>
   </macrodef>
 
-  <target name="plugin:clean" extensionOf="clean">
+  <target name="-plugin:registered">
+    <pathconvert property="xp.plugin.registered" setonempty="false">
+      <fileset dir="." includes="${build.target}/lib/plugin/*/plugin.xml"/>
+    </pathconvert>
+  </target>
+
+  <target name="plugin:clean" extensionOf="clean" depends="-plugin:registered" if="xp.plugin.registered">
     <run-plugins target="clean"/>
   </target>
 
-  <target name="plugin:prepare" extensionOf="prepare">
+  <target name="plugin:prepare" extensionOf="prepare" depends="-plugin:registered" if="xp.plugin.registered">
     <run-plugins target="prepare"/>
   </target>
 
-  <target name="plugin:validate" extensionOf="validate">
+  <target name="plugin:validate" extensionOf="validate" depends="-plugin:registered" if="xp.plugin.registered">
     <run-plugins target="validate"/>
   </target>
 
-  <target name="plugin:compile" extensionOf="compile">
+  <target name="plugin:compile" extensionOf="compile" depends="-plugin:registered" if="xp.plugin.registered">
     <run-plugins target="compile"/>
   </target>
 
-  <target name="plugin:test" extensionOf="test">
+  <target name="plugin:test" extensionOf="test" depends="-plugin:registered" if="xp.plugin.registered">
     <run-plugins target="test"/>
   </target>
 
-  <target name="plugin:integration-test" extensionOf="integration-test">
+  <target name="plugin:integration-test" extensionOf="integration-test" depends="-plugin:registered" if="xp.plugin.registered">
     <run-plugins target="integration-test"/>
   </target>
 
-  <target name="plugin:package" extensionOf="package">
+  <target name="plugin:package" extensionOf="package" depends="-plugin:registered" if="xp.plugin.registered">
     <run-plugins target="package"/>
   </target>
 
-  <target name="plugin:verify" extensionOf="verify">
+  <target name="plugin:verify" extensionOf="verify" depends="-plugin:registered" if="xp.plugin.registered">
     <run-plugins target="verify"/>
   </target>
 
-  <target name="plugin:install" extensionOf="install">
+  <target name="plugin:install" extensionOf="install" depends="-plugin:registered" if="xp.plugin.registered">
     <run-plugins target="install"/>
   </target>
 
-  <target name="plugin:publish" extensionOf="publish">
+  <target name="plugin:publish" extensionOf="publish" depends="-plugin:registered" if="xp.plugin.registered">
     <run-plugins target="publish"/>
   </target>
-
 </project>
