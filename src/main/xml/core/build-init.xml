@@ -21,6 +21,9 @@
         <include name="resources/xml/settings/"/>
         <include name="settings/"/>
       </dirset>
+      <dirset dir="${xp.build.home}/../../">
+        <include name="resources/xml/settings/"/>
+      </dirset>
     </pathconvert>
     <ivy:configure file="${xp.build.settings}/ivysettings.xml" override="true"/>
   </target>

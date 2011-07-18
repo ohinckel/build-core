@@ -77,7 +77,7 @@
   </target>
 
   <target name="xp.unittest.conffailure" depends="xp.unittest.checkconf" unless="xp.test.checkconf">
-    <fail>"test" configuration required in ivy.xml when running tests.</fail>
+    <echo level="warning">"test" configuration required in ivy.xml when running tests.</echo>
   </target>
 
   <target name="xp.unittest" extensionOf="test" depends="xp.unittest.conffailure, xp.unittest.from-ini, xp.unittest.from-package, xp.unittest.dummy"/>
