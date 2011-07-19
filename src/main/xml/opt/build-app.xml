@@ -5,7 +5,6 @@
     <copy todir="${build.target.app}">
       <fileset refid="build.appSourceDirectory"/>
       <fileset refid="build.configSourceDirectory"/>
-      <filterset refid="xp.filterset.compile"/>
     </copy>
     <copy todir="${build.target.app}/src">
       <fileset refid="build.sources.fileset.php"/>
@@ -16,6 +15,9 @@
       <fileset refid="build.sources.fileset.xsl"/>
       <filterset refid="xp.filterset.compile"/>
       <cutdirsmapper dirs="1"/>
+    </copy>
+    <copy todir="${build.target.app}/conf">
+      <fileset dir="${basedir}/conf"/>
     </copy>
   </target>
 
@@ -37,7 +39,8 @@
     <pathconvert property="package.fileset" pathsep="&#10;" dirsep="/">
       <path>
         <fileset refid="pth.fileset"/>
-        <pathelement path="${build.target.app}/lib/bootstrap"/>
+        <pathelement path="${build.target.app}/lib/bootstrap/"/>
+        <pathelement path="${build.target.app}/src/"/>
       </path>
       <mapper>
         <globmapper from="${build.target.app}/*" to="*" handledirsep="true"/>
