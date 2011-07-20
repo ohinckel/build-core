@@ -17,7 +17,7 @@
       <cutdirsmapper dirs="1"/>
     </copy>
     <copy todir="${build.target.app}/conf">
-      <fileset dir="${basedir}/conf"/>
+      <fileset dir="${basedir}/conf" erroronmissingdir="false"/>
     </copy>
   </target>
 
