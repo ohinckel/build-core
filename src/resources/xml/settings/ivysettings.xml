@@ -2,11 +2,11 @@
 <ivysettings>
   <settings defaultResolver="shared"/>
 
-  <!-- settings for public XP repository -->
-  <include file="ivysettings-public.xml"/>
-
   <!-- global "ivy" local repository configuration -->
   <include file="ivysettings-local.xml"/>
+
+  <!-- settings for public XP repository -->
+  <include file="ivysettings-public.xml"/>
 
   <!-- repository settings -->
   <include file="${ivy.home}/ivysettings-repositories.xml"/>
