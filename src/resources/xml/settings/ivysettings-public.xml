@@ -2,6 +2,7 @@
 <ivysettings>
   <resolvers>
     <chain name="public">
+      <resolver ref="local"/>
       <url name="public-anonymous">
         <ivy pattern="http://xp-framework.net/repository/[organisation]/[module]/[revision]/ivy(-[branch])-[revision].xml"/>
         <artifact pattern="http://xp-framework.net/repository/[organisation]/[module]/[revision]/[artifact](-[branch])-[revision](-[classifier]).[ext]"/>
