@@ -5,6 +5,15 @@ $Id$
 Version ?-?-?, released ????-??-??
 ----------------------------------
 
+Version 1.5.1, released 2011-07-20
+----------------------------------
+
+Bugfixes
+~~~~~~~~
+- Made conf directory optional for apps
+  (iigorr)
+
+
 Version 1.5.0, released 2011-07-20
 ----------------------------------
 
