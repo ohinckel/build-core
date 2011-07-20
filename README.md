@@ -9,7 +9,7 @@ the build system:
 ```
 INST=`tempfile` && \
  wget --no-check-certificate \
- https://github.com/kiesel/xp-build-system/raw/master/src/installer.xml \
+ https://github.com/kiesel/xp-build-system/raw/master/installer.xml \
  -O $INST && \
  ant -f $INST && \
  rm $INST

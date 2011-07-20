@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="xp-framework-build-installer" xmlns:ivy="antlib:org.apache.ivy.ant">
-  <property name="install.dir" value="${user.home}/.ant/xp-build/"/>
-  <property name="lib.dir" value="${user.home}/.ant/lib/"/>
+  <property name="ant.base" value="${user.home}/.ant/"/>
+  <property name="install.dir" value="${ant.base}/xp-build/"/>
+  <property name="lib.dir" value="${ant.base}/lib/"/>
   <property name="version" value="1.5.0"/>
 
   <echo>===> Installing XP Framework build system into ${install.dir}</echo>
@@ -12,15 +13,15 @@
   <mkdir dir="${lib.dir}"/>
 
   <echo>===> Downloading build scripts</echo>
-  <get src="http://xp-framework.net/repository/net.xp_framework/build/${version}/build-${version}.zip" dest="${install.dir}"/>
-  <unzip dest="${install.dir}" src="${install.dir}/build-${version}.zip">
+  <get src="http://xp-framework.net/repository/net.xp_framework/build/${version}/build-${version}.zip" dest="${ant.base}/build-${version}.zip"/>
+  <unzip dest="${install.dir}" src="${ant.base}/build-${version}.zip">
     <patternset>
       <include name="*/src/**"/>
     </patternset>
     <cutdirsmapper dirs="2"/>
   </unzip>
 
-  <unzip dest="${lib.dir}" src="${install.dir}/build-${version}.zip">
+  <unzip dest="${lib.dir}" src="${ant.base}/build-${version}.zip">
     <patternset>
       <include name="*/lib/**"/>
     </patternset>
