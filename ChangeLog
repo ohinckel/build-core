@@ -5,8 +5,13 @@ $Id$
 Version ?-?-?, released ????-??-??
 ----------------------------------
 
+Version 1.5.0, released 2011-07-20
+----------------------------------
+
 Features
---------
+~~~~~~~~
+- Added experimental support for build plugins
+  (kiesel)
 - Add support for branch build
   (kiesel)
 - Include "local" repository configuration w/ build system
@@ -15,9 +20,11 @@ Features
   (kiesel)
 
 Bugfixes
---------
+~~~~~~~~
 - Do not filter test classes; filtering breaks if test classes
   contain either binary data or files not in iso-8859-1
+  (kiesel)
+- Added inclusion of conf/ directory when building app
   (kiesel)
 
 
@@ -25,7 +32,7 @@ Version 1.4.3, released 2011-07-06
 ----------------------------------
 
 Features
---------
+~~~~~~~~
 - Added "xp.upgrade" target to automatically upgrade to the latest version
   of the build system
   (kiesel)
@@ -33,7 +40,7 @@ Features
   (kiesel)
 
 Bugfixes
---------
+~~~~~~~~
 - Made available a "local" repository by reordering includes in master
   ivysettings.xml
   (kiesel)
@@ -43,7 +50,7 @@ Version 1.4.2, released 2011-07-05
 ----------------------------------
 
 Bugfixes
---------
+~~~~~~~~
 - Fixed bug w/ encoding when filtering source files on UTF-8 locale'd systems
   (kiesel)
 - Fixed detection of unittests for fallback
@@ -54,7 +61,7 @@ Version 1.4.1, released 2011-07-05
 ----------------------------------
 
 Features
---------
+~~~~~~~~
 - Made "test" create dummy result when no tests were found, this makes
   these builds pass in a CI server.
   (kiesel)
@@ -66,7 +73,7 @@ Version 1.4.0, released 2011-07-02
 ----------------------------------
 
 Features
---------
+~~~~~~~~
 - Made dependencies part of dist zip
   (kiesel)
 - Made installer download build system dependencies and install them
@@ -76,7 +83,7 @@ Features
   (kiesel)
 
 Bugfixes
---------
+~~~~~~~~
 - Made test target respect build.testConfigurations setting and pick
   up those files, instead of unittest.ini in base directory
   (kiesel)
@@ -87,7 +94,7 @@ Version 1.3.0, released 2011-04-21
 ----------------------------------
 
 Features
---------
+~~~~~~~~
 - Changed bootstrap extracting, so every config will have its own bootstrap
   directories extracted
   (kiesel, ilankin)
@@ -109,7 +116,7 @@ Features
   (kiesel)
 
 Bugfixes
---------
+~~~~~~~~
 - Fixed target to run unittest.ini-based tests to only be invoked when a
   unittest.ini actually exists.
   (kiesel)
@@ -125,7 +132,7 @@ Heads up!
   (kiesel)
 
 Features
---------
+~~~~~~~~
 - Added support for replacing tokens in source files by pre-defined
   values (module name, version, ...)
   (kiesel)
@@ -152,7 +159,7 @@ Heads up!
   (kiesel)
 
 Features
---------
+~~~~~~~~
 - Made snapshots build as -SNAPSHOT
   (kiesel)
 - Made installer clean old installation before installing new one
@@ -163,7 +170,7 @@ Version 1.2.2, released 2011-04-06
 ----------------------------------
 
 Features
---------
+~~~~~~~~
 - Maven pom.xml will now be named [module]-[revision].pom
   (kiesel)
 - Prefer local path over dependencies' class path
@@ -173,7 +180,7 @@ Version 1.2.1, released 2011-04-01
 ----------------------------------
 
 Bugfixes
---------
+~~~~~~~~
 - Fixed bug w/ difference in legacy project layout and
   maven-style layout
   (kiesel)
