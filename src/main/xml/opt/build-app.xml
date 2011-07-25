@@ -13,7 +13,6 @@
     </copy>
     <copy todir="${build.target.app}/xsl">
       <fileset refid="build.sources.fileset.xsl"/>
-      <filterset refid="xp.filterset.compile"/>
       <cutdirsmapper dirs="1"/>
     </copy>
     <copy todir="${build.target.app}/conf">
