@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ivysettings>
   <property name="ivy.local.default.root"             value="${ivy.default.ivy.user.dir}/local" override="false"/>
-  <property name="ivy.local.default.ivy.pattern"      value="[organisation]/[module]/[revision]/[type]s/[artifact](-[branch])-[revision].[ext]" override="false"/>
-  <property name="ivy.local.default.artifact.pattern" value="[organisation]/[module]/[revision]/[type]s/[artifact](-[branch])-[revision].[ext]"/>
 
   <resolvers>
     <filesystem name="local">
-      <ivy pattern="${ivy.local.default.root}/${ivy.local.default.ivy.pattern}" />
-      <artifact pattern="${ivy.local.default.root}/${ivy.local.default.artifact.pattern}" />
+      <ivy pattern="${ivy.local.default.root}/[organisation]/[module]/[revision]/[type]s/[artifact](-[branch])-[revision].[ext]"/>
+      <artifact pattern="${ivy.local.default.root}/[organisation]/[module]/[revision]/[type]s/[artifact](-[branch])-[revision].[ext]"/>
     </filesystem>
   </resolvers>
 </ivysettings>
