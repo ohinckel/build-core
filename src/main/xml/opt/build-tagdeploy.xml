@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="xp-framework-tagdeploy" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
   
-  <target name="publish:tag" description="Publish latest app artifact into tag"
+  <target name="xp.publish.tag.sync" description="Publish latest app artifact into tag"
    depends="xp.provide.dependencies, xp.setup.ivy, xp.get.tagname, xp.publish.get.wc, xp.build.number"
   >
     <echo>===> Deploying to tag ${xp.build.tag}</echo>
@@ -29,6 +29,21 @@
       </preserveintarget>
     </sync>
 
+    <!-- Create build-version file -->
+    <property name="logfile" value="${build.target}/${xp.build.tag}/${ivy.module}-info.txt"/>
+    <tstamp>
+      <format property="publish.date" pattern="yyyy-MM-dd'T'HH:mm:ss.SSSZ"/>
+    </tstamp>
+
+    <echo file="${logfile}">This deployment was done using the following meta data:
+
+User:       ${user.name}
+Artifact:   ${ivy.organisation}#${ivy.module}
+Version:    ${ivy.revision}
+Date:       ${publish.date}
+Build with: ${xp.build.version}
+    </echo>
+
     <!-- Merge changes (svn delete deleted, svn add added, then commit -->
     <svn svnkit="true" javahl="false" failonerror="true">
       <add dir="${build.target}/${xp.build.tag}" force="true" recurse="true"/>
@@ -39,7 +54,6 @@
       </delete>
 
       <propset path="${build.target}/${xp.build.tag}" name="xp.ivy.version" value="${ivy.revision}"/>
-      <commit dir="${build.target}/${xp.build.tag}" message="- Publishing ${ivy.module}-${ivy.revision}"/>
     </svn>
   </target>
 
@@ -74,4 +88,12 @@
   <target name="xp.tagname.integration" if="xp.build.mode.integration">
     <fail>Target not supported for integration build.</fail>
   </target>
+
+  <target name="xp.publish.tag.commit" unless="xp.simulate">
+    <svn svnkit="true" javahl="false" failonerror="true">
+      <commit dir="${build.target}/${xp.build.tag}" message="- Publishing ${ivy.module}-${ivy.revision}"/>
+    </svn>
+  </target>
+
+  <target name="publish:tag" depends="xp.publish.tag.sync, xp.publish.tag.commit"/>
 </project>
