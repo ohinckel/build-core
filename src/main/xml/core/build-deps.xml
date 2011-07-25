@@ -20,7 +20,7 @@
     <ivy:resolve/>
     <ivy:report todir="${build.target}/report"/>
     <ivy:retrieve
-     pattern="${build.target}/lib/[conf]/[type]/[artifact]-[revision].[ext]"
+     pattern="${build.target}/lib/[conf]/[type]/[artifact](-[branch])-[revision].[ext]"
     />
 
     <!-- Touch libs, so they are newer than ivy.xml -->
