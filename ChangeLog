@@ -2,8 +2,23 @@ XP Framework Build System ChangeLog
 ========================================================================
 $Id$
 
-Version ?-?-?, released ????-??-??
+Version ?.?.?, released ????-??-??
 ----------------------------------
+
+Version 1.5.2, released 2011-07-25
+----------------------------------
+
+Bugfixes
+~~~~~~~~
+- Made app packaging not filter files, as this causes issues w/ encodings
+  (kiesel)
+
+Features
+~~~~~~~~
+- Made publish:tag target write meta information to file in repository,
+  for easier tracking
+  (kiesel)
+
 
 Version 1.5.1, released 2011-07-20
 ----------------------------------
