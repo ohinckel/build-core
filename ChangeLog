@@ -5,6 +5,12 @@ $Id$
 Version ?.?.?, released ????-??-??
 ----------------------------------
 
+Features
+~~~~~~~~
+- Added support for generating & packaging apidoc
+  (kiesel)
+
+
 Version 1.5.2, released 2011-07-25
 ----------------------------------
 

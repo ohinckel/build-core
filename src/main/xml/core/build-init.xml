@@ -5,6 +5,8 @@
   <property name="build.target" value="${basedir}/target"/>
   <property name="build.target.classes" value="${build.target}/classes"/>
   <property name="build.target.testClasses" value="${build.target}/test-classes"/>
+  <property name="build.target.reports" value="${build.target}/reports"/>
+  <property name="build.target.reports.documentation" value="${build.target.reports}/apidoc"/>
   <property name="build.target.app" value="${build.target}/app"/>
   <property name="xp.build.version" value="@@xp.build.version@@"/>
 
@@ -15,6 +17,7 @@
     
     <property name="xp.lookup.resolver" value="shared-lookup-${ivy.status}"/>
     <property name="xp.publish.resolver" value="shared-publish-${ivy.status}"/>
+    <property name="build.package" value="${ivy.extra.package}"/>
 
     <pathconvert property="xp.build.settings">
       <dirset dir="${xp.build.home}">
@@ -26,6 +29,9 @@
       </dirset>
     </pathconvert>
     <ivy:configure file="${xp.build.settings}/ivysettings.xml" override="true"/>
+
+    <echo>   * Publish resolver: ${xp.publish.resolver}</echo>
+    <echo>   * Lookup resolver: ${xp.lookup.resolver}</echo>
   </target>
   
   <target name="xp.setup.xp">

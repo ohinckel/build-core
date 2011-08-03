@@ -50,6 +50,11 @@
       <fileset dir="${build.target}/lib" includes="test/bootstrap/*.zip"/>
     </unzip>
 
+    <!-- Unzip bootstrap for compile conf -->
+    <unzip dest="${build.target}/bootstrap/compile">
+      <fileset dir="${build.target}/lib" includes="compile/bootstrap/*.zip"/>
+    </unzip>
+
     <!-- Copy configuration -->
     <copy todir="${build.target}/bootstrap/test">
       <fileset refid="build.configSourceDirectory"/>
@@ -72,6 +77,9 @@
         <pathelement path="${build.target.testClasses}"/>
       </additional-paths>
     </gen-pth>
+
+    <!-- Build classpath for compile conf -->
+    <gen-pth conf="compile"/>
   </target>
 
   <target
