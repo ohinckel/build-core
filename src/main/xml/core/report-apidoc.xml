@@ -50,7 +50,7 @@
   </target>
 
   <target name="xp.package.apidoc" extensionOf="package" depends="xp.compile.generate.apidoc.check" if="xp.forge.apidoc.available">
-    <zip file="${build.target}/${ivy.module}-${ivy.new.revision}-apidoc.zip" >
+    <zip file="${build.target}/${ivy.module}-apidoc-${ivy.new.revision}.zip" >
       <zipfileset dir="${build.target.reports.documentation}" includes="**/*" prefix="${ivy.module}/"/>
     </zip>
   </target>
