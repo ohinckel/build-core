@@ -23,6 +23,12 @@
   <fileset id="build.testConfigurations" dir="${basedir}">
     <include name="unittest.ini"/>
   </fileset>
+
+  <!-- Unused here, but set must exist -->
+  <fileset id="build.resources" dir="${basedir}/" erroronmissingdir="false">
+    <include name="resources/**"/>
+  </fileset>
+
   <fileset id="build.appSourceDirectory" dir="${basedir}" includes="doc_root/**" erroronmissingdir="false"/>
   <fileset id="build.configSourceDirectory" dir="${basedir}" includes="etc/**"  erroronmissingdir="false"/>
   <fileset id="build.containerConfigDirectory" dir="${basedir}/src/resources/" erroronmissingdir="false">
