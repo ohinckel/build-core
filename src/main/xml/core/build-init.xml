@@ -17,7 +17,10 @@
     
     <property name="xp.lookup.resolver" value="shared-lookup-${ivy.status}"/>
     <property name="xp.publish.resolver" value="shared-publish-${ivy.status}"/>
-    <property name="build.package" value="${ivy.extra.package}"/>
+
+    <condition property="build.package" value="${ivy.extra.package}">
+      <isset property="ivy.extra.package"/>
+    </condition>
 
     <pathconvert property="xp.build.settings">
       <dirset dir="${xp.build.home}">
