@@ -7,6 +7,7 @@
   <property name="build.target.testClasses" value="${build.target}/test-classes"/>
   <property name="build.target.reports" value="${build.target}/reports"/>
   <property name="build.target.reports.documentation" value="${build.target.reports}/apidoc"/>
+  <property name="build.target.reports.testresults" value="${build.target}/test-results"/>
   <property name="build.target.app" value="${build.target}/app"/>
   <property name="xp.build.version" value="@@xp.build.version@@"/>
 
@@ -20,6 +21,10 @@
 
     <condition property="build.package" value="${ivy.extra.package}">
       <isset property="ivy.extra.package"/>
+    </condition>
+
+    <condition property="build.testPackage" value="${build.package}.unittest.**">
+      <isset property="build.package"/>
     </condition>
 
     <pathconvert property="xp.build.settings">

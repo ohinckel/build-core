@@ -80,5 +80,5 @@
     <echo level="warning">"test" configuration required in ivy.xml when running tests.</echo>
   </target>
 
-  <target name="xp.unittest" extensionOf="test" depends="xp.unittest.conffailure, xp.unittest.from-ini, xp.unittest.from-package, xp.unittest.dummy"/>
+  <target name="xp.unittest" extensionOf="test"/>
 </project>

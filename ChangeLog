@@ -7,6 +7,11 @@ Version ?.?.?, released ????-??-??
 
 Features
 ~~~~~~~~
+- install phase automatically installs all dependencies to
+  local repository - should prevent repeated downloads
+  (kiesel)
+- Refactored apidoc, unittest to plugin infrastructure
+  (kiesel)
 - Added support for generating & packaging apidoc
   (kiesel)
 
