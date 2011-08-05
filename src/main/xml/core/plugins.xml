@@ -3,15 +3,15 @@
   <macrodef name="run-plugins">
     <attribute name="target"/>
     <sequential>
-      <subant target="{@target}" inheritall="true">
-        <fileset dir="." includes="${build.target}/lib/plugin/*/plugin.xml"/>
+      <subant target="@{target}" inheritall="true">
+        <fileset dir="${build.target}" includes="plugins/*/plugin.xml"/>
       </subant>
     </sequential>
   </macrodef>
 
   <target name="-plugin:registered">
     <pathconvert property="xp.plugin.registered" setonempty="false">
-      <fileset dir="." includes="${build.target}/lib/plugin/*/plugin.xml"/>
+      <fileset dir="${build.target}" includes="plugins/*/plugin.xml"/>
     </pathconvert>
   </target>
 

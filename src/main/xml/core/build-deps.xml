@@ -66,6 +66,27 @@
     </touch>
   </target>
 
+  <target name="xp.extract.checkplugins" depends="xp.fetch.dependencies">
+    <dependset>
+      <srcfileset dir="${build.target}/lib" includes="*/plugins/*.zip"/>
+      <targetfileset dir="${build.target}" includes="plugins/**"/>
+    </dependset>
+
+    <available property="xp.plugins.exists" file="${build.target}/plugins/.extracted"/>
+  </target>
+
+  <target name="xp.extract.plugins.unzip" depends="xp.extract.checkplugins, xp.fetch.dependencies" unless="xp.plugins.exists">
+    <unzip dest="${build.target}/plugins">
+      <fileset dir="${build.target}/lib/" includes="*/plugin/*.zip"/>
+    </unzip>
+    <touch mkdirs="true" file="${build.target}/plugins/.extracted"/>
+
+    <touch>
+      <fileset dir="${build.target}/plugins" includes="**/*"/>
+    </touch>
+
+  </target>
+
   <target name="xp.fetch.generatepth">
 
     <!-- Build classpath for default conf -->
@@ -85,5 +106,5 @@
   <target
    name="xp.extract.bootstrap"
    extensionOf="prepare"
-   depends="xp.fetch.dependencies, xp.extract.checkbootstrap, xp.extract.bootstrap.unzip, xp.fetch.generatepth"/>
+   depends="xp.fetch.dependencies, xp.extract.checkbootstrap, xp.extract.bootstrap.unzip, xp.extract.plugins.unzip, xp.fetch.generatepth"/>
 </project>
