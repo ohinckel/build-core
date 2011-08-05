@@ -15,10 +15,6 @@
     </pathconvert>
   </target>
 
-  <target name="plugin:clean" extensionOf="clean" depends="-plugin:registered" if="xp.plugin.registered">
-    <run-plugins target="clean"/>
-  </target>
-
   <target name="plugin:prepare" extensionOf="prepare" depends="-plugin:registered" if="xp.plugin.registered">
     <run-plugins target="prepare"/>
   </target>

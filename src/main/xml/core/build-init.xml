@@ -31,7 +31,7 @@
     <ivy:configure file="${xp.build.settings}/ivysettings.xml" override="true"/>
 
     <echo>   * Publish resolver: ${xp.publish.resolver}</echo>
-    <echo>   * Lookup resolver: ${xp.lookup.resolver}</echo>
+    <echo>   *  Lookup resolver: ${xp.lookup.resolver}</echo>
   </target>
   
   <target name="xp.setup.xp">
