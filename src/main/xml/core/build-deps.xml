@@ -30,6 +30,27 @@
     </touch>
   </target>
 
+  <target name="xp.fetch.required.plugins" depends="xp.setup.ivy, xp.fetch.dependencies.clear">
+    <ivy:resolve
+     organisation="net.xp_framework.build"
+     module="plugins-core"
+     revision="latest.integration"
+     conf="compile"
+     inline="true"
+     log="quiet"
+    />
+
+    <ivy:retrieve
+     organisation="net.xp_framework.build"
+     module="plugins-core"
+     revision="latest.integration"
+     conf="compile"
+     inline="true"
+     pattern="${build.target}/lib/[conf]/[type]/[artifact](-[branch])-[revision].[ext]"
+     log="quiet"
+    />
+  </target>
+
   <target name="xp.extract.checkbootstrap" depends="xp.fetch.dependencies">
     <dependset>
       <srcfileset dir="${build.target}/lib" includes="*/bootstrap/*.zip"/>
@@ -106,5 +127,5 @@
   <target
    name="xp.extract.bootstrap"
    extensionOf="prepare"
-   depends="xp.fetch.dependencies, xp.extract.checkbootstrap, xp.extract.bootstrap.unzip, xp.extract.plugins.unzip, xp.fetch.generatepth"/>
+   depends="xp.fetch.required.plugins, xp.fetch.dependencies, xp.extract.checkbootstrap, xp.extract.bootstrap.unzip, xp.extract.plugins.unzip, xp.fetch.generatepth"/>
 </project>
