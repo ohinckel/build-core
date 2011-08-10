@@ -5,6 +5,9 @@ $Id$
 Version ?.?.?, released ????-??-??
 ----------------------------------
 
+Version 1.5.3, released 2911-08-10
+----------------------------------
+
 Features
 ~~~~~~~~
 - install phase automatically installs all dependencies to
@@ -13,6 +16,11 @@ Features
 - Refactored apidoc, unittest to plugin infrastructure
   (kiesel)
 - Added support for generating & packaging apidoc
+  (kiesel)
+- Introduce build dependency net.xp_framework.build#plugins-core
+  which depends on all core plugins
+  (kiesel)
+- Move unittest running into build-plugin-unittest
   (kiesel)
 
 
