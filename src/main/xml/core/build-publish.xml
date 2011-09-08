@@ -11,15 +11,6 @@
      overwrite="true"
      publishivy="true"
     />
-
-    <ivy:install
-     organisation="${ivy.organisation}"
-     module="${ivy.module}"
-     revision="${ivy.new.revision}"
-     from="${xp.lookup.resolver}"
-     to="local"
-     overwrite="true"
-    />
   </target>
 
   <target name="publish:publish" extensionOf="publish" depends="xp.setup.ivy, xp.get.resolver">
