@@ -10,9 +10,26 @@ Bugfixes
 - Fixed downloading build plugins by resolving all modules located in
   net.xp_framework recursively with public resolver
   (ohinckel)
+- Fixed bug when filtering resources for app packaging (removed filter for
+  the time being)
+  (kiesel)
+- Fixed bug when installing to local repo in `ant install`
+  (kiesel)
 
 
-Version 1.5.3, released 2911-08-10
+Features
+~~~~~~~~
+- Add publish:tagdiff command
+  (kiesel)
+- Add support for snapshot tagging to publish:tag command
+  (kiesel)
+- Split up "private" repository configuration and ship more default config
+  with the distribution
+  (kiesel)
+- Removed obsolete buildfile build-svnexport.xml
+  (kiesel)
+
+Version 1.5.3, released 2011-08-10
 ----------------------------------
 
 Features
