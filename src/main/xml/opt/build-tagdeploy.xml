@@ -2,18 +2,18 @@
 <project name="xp-framework-tagdeploy" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
   
   <target name="-publish:tag:sync" description="Publish latest app artifact into tag"
-   depends="xp.provide.dependencies, xp.setup.ivy, -:publish:tag:gettagname, -publish:tag:getwc, xp.build.number"
+   depends="xp.provide.dependencies, xp.setup.ivy, -publish:tag:gettagname, -publish:tag:getwc, xp.build.number"
   >
     <echo>===> Deploying to tag ${xp.build.tag}</echo>
     <echo>     Repository: ${ivy.extra.repository}</echo>
-    <echo>     Current version: ${ivy.revision}</echo>
+    <echo>     Current version: ${tag.version}</echo>
 
     <!-- Retrieve application artifacts and store in xp.artifacts.app -->
     <ivy:cachefileset
      inline="true" 
      organisation="${ivy.organisation}"
      module="${ivy.module}"
-     revision="${ivy.revision}"
+     revision="${tag.version}"
      type="app"
      setid="xp.artifacts.app"
      transitive="false"
@@ -39,7 +39,7 @@
 
 User:       ${user.name}
 Artifact:   ${ivy.organisation}#${ivy.module}
-Version:    ${ivy.revision}
+Version:    ${tag.version}
 Date:       ${publish.date}
 Build with: ${xp.build.version}
     </echo>
@@ -59,7 +59,7 @@ Build with: ${xp.build.version}
 
   <target name="-publish:tag:getwc" depends="-publish:tag:check, -publish:tag:checkout, -publish:tag:update"/>
 
-  <target name="-publish:tag:check" depends="-:publish:tag:gettagname">
+  <target name="-publish:tag:check" depends="-publish:tag:gettagname">
     <available property="xp.publish.checkedout" file="${build.target}/${xp.build.tag}"/>
   </target>
 
@@ -69,24 +69,27 @@ Build with: ${xp.build.version}
     </svn>
   </target>
 
-  <target name="-publish:tag:update" depends="-:publish:tag:gettagname" if="xp.publish.checkedout">
+  <target name="-publish:tag:update" depends="-publish:tag:gettagname" if="xp.publish.checkedout">
     <svn svnkit="true" javahl="false" failonerror="true">
       <update dir="${build.target}/${xp.build.tag}"/>
     </svn>
   </target>
 
-  <target name="-:publish:tag:gettagname" depends="xp.build.mode, -publish:tag:tagname.integration, -publish:tag:tagname.release, -publish:tag:tagname.milestone"/>
+  <target name="-publish:tag:gettagname" depends="xp.build.mode, -publish:tag:tagname.integration, -publish:tag:tagname.release, -publish:tag:tagname.milestone"/>
 
   <target name="-publish:tag:tagname.release" if="xp.build.mode.release">
     <property name="xp.build.tag">${ivy.extra.tag}_RELEASE</property>
+    <property name="tag.version">${ivy.revision}</property>
   </target>
 
   <target name="-publish:tag:tagname.milestone" if="xp.build.mode.milestone">
     <property name="xp.build.tag">${ivy.extra.tag}_QARELEASE</property>
+    <property name="tag.version">${ivy.revision}</property>
   </target>
 
   <target name="-publish:tag:tagname.integration" if="xp.build.mode.integration">
-    <fail>Target not supported for integration build.</fail>
+    <property name="xp.build.tag">${ivy.extra.tag}_LATEST</property>
+    <property name="tag.version">${ivy.revision}-SNAPSHOT</property>
   </target>
 
   <target name="-publish:tag:commit" unless="xp.simulate">
@@ -95,5 +98,5 @@ Build with: ${xp.build.version}
     </svn>
   </target>
 
-  <target name="publish:tag" depends="xp.publish.tag.sync, xp.publish.tag.commit"/>
+  <target name="publish:tag" depends="-publish:tag:sync, -publish:tag:commit"/>
 </project>
