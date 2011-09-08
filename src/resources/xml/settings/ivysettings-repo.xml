@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<ivysettings>
+  <resolvers>
+
+    <!-- Publish & lookup resolver for snapshots -->
+    <chain name="shared-publish-integration">
+      <resolver ref="xp-shared-snapshots"/>
+    </chain>
+    <chain name="shared-lookup-integration" checkmodified="true" changingPattern=".*-SNAPSHOT">
+      <resolver ref="local"/>
+      <resolver ref="xp-shared-snapshots"/>
+      <resolver ref="xp-shared-milestones"/>
+      <resolver ref="xp-shared-releases"/>
+    </chain>
+
+    <!-- Publish & lookup resolver for milestones -->
+    <chain name="shared-publish-milestone">
+      <resolver ref="xp-shared-milestones"/>
+    </chain>
+    <chain name="shared-lookup-milestone">
+      <resolver ref="xp-shared-milestones"/>
+      <resolver ref="xp-shared-releases"/>
+    </chain>
+
+    <!-- Publish & lookup resolver for releases -->
+    <chain name="shared-publish-release">
+      <resolver ref="xp-shared-releases"/>
+    </chain>
+    <chain name="shared-lookup-release">
+      <resolver ref="xp-shared-releases"/>
+    </chain>
+
+    <!-- Lookup resolver - includes both artifactory repos -->
+    <chain name="shared">
+      <resolver ref="${xp.lookup.resolver}"/>
+    </chain>
+  </resolvers>
+</ivysettings>

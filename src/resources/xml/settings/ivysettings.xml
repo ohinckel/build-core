@@ -10,4 +10,7 @@
 
   <!-- repository settings -->
   <include file="${ivy.home}/ivysettings-repositories.xml"/>
+
+  <!-- repository settings -->
+  <include file="ivysettings-repo.xml"/>
 </ivysettings>
