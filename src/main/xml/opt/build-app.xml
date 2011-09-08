@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="xp-framework-app" basedir=".">
 
-  <target name="xp.app.compile" extensionOf="compile">
+  <target name="app:compile" extensionOf="compile">
     <copy todir="${build.target.app}">
       <fileset refid="build.appSourceDirectory"/>
       <fileset refid="build.configSourceDirectory"/>
@@ -19,7 +19,7 @@
     </copy>
   </target>
 
-  <target name="xp.app.pre-package" extensionOf="pre-package">
+  <target name="app:pre-package" extensionOf="pre-package">
     <!-- Retrieve all dependee artifacts and put them into lib/ -->
     <copy todir="${build.target.app}/lib">
       <fileset dir="${build.target}/lib/default/xar"/>
@@ -49,7 +49,7 @@
     <echo file="${build.target.app}/project.pth">${package.fileset}</echo>
   </target>
   
-  <target name="xp.app.descriptor" extensionOf="pre-package">
+  <target name="app:package:descriptor" extensionOf="pre-package">
     <copy todir="${build.target.app}">
       <fileset refid="build.containerConfigDirectory"/>
       <filterset filtersfile="${basedir}/src/resources/container/app.properties">
@@ -59,7 +59,7 @@
     </copy>
   </target>
 
-  <target name="xp.app.package" extensionOf="package" depends="xp.setup.ivy, xp.build.number">
+  <target name="app:package" extensionOf="package" depends="xp.setup.ivy, xp.build.number">
     <zip destfile="${build.target}/${ivy.module}-app-${ivy.new.revision}.zip">
       <zipfileset dir="${build.target}/app" prefix="${ivy.module}"/>
     </zip>
