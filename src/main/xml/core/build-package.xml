@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="xp-framework-package" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
   
-  <target name="xp.package.sources" extensionOf="package" depends="xp.setup.ivy, xp.build.number">
+  <target name="xp.package.classes.exist">
+    <fileset id="classes" dir="${build.target.classes}"/>
+    <pathconvert property="xp.classes.exist" refid="classes" setonempty="false"/>
+  </target>
+
+  <target name="xp.package.sources" extensionOf="package" depends="xp.setup.ivy, xp.build.number, xp.package.classes.exist" if="xp.classes.exist">
     <xar
      dir="${build.target.classes}"
      target="${build.target}/${ivy.module}-${ivy.new.revision}.xar"

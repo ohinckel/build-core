@@ -7,6 +7,8 @@ Version ?.?.?, released ????-??-??
 
 Bugfixes
 ~~~~~~~~
+- Fixed packaging when no sources exist
+  (ohinckel)
 - Fixed downloading build plugins by resolving all modules located in
   net.xp_framework recursively with public resolver
   (ohinckel)

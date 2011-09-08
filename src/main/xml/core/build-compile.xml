@@ -5,6 +5,8 @@
   />
 
   <target name="xp.compile.sources.php" depends="xp.compile.generatefilter">
+    <mkdir dir="${build.target.classes}"/>
+
     <copy todir="${build.target.classes}" encoding="iso-8859-1">
       <fileset refid="build.sources.fileset.php"/>
       <filterset refid="xp.filterset.compile"/>
