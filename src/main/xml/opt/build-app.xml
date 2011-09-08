@@ -8,7 +8,6 @@
     </copy>
     <copy todir="${build.target.app}/src">
       <fileset refid="build.sources.fileset.php"/>
-      <filterset refid="xp.filterset.compile"/>
       <cutdirsmapper dirs="1"/>
     </copy>
     <copy todir="${build.target.app}/xsl">
