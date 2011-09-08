@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="xp-framework-tagdeploy" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
-  
-  <target name="-publish:tag:sync" description="Publish latest app artifact into tag"
-   depends="xp.provide.dependencies, xp.setup.ivy, -publish:tag:gettagname, -publish:tag:getwc, xp.build.number"
-  >
+
+  <target name="-publish:tag:clean" depends="-publish:tag:gettagname">
+    <delete dir="${build.target}/${xp.build.tag}"/>
+  </target>
+
+  <target name="-publish:tag:fetchapp" depends="xp.provide.dependencies, xp.setup.ivy, -publish:tag:gettagname" unless="xp.tag.uselocal">
     <echo>===> Deploying to tag ${xp.build.tag}</echo>
     <echo>     Repository: ${ivy.extra.repository}</echo>
     <echo>     Current version: ${tag.version}</echo>
 
     <!-- Retrieve application artifacts and store in xp.artifacts.app -->
     <ivy:cachefileset
-     inline="true" 
+     inline="true"
      organisation="${ivy.organisation}"
      module="${ivy.module}"
      revision="${tag.version}"
@@ -18,6 +20,20 @@
      setid="xp.artifacts.app"
      transitive="false"
     />
+  </target>
+
+  <target name="-publish:tag:uselocalapp" depends="xp.provide.dependencies, xp.setup.ivy, xp.build.number, -publish:tag:gettagname">
+    <property name="xp.tag.uselocal" value="true"/>
+    <echo>===> Deploying to tag ${xp.build.tag}</echo>
+    <echo>     Repository: ${ivy.extra.repository}</echo>
+    <echo>     Current version: ${tag.version}</echo>
+
+    <fileset id="xp.artifacts.app" dir="${build.target}" includes="${ivy.module}-app-${ivy.new.revision}.zip"/>
+  </target>
+
+  <target name="-publish:tag:sync" description="Publish latest app artifact into tag"
+   depends="-publish:tag:fetchapp, -publish:tag:gettagname, -publish:tag:getwc, xp.build.number"
+  >
 
     <!-- Extract application artifacts to SVN checkout -->
     <sync todir="${build.target}/${xp.build.tag}" includeEmptyDirs="true" overwrite="true">
@@ -45,10 +61,12 @@ Build with: ${xp.build.version}
     </echo>
 
     <!-- Merge changes (svn delete deleted, svn add added, then commit -->
-    <svn svnkit="true" javahl="false" failonerror="true">
-      <add dir="${build.target}/${xp.build.tag}" force="true" recurse="true"/>
+    <svn svnkit="true" javahl="true" failonerror="true">
+      <add force="true" recurse="true">
+        <svnFileSet dir="${build.target}/${xp.build.tag}/"/>
+      </add>
       <delete>
-        <svnFileSet dir="${build.target}/${xp.build.tag}">
+        <svnFileSet dir="${build.target}/${xp.build.tag}/">
           <svnMissing/>
         </svnFileSet>
       </delete>
@@ -70,7 +88,7 @@ Build with: ${xp.build.version}
   </target>
 
   <target name="-publish:tag:update" depends="-publish:tag:gettagname" if="xp.publish.checkedout">
-    <svn svnkit="true" javahl="false" failonerror="true">
+    <svn svnkit="true" javahl="true" failonerror="true">
       <update dir="${build.target}/${xp.build.tag}"/>
     </svn>
   </target>
@@ -96,6 +114,16 @@ Build with: ${xp.build.version}
     <svn svnkit="true" javahl="false" failonerror="true">
       <commit dir="${build.target}/${xp.build.tag}" message="- Publishing ${ivy.module}-${ivy.revision}"/>
     </svn>
+  </target>
+
+  <target name="publish:tagdiff" depends="-publish:tag:uselocalapp, -publish:tag:sync">
+    <mkdir dir="${build.target.reports}"/>
+    <svn svnkit="false" javahl="true" failonerror="true">
+      <diff oldPath="${build.target}/${xp.build.tag}" outfile="${build.target.reports}/tag.diff"/>
+    </svn>
+
+    <loadfile property="diffoutput" srcFile="${build.target}/reports/tag.diff"/>
+    <echo>${diffoutput}</echo>
   </target>
 
   <target name="publish:tag" depends="-publish:tag:sync, -publish:tag:commit"/>
