@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <ivysettings>
-  <settings defaultResolver="shared"/>
+  <settings defaultResolver="shared" circularDependencyStrategy="error"/>
 
   <!-- global "ivy" local repository configuration -->
   <include file="ivysettings-local.xml"/>
