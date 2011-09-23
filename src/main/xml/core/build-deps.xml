@@ -18,7 +18,10 @@
 
     <!-- Fetch libs -->
     <ivy:resolve/>
-    <ivy:report todir="${build.target.reports.resolve}"/>
+    <ivy:report
+     todir="${build.target.reports.resolve}"
+     outputpattern="resolve-[conf].[ext]"
+    />
     <ivy:retrieve
      pattern="${build.target}/lib/[conf]/[type]/[artifact](-[branch])-[revision].[ext]"
     />
