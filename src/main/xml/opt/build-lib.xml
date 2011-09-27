@@ -3,7 +3,7 @@
 
   <property name="lib.dir" value="${basedir}/lib"/>
 
-  <target name="xp.lib.deliver" extensionOf="prepare" depends="xp.fetch.dependencies">
+  <target name="xp.lib.deliver" extensionOf="prepare" depends="-prepare:prepare:dependencies">
 
     <!-- Deliver artifacts into libdir -->
     <sync todir="${lib.dir}">

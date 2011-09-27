@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="xp-framework-deps" basedir="."  xmlns:ivy="antlib:org.apache.ivy.ant">
 
-  <target name="xp.fetch.dependencies.clear">
+  <target name="-prepare:prepare:clear-dependencies">
     <!--
      ! Declare all libs as "dependant" on ivy.xml - once this file has been
      ! changed, all libs will be re-fetched if necessary
@@ -11,10 +11,10 @@
       <targetfileset dir="${build.target}/lib"/>
     </dependset>
 
-    <available file="${build.target}/lib/.extracted" property="xp.fetch.dependencies.exist"/>
+    <available file="${build.target}/lib/.extracted" property="-prepare:prepare:dependencies.exist"/>
   </target>
 
-  <target name="xp.fetch.dependencies" depends="xp.setup.ivy, xp.fetch.dependencies.clear" unless="xp.fetch.dependencies.exist">
+  <target name="-prepare:prepare:dependencies" depends="-init:configure:ivy, -prepare:prepare:clear-dependencies" unless="-prepare:prepare:dependencies.exist">
 
     <!-- Fetch libs -->
     <ivy:resolve/>
@@ -33,7 +33,7 @@
     </touch>
   </target>
 
-  <target name="xp.fetch.required.plugins" depends="xp.setup.ivy, xp.fetch.dependencies.clear">
+  <target name="-prepare:prepare:plugins" depends="-init:configure:ivy, -prepare:prepare:clear-dependencies">
     <ivy:resolve
      organisation="net.xp_framework.build"
      module="plugins-core"
@@ -54,7 +54,7 @@
     />
   </target>
 
-  <target name="xp.extract.checkbootstrap" depends="xp.fetch.dependencies">
+  <target name="-prepare:prepare:check-bootstrap" depends="-prepare:prepare:dependencies">
     <dependset>
       <srcfileset dir="${build.target}/lib" includes="*/bootstrap/*.zip"/>
       <targetfileset dir="${build.target}" includes="bootstrap/**"/>
@@ -63,7 +63,7 @@
     <available property="xp.bootstrap.exists" file="${build.target}/bootstrap/.extracted"/>
   </target>
 
-  <target name="xp.extract.bootstrap.unzip" depends="xp.extract.checkbootstrap, xp.fetch.dependencies" unless="xp.bootstrap.exists">
+  <target name="-prepare:prepare:unzip-bootstrap" depends="-prepare:prepare:check-bootstrap, -prepare:prepare:dependencies" unless="xp.bootstrap.exists">
     <!-- Unzip bootstrap for default conf -->
     <unzip dest="${build.target}/bootstrap/default">
       <fileset dir="${build.target}/lib" includes="default/bootstrap/*.zip"/>
@@ -90,7 +90,7 @@
     </touch>
   </target>
 
-  <target name="xp.extract.checkplugins" depends="xp.fetch.dependencies">
+  <target name="-prepare:prepare:check-plugins" depends="-prepare:prepare:dependencies">
     <dependset>
       <srcfileset dir="${build.target}/lib" includes="*/plugins/*.zip"/>
       <targetfileset dir="${build.target}" includes="plugins/**"/>
@@ -99,7 +99,7 @@
     <available property="xp.plugins.exists" file="${build.target}/plugins/.extracted"/>
   </target>
 
-  <target name="xp.extract.plugins.unzip" depends="xp.extract.checkplugins, xp.fetch.dependencies" unless="xp.plugins.exists">
+  <target name="-prepare:prepare:unzip-plugins" depends="-prepare:prepare:check-plugins, -prepare:prepare:dependencies" unless="xp.plugins.exists">
     <unzip dest="${build.target}/plugins">
       <fileset dir="${build.target}/lib/" includes="*/plugin/*.zip"/>
     </unzip>
@@ -111,7 +111,7 @@
 
   </target>
 
-  <target name="xp.fetch.generatepth">
+  <target name="-prepare:prepare:gen-pth">
 
     <!-- Build classpath for default conf -->
     <gen-pth conf="default"/>
@@ -128,7 +128,7 @@
   </target>
 
   <target
-   name="xp.extract.bootstrap"
+   name="prepare:prepare"
    extensionOf="prepare"
-   depends="xp.fetch.required.plugins, xp.fetch.dependencies, xp.extract.checkbootstrap, xp.extract.bootstrap.unzip, xp.extract.plugins.unzip, xp.fetch.generatepth"/>
+   depends="-prepare:prepare:plugins, -prepare:prepare:dependencies, -prepare:prepare:check-bootstrap, -prepare:prepare:unzip-bootstrap, -prepare:prepare:unzip-plugins, -prepare:prepare:gen-pth"/>
 </project>

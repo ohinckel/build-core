@@ -5,7 +5,7 @@
     <delete dir="${build.target}/${xp.build.tag}"/>
   </target>
 
-  <target name="-publish:tag:fetchapp" depends="xp.provide.dependencies, xp.setup.ivy, -publish:tag:gettagname" unless="xp.tag.uselocal">
+  <target name="-publish:tag:fetchapp" depends="-init:load:ivy, -init:configure:ivy, -publish:tag:gettagname" unless="xp.tag.uselocal">
     <echo>===> Deploying to tag ${xp.build.tag}</echo>
     <echo>     Repository: ${ivy.extra.repository}</echo>
     <echo>     Current version: ${tag.version}</echo>
@@ -22,7 +22,7 @@
     />
   </target>
 
-  <target name="-publish:tag:uselocalapp" depends="xp.provide.dependencies, xp.setup.ivy, xp.build.number, -publish:tag:gettagname">
+  <target name="-publish:tag:uselocalapp" depends="-init:load:ivy, -init:configure:ivy, xp.build.number, -publish:tag:gettagname">
     <property name="xp.tag.uselocal" value="true"/>
     <echo>===> Deploying to tag ${xp.build.tag}</echo>
     <echo>     Repository: ${ivy.extra.repository}</echo>

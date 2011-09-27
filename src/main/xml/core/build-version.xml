@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="xp-framework-version" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
   
-  <target name="xp.build.mode" depends="xp.setup.ivy">
+  <target name="xp.build.mode" depends="-init:configure:ivy">
     <condition property="xp.build.mode.release">
       <equals arg1="${ivy.status}" arg2="release"/>
     </condition>

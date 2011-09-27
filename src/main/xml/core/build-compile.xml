@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="xp-framework-compile" basedir=".">
   <target name="xp.compile.sources" extensionOf="compile"
-   depends="xp.fetch.dependencies, xp.compile.sources.php, xp.compile.sources.xsl, xp.compile.resources"
+   depends="-prepare:prepare:dependencies, xp.compile.sources.php, xp.compile.sources.xsl, xp.compile.resources"
   />
 
   <target name="xp.compile.sources.php" depends="xp.compile.generatefilter">
@@ -45,7 +45,7 @@
     </copy>
   </target>
 
-  <target name="xp.compile.generatefilter" depends="xp.setup.ivy">
+  <target name="xp.compile.generatefilter" depends="-init:configure:ivy">
     <!-- Predefined filterset used on compile -->
     <filterset id="xp.filterset.compile" begintoken="@@" endtoken="@@">
       <filter token="user" value="${user.name}"/>

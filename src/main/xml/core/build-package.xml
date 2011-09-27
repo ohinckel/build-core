@@ -6,7 +6,7 @@
     <pathconvert property="xp.classes.exist" refid="classes" setonempty="false"/>
   </target>
 
-  <target name="xp.package.sources" extensionOf="package" depends="xp.setup.ivy, xp.build.number, xp.package.classes.exist" if="xp.classes.exist">
+  <target name="xp.package.sources" extensionOf="package" depends="-init:configure:ivy, xp.build.number, xp.package.classes.exist" if="xp.classes.exist">
     <xar
      dir="${build.target.classes}"
      target="${build.target}/${ivy.module}-${ivy.new.revision}.xar"
@@ -18,20 +18,20 @@
     <pathconvert property="xp.tests.exist" refid="tests" setonempty="false"/>
   </target>
 
-  <target name="xp.package.tests" extensionOf="package" depends="xp.setup.ivy, xp.build.number, xp.package.tests.exist" if="xp.tests.exist">
+  <target name="xp.package.tests" extensionOf="package" depends="-init:configure:ivy, xp.build.number, xp.package.tests.exist" if="xp.tests.exist">
     <xar
      dir="${build.target.testClasses}"
      target="${build.target}/${ivy.module}-test-${ivy.new.revision}.xar"
     />
   </target>
 
-  <target name="xp.package.meta" extensionOf="package" depends="xp.setup.ivy, xp.package.sources, xp.package.tests">
+  <target name="xp.package.meta" extensionOf="package" depends="-init:configure:ivy, xp.package.sources, xp.package.tests">
     <echo>===> Packaging ${ivy.organisation}#${ivy.module}</echo>
   </target>
 
   <!-- FIXME: Temporarily disabled source packaging, as there is an issue
    !   w/ stripping path elements -->
-  <target name="xp.package.source.artifact" depends="xp.setup.ivy">
+  <target name="xp.package.source.artifact" depends="-init:configure:ivy">
     <zip file="${build.target}/${ivy.module}-${ivy.new.revision}-sources.zip">
       <mappedresources>
         <fileset refid="build.sources.fileset.php"/>

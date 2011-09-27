@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="xp-framework-release" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
 
-  <target name="install:install" extensionOf="install" depends="xp.setup.ivy, xp.get.resolver">
+  <target name="install:install" extensionOf="install" depends="-init:configure:ivy, xp.get.resolver">
     <echo>===> Installing ${ivy.organisation}#${ivy.module} @ local</echo>
 
     <ivy:publish
@@ -13,7 +13,7 @@
     />
   </target>
 
-  <target name="publish:publish" extensionOf="publish" depends="xp.setup.ivy, xp.get.resolver">
+  <target name="publish:publish" extensionOf="publish" depends="-init:configure:ivy, xp.get.resolver">
     <echo>===> Deploying ${ivy.organisation}#${ivy.module} @ ${xp.publish.resolver}</echo>
 
     <!-- Declare if not declared previously -->

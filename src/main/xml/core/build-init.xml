@@ -13,7 +13,7 @@
   <property name="build.target.app" value="${build.target}/app"/>
   <property name="xp.build.version" value="@@xp.build.version@@"/>
 
-  <target name="xp.setup.ivy" depends="xp.provide.dependencies">
+  <target name="-init:configure:ivy" depends="-init:load:ivy">
     <ivy:info file="ivy.xml"/>
 
     <echo>:: This is XP Framework Build System version ${xp.build.version} ::</echo>
@@ -44,16 +44,16 @@
     <echo>   *  Lookup resolver: ${xp.lookup.resolver}</echo>
   </target>
   
-  <target name="xp.setup.xp">
+  <target name="-init:configure:workspace">
     <mkdir dir="${build.target}"/>
   </target>
 
-  <target name="xp.setup.build"
+  <target name="-init:configure"
    extensionOf="prepare"
-   depends="xp.setup.ivy, xp.setup.xp, xp.get.resolver, xp.build.number, xp.extract.bootstrap"
+   depends="-init:configure:ivy, -init:configure:workspace, xp.get.resolver, xp.build.number, prepare:prepare"
   />
   
-  <target name="xp.clean.ivy" extensionOf="clean" depends="xp.setup.ivy">
+  <target name="xp.clean.ivy" extensionOf="clean" depends="-init:configure:ivy">
     <ivy:cleancache/>
   </target>
 

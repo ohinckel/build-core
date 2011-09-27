@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="xp-framework-metadata" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
 
-  <target name="xp.metadata" extensionOf="prepare" depends="xp.metadata.depends, xp.metadata.generate"/>
-  
-  <target name="xp.metadata.depends" depends="xp.setup.ivy">
+  <target name="-prepare:prepare:check-metadata">
     <dependset>
       <srcfilelist dir="${basedir}" files="ivy.xml"/>
       <targetfileset dir="${build.target}">
@@ -12,10 +10,10 @@
       </targetfileset>
     </dependset>
 
-    <available file="${build.target}/ivy-${ivy.new.revision}.xml" property="xp.metadata.exists"/>
+    <available file="${build.target}/ivy-${ivy.new.revision}.xml" property="-prepare:prepare:check-metadata"/>
   </target>
 
-  <target name="xp.metadata.generate" unless="xp.metadata.exists">
+  <target name="-prepare:prepare:gen-metadata" unless="-prepare:prepare:check-metadata" depends="-prepare:prepare:check-metadata">
     <ivy:deliver
      deliverpattern="${build.target}/ivy-${ivy.new.revision}.xml"
      pubrevision="${ivy.new.revision}"
@@ -27,4 +25,6 @@
      printIvyInfo="false"
     />
   </target>
+
+  <target name="-prepare:prepare:metadata" extensionOf="prepare" depends="-prepare:prepare:metadata.depends, -prepare:prepare:metadata.generate"/>
 </project>

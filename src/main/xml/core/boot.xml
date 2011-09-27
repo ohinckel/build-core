@@ -7,7 +7,7 @@
 
   <antversion property="xp.ant.version" atleast="1.8.2"/>
 
-  <target name="xp.provide.dependencies" depends="xp.check.ant">
+  <target name="-init:load:ivy" depends="-init:check:ant">
    	<path id="ivy.lib.path">
       <fileset dir="${xp.build.lib.dir}">
         <include name="ivy-${ivy.install.version}.jar"/>
@@ -33,7 +33,7 @@
     </taskdef>
   </target>
 
-  <target name="xp.check.ant" unless="xp.ant.version">
+  <target name="-init:check:ant" unless="xp.ant.version">
     <fail>At least ant 1.8.2 required</fail>
   </target>
 </project>
