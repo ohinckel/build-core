@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="xp-framework-compile" basedir=".">
-  <target name="xp.compile.sources" extensionOf="compile"
-   depends="-prepare:prepare:dependencies, xp.compile.sources.php, xp.compile.sources.xsl, xp.compile.resources"
+  <target name="compile:compile" extensionOf="compile"
+   depends="-prepare:prepare:dependencies, -compile:sources:php, -compile:sources:xsl, -compile:resources:copy"
   />
 
-  <target name="xp.compile.sources.php" depends="xp.compile.generatefilter">
+  <target name="-compile:sources:php" depends="-compile:filter:generate">
     <mkdir dir="${build.target.classes}"/>
 
     <copy todir="${build.target.classes}" encoding="iso-8859-1">
@@ -14,7 +14,7 @@
     </copy>
   </target>
 
-  <target name="xp.compile.sources.xsl" depends="xp.compile.generatefilter">
+  <target name="-compile:sources:xsl" depends="-compile:filter:generate">
     <copy todir="${build.target.classes}" encoding="iso-8859-1">
       <fileset refid="build.sources.fileset.xsl"/>
       <filterset refid="xp.filterset.compile"/>
@@ -22,19 +22,14 @@
     </copy>
   </target>
 
-  <target name="xp.compile.resources" depends="xp.compile.generatefilter">
+  <target name="-compile:resources:copy" depends="-compile:filter:generate">
     <copy todir="${build.target.classes}" encoding="iso-8859-1">
       <fileset refid="build.resources"/>
       <cutdirsmapper dirs="1"/>
     </copy>
   </target>
 
-  <target name="xp.compile.sources.xp" depends="xp.compile.generatefilter">
-    <path refid="build.sourceDirectory.xp"/>
-    <!-- TODO: Call "xcc" -->
-  </target>
-
-  <target name="xp.compile.tests" extensionOf="compile" depends="xp.compile.generatefilter">
+  <target name="-compile:tests:php" extensionOf="compile" depends="-compile:filter:generate">
     <mkdir dir="${build.target.testClasses}"/>
 
     <!-- In contract to the regular sources, don't filter tests - some
@@ -45,7 +40,7 @@
     </copy>
   </target>
 
-  <target name="xp.compile.generatefilter" depends="-init:configure:ivy">
+  <target name="-compile:filter:generate" depends="-init:configure:ivy">
     <!-- Predefined filterset used on compile -->
     <filterset id="xp.filterset.compile" begintoken="@@" endtoken="@@">
       <filter token="user" value="${user.name}"/>
