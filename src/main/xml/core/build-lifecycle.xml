@@ -6,19 +6,33 @@
    ! may register as extension of those.
    !
    !-->
-  <extension-point name="clean" description=" -> clean up workspace"/>
+
+  <!-- Clean lifecycle -->
+  <extension-point name="pre-clean" description=" -> pre cleanup"/>
+  <extension-point name="clean" depends="pre-clean" description=" -> clean up workspace"/>
+
   <extension-point name="usage" description=" -> show verbose usage"/>
-  <extension-point name="validate" description=" -> validate sources"/>
-  <extension-point name="prepare" description=" -> code preparation"/>
-  <extension-point name="compile" depends="prepare" description=" -> compile"/>
-  <extension-point name="test" depends="compile" description=" -> run all unittests"/>
-  <extension-point name="integration-test" depends="test" description=" -> run all integration tests"/>
+
+  <!-- Default lifecycle -->
+  <extension-point name="pre-prepare"/>
+  <extension-point name="prepare" depends="pre-prepare" description=" -> code preparation"/>
+
+  <extension-point name="pre-validate" depends="prepare" description=" -> validate sources"/>
+  <extension-point name="validate" depends="pre-validate" description=" -> validate sources"/>
+
+  <extension-point name="pre-compile" depends="prepare"/>
+  <extension-point name="compile" depends="pre-compile" description=" -> compile"/>
+
+  <extension-point name="test" depends="compile" description=" -> run unittests"/>
+  <extension-point name="integration-test" depends="test" description=" -> run integration tests"/>
+
   <extension-point name="pre-package" depends="test"/>
   <extension-point name="package" depends="pre-package" description=" -> create package"/>
   <extension-point name="post-package" depends="package"/>
+
   <extension-point name="verify" depends="post-package" description=" -> verify packaging"/>
   <extension-point name="install" depends="verify" description=" -> install to local repository"/>
-  <extension-point name="publish" depends="verify, install" description=" -> publish artifact to (shared) repository"/>
+  <extension-point name="publish" depends="install" description=" -> publish artifact to (shared) repository"/>
 
   <target name="lifecycle-usage" extensionOf="usage">
     <echo level="info">XP framework module build lifecycle

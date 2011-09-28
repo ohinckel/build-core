@@ -129,6 +129,6 @@
 
   <target
    name="prepare:prepare"
-   extensionOf="prepare"
+   extensionOf="pre-prepare"
    depends="-prepare:prepare:plugins, -prepare:prepare:dependencies, -prepare:prepare:check-bootstrap, -prepare:prepare:unzip-bootstrap, -prepare:prepare:unzip-plugins, -prepare:prepare:gen-pth"/>
 </project>
