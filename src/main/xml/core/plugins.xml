@@ -3,7 +3,7 @@
   <macrodef name="run-plugins">
     <attribute name="target"/>
     <sequential>
-      <subant target="@{target}" inheritall="true" inheritrefs="true">
+      <subant target="@{target}" inheritall="true" inheritrefs="true" failonerror="true">
         <fileset dir="${build.target}" includes="plugins/*/plugin.xml"/>
       </subant>
     </sequential>

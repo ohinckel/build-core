@@ -15,10 +15,10 @@
   <import>
     <fileset dir="${xp.build.home}">
       <!-- Homedir installed version -->
-      <include name="core/*.xml"/>
+      <include name="core/**/*.xml"/>
 
       <!-- Dev version -->
-      <include name="main/xml/core/*.xml"/>
+      <include name="main/xml/core/**/*.xml"/>
     </fileset>
   </import>
 </project>
