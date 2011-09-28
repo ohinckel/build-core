@@ -22,7 +22,7 @@
     />
   </target>
 
-  <target name="-publish:tag:uselocalapp" depends="-init:load:ivy, -init:configure:ivy, xp.build.number, -publish:tag:gettagname">
+  <target name="-publish:tag:uselocalapp" depends="-init:load:ivy, -init:configure:ivy, prepare:number:determine, -publish:tag:gettagname">
     <property name="xp.tag.uselocal" value="true"/>
     <echo>===> Deploying to tag ${xp.build.tag}</echo>
     <echo>     Repository: ${ivy.extra.repository}</echo>
@@ -32,7 +32,7 @@
   </target>
 
   <target name="-publish:tag:sync" description="Publish latest app artifact into tag"
-   depends="-publish:tag:fetchapp, -publish:tag:gettagname, -publish:tag:getwc, xp.build.number"
+   depends="-publish:tag:fetchapp, -publish:tag:gettagname, -publish:tag:getwc, prepare:number:determine"
   >
 
     <!-- Extract application artifacts to SVN checkout -->
@@ -93,7 +93,7 @@ Build with: ${xp.build.version}
     </svn>
   </target>
 
-  <target name="-publish:tag:gettagname" depends="xp.build.mode, -publish:tag:tagname.integration, -publish:tag:tagname.release, -publish:tag:tagname.milestone"/>
+  <target name="-publish:tag:gettagname" depends="-prepare:mode:determine, -publish:tag:tagname.integration, -publish:tag:tagname.release, -publish:tag:tagname.milestone"/>
 
   <target name="-publish:tag:tagname.release" if="xp.build.mode.release">
     <property name="xp.build.tag">${ivy.extra.tag}_RELEASE</property>

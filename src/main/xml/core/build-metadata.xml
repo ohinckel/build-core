@@ -26,5 +26,5 @@
     />
   </target>
 
-  <target name="-prepare:prepare:metadata" extensionOf="prepare" depends="-prepare:prepare:metadata.depends, -prepare:prepare:metadata.generate"/>
+  <target name="-prepare:prepare:metadata" extensionOf="prepare" depends="-prepare:prepare:gen-metadata"/>
 </project>

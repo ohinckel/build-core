@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="xp-framework-package" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
   
-  <target name="xp.package.classes.exist">
+  <target name="-package:xar:check-classes">
     <fileset id="classes" dir="${build.target.classes}"/>
     <pathconvert property="xp.classes.exist" refid="classes" setonempty="false"/>
   </target>
 
-  <target name="xp.package.sources" extensionOf="package" depends="-init:configure:ivy, xp.build.number, xp.package.classes.exist" if="xp.classes.exist">
+  <target name="-package:xar:classes" depends="-package:xar:check-classes" if="xp.classes.exist">
     <xar
      dir="${build.target.classes}"
      target="${build.target}/${ivy.module}-${ivy.new.revision}.xar"
     />
   </target>
 
-  <target name="xp.package.tests.exist">
+  <target name="-package:xar:check-test-classes">
     <fileset id="tests" dir="${build.target.testClasses}"/>
     <pathconvert property="xp.tests.exist" refid="tests" setonempty="false"/>
   </target>
 
-  <target name="xp.package.tests" extensionOf="package" depends="-init:configure:ivy, xp.build.number, xp.package.tests.exist" if="xp.tests.exist">
+  <target name="-package:xar:test-classes" depends="-package:xar:check-test-classes" if="xp.tests.exist">
     <xar
      dir="${build.target.testClasses}"
      target="${build.target}/${ivy.module}-test-${ivy.new.revision}.xar"
     />
   </target>
 
-  <target name="xp.package.meta" extensionOf="package" depends="-init:configure:ivy, xp.package.sources, xp.package.tests">
+  <target name="package:package" extensionOf="package" depends="-init:configure:ivy, prepare:number:determine, -package:xar:classes, -package:xar:test-classes">
     <echo>===> Packaging ${ivy.organisation}#${ivy.module}</echo>
   </target>
 
   <!-- FIXME: Temporarily disabled source packaging, as there is an issue
    !   w/ stripping path elements -->
-  <target name="xp.package.source.artifact" depends="-init:configure:ivy">
+  <target name="-package:zip:sources">
     <zip file="${build.target}/${ivy.module}-${ivy.new.revision}-sources.zip">
       <mappedresources>
         <fileset refid="build.sources.fileset.php"/>

@@ -50,14 +50,14 @@
 
   <target name="-init:configure"
    extensionOf="prepare"
-   depends="-init:configure:ivy, -init:configure:workspace, xp.get.resolver, xp.build.number, prepare:prepare"
+   depends="-init:configure:ivy, -init:configure:workspace, -prepare:mode:determine-resolver, prepare:number:determine, prepare:prepare"
   />
   
-  <target name="xp.clean.ivy" extensionOf="clean" depends="-init:configure:ivy">
+  <target name="-clean:clean:cache" extensionOf="clean" depends="-init:configure:ivy">
     <ivy:cleancache/>
   </target>
 
-  <target name="xp.clean" extensionOf="clean">
+  <target name="-clean:clean" extensionOf="clean">
     <delete dir="${build.target}"/>
   </target>
 </project>
