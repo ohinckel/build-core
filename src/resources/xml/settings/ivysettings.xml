@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <ivysettings>
   <settings defaultResolver="shared" circularDependencyStrategy="error"/>
+  <caches lockStrategy="artifact-lock"/>
 
   <!-- global "ivy" local repository configuration -->
   <include file="ivysettings-local.xml"/>
