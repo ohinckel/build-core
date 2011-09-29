@@ -2,6 +2,20 @@
 <ivysettings>
   <settings defaultResolver="shared" circularDependencyStrategy="error"/>
   <caches lockStrategy="artifact-lock"/>
+  <triggers>
+    <ant-call
+     target="-prepare:trigger:start-resolve"
+     prefix="dep"
+     event="pre-resolve"
+     onlyonce="false"
+    />
+    <ant-call
+     target="-prepare:trigger:post-resolve-dep"
+     prefix="dep"
+     event="post-resolve-dependency"
+     onlyonce="false"
+    />
+  </triggers>
 
   <!-- global "ivy" local repository configuration -->
   <include file="ivysettings-local.xml"/>

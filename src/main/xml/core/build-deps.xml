@@ -17,7 +17,7 @@
   <target name="-prepare:prepare:dependencies" depends="-init:configure:ivy, -prepare:prepare:clear-dependencies" unless="-prepare:prepare:dependencies.exist">
 
     <!-- Fetch libs -->
-    <ivy:resolve/>
+    <ivy:resolve log="quiet"/>
     <ivy:report
      todir="${build.target.reports.resolve}"
      outputpattern="resolve-[conf].[ext]"
@@ -125,6 +125,25 @@
 
     <!-- Build classpath for compile conf -->
     <gen-pth conf="compile"/>
+  </target>
+
+  <target name="-prepare:trigger:start-resolve">
+    <echo></echo>
+    <echo>==> Starting resolving ${dep.organisation}#${dep.module} @ ${dep.revision}</echo>
+    <echo>    confs: [${dep.conf}]</echo>
+    <echo></echo>
+  </target>
+
+  <target name="-prepare:trigger:post-resolve-dep">
+    <echo>--> Resolving ${dep.organisation}#${dep.module}
+    @ ${dep.revision} (asked for: ${dep.req-revision})
+    repo "${dep.resolver}" in ${dep.duration}ms, success: ${dep.resolved}</echo>
+<!--    <if>
+      <equals arg1="${dep.resolved}" arg2="true">
+        <echo>    SUCCESSFUL!</echo>
+      </equals>
+    </if>-->
+    <echo></echo>
   </target>
 
   <target
