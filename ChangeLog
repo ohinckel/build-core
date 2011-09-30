@@ -12,6 +12,9 @@ Heads up!
 
 Bugfixes
 ~~~~~~~~
+- Fixed skipping of resolving and retrieving build dependencies when ivy.xml
+  has not been changed
+  (kiesel)
 - Fixed out-of-date check routine for plugins and bootstrap paths
   (kiesel)
 - Enabled artifact-lock strategy for defaul repository cache

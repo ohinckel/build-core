@@ -33,7 +33,7 @@
     </touch>
   </target>
 
-  <target name="-prepare:prepare:plugins" depends="-init:configure:ivy, -prepare:prepare:clear-dependencies">
+  <target name="-prepare:prepare:plugins" depends="-init:configure:ivy, -prepare:prepare:clear-dependencies" unless="-prepare:prepare:dependencies.exist">
     <ivy:resolve
      organisation="net.xp_framework.build"
      module="plugins-core"
