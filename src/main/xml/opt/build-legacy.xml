@@ -29,9 +29,9 @@
     <include name="resources/**"/>
   </fileset>
 
-  <fileset id="build.appSourceDirectory" dir="${basedir}" includes="doc_root/**" erroronmissingdir="false"/>
-  <fileset id="build.configSourceDirectory" dir="${basedir}" includes="etc/**"  erroronmissingdir="false"/>
-  <fileset id="build.containerConfigDirectory" dir="${basedir}/src/resources/" erroronmissingdir="false">
+  <fileset id="build.appSourceDirectory" dir="${basedir}" includes="doc_root/**" erroronmissingdir="false" followsymlinks="false"/>
+  <fileset id="build.configSourceDirectory" dir="${basedir}" includes="etc/**"  erroronmissingdir="false" followsymlinks="false"/>
+  <fileset id="build.containerConfigDirectory" dir="${basedir}/src/resources/" erroronmissingdir="false" followsymlinks="false">
     <include name="container/*"/>
     <exclude name="**/*.properties"/>
   </fileset>

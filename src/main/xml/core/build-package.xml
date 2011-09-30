@@ -35,7 +35,7 @@
       <equals arg1="${xp.pwz.doc_root.exists}" arg2="true"/>
       <then>
         <zip file="${build.target}/${ivy.module}-weblib-${ivy.new.revision}.zip">
-          <zipfileset dir="${basedir}/doc_root/" prefix="${ivy.module}"/>
+          <zipfileset dir="${basedir}/doc_root/"/>
         </zip>
       </then>
     </if>
