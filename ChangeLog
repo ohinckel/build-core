@@ -23,6 +23,9 @@ Bugfixes
 
 Features
 ~~~~~~~~
+- Improved output readability for ivy progress in resolve and download
+  steps
+  (kiesel)
 - Added some pre- targets in lifecycle
   (kiesel)
 - Make lifecycle mostly dependant on previous target

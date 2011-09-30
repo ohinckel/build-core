@@ -15,6 +15,20 @@
      event="post-resolve-dependency"
      onlyonce="false"
     />
+    <ant-call
+     target="-prepare:trigger:pre-download-artifact"
+     prefix="dep"
+     event="pre-download-artifact"
+     filter="local=false"
+     onlyonce="false"
+    />
+    <ant-call
+     target="-prepare:trigger:post-download-artifact"
+     prefix="dep"
+     event="post-download-artifact"
+     filter="local=false"
+     onlyonce="false"
+    />
   </triggers>
 
   <!-- global "ivy" local repository configuration -->

@@ -138,12 +138,23 @@
     <echo>--> Resolving ${dep.organisation}#${dep.module}
     @ ${dep.revision} (asked for: ${dep.req-revision})
     repo "${dep.resolver}" in ${dep.duration}ms, success: ${dep.resolved}</echo>
-<!--    <if>
-      <equals arg1="${dep.resolved}" arg2="true">
+    <if>
+      <equals arg1="${dep.resolved}" arg2="true"/>
+      <then>
         <echo>    SUCCESSFUL!</echo>
-      </equals>
-    </if>-->
+      </then>
+    </if>
     <echo></echo>
+  </target>
+
+  <target name="-prepare:trigger:pre-download-artifact">
+    <echo>    Downloading ${dep.organisation}#${dep.module} @ ${dep.revision}</echo>
+    <echo>    ${dep.origin}</echo>
+  </target>
+
+  <target name="-prepare:trigger:post-download-artifact">
+    <echo>    SUCCESS: ${dep.size} bytes d/l in ${dep.duration}ms</echo>
+    <echo/>
   </target>
 
   <target
