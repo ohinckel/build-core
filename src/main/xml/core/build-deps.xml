@@ -56,7 +56,7 @@
 
   <target name="-prepare:prepare:check-bootstrap" depends="-prepare:prepare:dependencies">
     <dependset>
-      <srcfileset dir="${build.target}/lib" includes="*/bootstrap/*.zip"/>
+      <srcfilelist dir="${basedir}" files="ivy.xml"/>
       <targetfileset dir="${build.target}" includes="bootstrap/**"/>
     </dependset>
     
@@ -92,7 +92,7 @@
 
   <target name="-prepare:prepare:check-plugins" depends="-prepare:prepare:dependencies">
     <dependset>
-      <srcfileset dir="${build.target}/lib" includes="*/plugins/*.zip"/>
+      <srcfileset dir="${basedir}" includes="ivy.xml"/>
       <targetfileset dir="${build.target}" includes="plugins/**"/>
     </dependset>
 

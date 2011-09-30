@@ -12,6 +12,8 @@ Heads up!
 
 Bugfixes
 ~~~~~~~~
+- Fixed out-of-date check routine for plugins and bootstrap paths
+  (kiesel)
 - Enabled artifact-lock strategy for defaul repository cache
   to support concurrent builds of projects
   (kiesel)
