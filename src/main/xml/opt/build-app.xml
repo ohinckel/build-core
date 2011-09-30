@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="xp-framework-app" basedir=".">
 
-  <target name="app:compile" extensionOf="compile">
+  <target name="-app:compile:clear">
+    <dependset>
+      <srcfilelist dir="${basedir}" files="ivy.xml"/>
+      <targetfileset dir="${build.target}/app"/>
+    </dependset>
+
+    <available file="${build.target}/app/.extracted" property="xp.app.exist"/>
+  </target>
+
+  <target name="-app:compile" extensionOf="pre-package" depends="-app:compile:clear" unless="xp.app.exist">
     <copy todir="${build.target.app}">
       <fileset refid="build.appSourceDirectory"/>
       <fileset refid="build.configSourceDirectory"/>
@@ -19,7 +28,7 @@
     </copy>
   </target>
 
-  <target name="app:pre-package" extensionOf="pre-package">
+  <target name="app:pre-package" extensionOf="pre-package" depends="-app:compile" unless="xp.app.exist">
     <!-- Retrieve all dependee artifacts and put them into lib/ -->
     <copy todir="${build.target.app}/lib">
       <fileset dir="${build.target}/lib/default/xar"/>
@@ -45,11 +54,21 @@
       </mapper>
     </pathconvert>
 
+    <!-- Add weblib type artifacts to doc_root -->
+    <unzip dest="${build.target.app}/doc_root/">
+      <fileset dir="${build.target}/lib" includes="default/weblib/*.zip"/>
+    </unzip>
+
     <!-- Output result to project.pth -->
     <echo file="${build.target.app}/project.pth">${package.fileset}</echo>
+
+    <touch mkdirs="true" file="${build.target.app}/.extracted"/>
+    <touch>
+      <fileset dir="${build.target.app}" includes="**/*"/>
+    </touch>
   </target>
   
-  <target name="app:package:descriptor" extensionOf="pre-package">
+  <target name="app:package:descriptor" extensionOf="pre-package" unless="xp.app.exist">
     <copy todir="${build.target.app}">
       <fileset refid="build.containerConfigDirectory"/>
       <filterset filtersfile="${basedir}/src/resources/container/app.properties">
@@ -59,9 +78,9 @@
     </copy>
   </target>
 
-  <target name="app:package" extensionOf="package" depends="-init:configure:ivy, prepare:number:determine">
+  <target name="app:package" extensionOf="package">
     <zip destfile="${build.target}/${ivy.module}-app-${ivy.new.revision}.zip">
-      <zipfileset dir="${build.target}/app" prefix="${ivy.module}"/>
+      <zipfileset dir="${build.target}/app" prefix="${ivy.module}" excludes=".extracted"/>
     </zip>
   </target>
 </project>

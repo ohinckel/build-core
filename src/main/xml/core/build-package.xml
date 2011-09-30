@@ -29,6 +29,18 @@
     <echo>===> Packaging ${ivy.organisation}#${ivy.module}</echo>
   </target>
 
+  <target name="-package:web:zip" extensionOf="package">
+    <available property="xp.pwz.doc_root.exists" file="${basedir}/doc_root" value="true"/>
+    <if>
+      <equals arg1="${xp.pwz.doc_root.exists}" arg2="true"/>
+      <then>
+        <zip file="${build.target}/${ivy.module}-weblib-${ivy.new.revision}.zip">
+          <zipfileset dir="${basedir}/doc_root/" prefix="${ivy.module}"/>
+        </zip>
+      </then>
+    </if>
+  </target>
+
   <!-- FIXME: Temporarily disabled source packaging, as there is an issue
    !   w/ stripping path elements -->
   <target name="-package:zip:sources">
