@@ -12,6 +12,8 @@ Heads up!
 
 Bugfixes
 ~~~~~~~~
+- Fixed output for cached build number
+  (kiesel)
 - Fixed skipping of resolving and retrieving build dependencies when ivy.xml
   has not been changed
   (kiesel)

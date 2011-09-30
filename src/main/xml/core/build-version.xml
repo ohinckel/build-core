@@ -57,12 +57,13 @@
    unless="xp.property.fromfile"
   >
     <echo>Determining next build number...</echo>
-    <property name="xp.property.fromfile" value="(cached)"/>
+    <property name="tmp.xp.property.fromfile" value="(cached)"/>
     <echoproperties destfile="${build.target}/xp.properties">
       <propertyset>
         <propertyref name="ivy.new.revision"/>
         <propertyref name="xp.publish.resolver"/>
-        <propertyref name="xp.property.fromfile"/>
+        <propertyref name="tmp.xp.property.fromfile"/>
+        <mapper type="glob" from="tmp.*" to="*"/>
       </propertyset>
     </echoproperties>
   </target>
@@ -71,11 +72,12 @@
    ! First, try to load last settings from xp.properties; if succeeds, no need
    ! to do expensive number calculation...
    !-->
-  <target name="-prepare:number:load-cached">
+  <target name="-prepare:number:load-cached" unless="xp.property.fromfile">
     <property file="${build.target}/xp.properties"/>
   </target>
 
   <target name="prepare:number:determine" depends="-prepare:number:load-cached, -prepare:number:do-evaluate">
+    <property name="xp.property.fromfile" value=""/>
     <echo>Current build version: ${ivy.new.revision} ${xp.property.fromfile}</echo>
     <echo>Current build mode   : ${ivy.status} ${xp.property.fromfile}</echo>
   </target>
