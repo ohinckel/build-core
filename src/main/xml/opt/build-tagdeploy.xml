@@ -87,6 +87,23 @@ Build with: ${xp.build.version}
   </target>
 
   <target name="-publish:tag:checkout" depends="-publish:tag:gettagname" unless="xp.publish.checkedout">
+    <!--
+     ! Check first, if target url already exists, as it then must first
+     ! be removed before it can be recreated by copying the "floating"
+     ! tag to that specific version.
+     !-->
+    <condition property="targetexists" value="true" else="false">
+      <svnExists target="${ivy.extra.repository}/${ivy.module}/${tag.version}"/>
+    </condition>
+    <if>
+      <equals arg1="${targetexists}" arg2="false"/>
+      <then>
+        <echo>     Creating tag ${ivy.extra.repository}/${ivy.module}/${xp.build.tag}</echo>
+        <svn>
+          <mkdir url="${ivy.extra.repository}/${ivy.module}/${xp.build.tag}"/>
+        </svn>
+      </then>
+    </if>
     <svn>
       <checkout url="${ivy.extra.repository}/${ivy.module}/${xp.build.tag}" destPath="${build.target}/${xp.build.tag}"/>
     </svn>
