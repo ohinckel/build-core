@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="xp-framework-tagdeploy" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
 
+  <!--
+   ! Documentation for svnant:
+   ! http://subclipse.tigris.org/svnant/svntask.html
+   !-->
+
   <target name="-publish:tag:clean" depends="-publish:tag:gettagname">
     <delete dir="${build.target}/${xp.build.tag}"/>
   </target>
@@ -82,13 +87,13 @@ Build with: ${xp.build.version}
   </target>
 
   <target name="-publish:tag:checkout" depends="-publish:tag:gettagname" unless="xp.publish.checkedout">
-    <svn svnkit="true" javahl="false" failonerror="true">
-      <checkout url="${ivy.extra.repository}/${xp.build.tag}" destPath="${build.target}/${xp.build.tag}"/>
+    <svn>
+      <checkout url="${ivy.extra.repository}/${ivy.module}/${xp.build.tag}" destPath="${build.target}/${xp.build.tag}"/>
     </svn>
   </target>
 
   <target name="-publish:tag:update" depends="-publish:tag:gettagname" if="xp.publish.checkedout">
-    <svn svnkit="true" javahl="true" failonerror="true">
+    <svn>
       <update dir="${build.target}/${xp.build.tag}"/>
     </svn>
   </target>
@@ -111,14 +116,43 @@ Build with: ${xp.build.version}
   </target>
 
   <target name="-publish:tag:commit" unless="xp.simulate">
-    <svn svnkit="true" javahl="false" failonerror="true">
-      <commit dir="${build.target}/${xp.build.tag}" message="- Publishing ${ivy.module}-${ivy.revision}"/>
+    <echo>---> Published volatile tag to: ${ivy.extra.repository}/${ivy.module}/${xp.build.tag}</echo>
+    <svn>
+      <commit dir="${build.target}/${xp.build.tag}" message="- Publishing ${ivy.module}-${ivy.revision} to ${xp.build.tag}"/>
+    </svn>
+  </target>
+
+  <target name="-publish:tag:copytag" depends="-publish:tag:commit">
+    <!--
+     ! Check first, if target url already exists, as it then must first
+     ! be removed before it can be recreated by copying the "floating"
+     ! tag to that specific version.
+     !-->
+    <condition property="tagexists" value="true" else="false">
+      <svnExists target="${ivy.extra.repository}/${ivy.module}/${tag.version}"/>
+    </condition>
+    <if>
+      <equals arg1="true" arg2="${tagexists}"/>
+      <then>
+        <svn>
+          <delete url="${ivy.extra.repository}/${ivy.module}/${tag.version}" message="- Undeploying for release ${tag.version}"/>
+        </svn>
+      </then>
+    </if>
+
+    <echo>---> Published fixed tag to:    ${ivy.extra.repository}/${ivy.module}/${tag.version}</echo>
+    <svn>
+      <copy
+       srcUrl="${ivy.extra.repository}/${ivy.module}/${xp.build.tag}"
+       destUrl="${ivy.extra.repository}/${ivy.module}/${tag.version}"
+       message="- Released ${tag.version}"
+      />
     </svn>
   </target>
 
   <target name="publish:tagdiff" depends="-publish:tag:uselocalapp, -publish:tag:sync">
     <mkdir dir="${build.target.reports}"/>
-    <svn svnkit="false" javahl="true" failonerror="true">
+    <svn>
       <diff oldPath="${build.target}/${xp.build.tag}" outfile="${build.target.reports}/tag.diff"/>
     </svn>
 
@@ -126,5 +160,5 @@ Build with: ${xp.build.version}
     <echo>${diffoutput}</echo>
   </target>
 
-  <target name="publish:tag" depends="-publish:tag:sync, -publish:tag:commit"/>
+  <target name="publish:tag" depends="-publish:tag:sync, -publish:tag:commit, -publish:tag:copytag"/>
 </project>
