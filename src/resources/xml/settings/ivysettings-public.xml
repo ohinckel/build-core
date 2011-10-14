@@ -22,5 +22,6 @@
 
   <modules>
     <module organisation="net.xp_framework.*" name="*" resolver="public"/>
+    <module organisation="net.xp_forge.*"     name="*" resolver="public"/>
   </modules>
 </ivysettings>
