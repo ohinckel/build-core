@@ -42,6 +42,12 @@
 
     <echo>   * Publish resolver: ${xp.publish.resolver}</echo>
     <echo>   *  Lookup resolver: ${xp.lookup.resolver}</echo>
+    <echo></echo>
+    <echo>   *     Organisation: ${ivy.organisation}</echo>
+    <echo>   *           Module: ${ivy.module}</echo>
+    <echo>   *         Revision: ${ivy.revision}</echo>
+    <echo>   *           Status: ${ivy.status}</echo>
+    <echo/>
   </target>
   
   <target name="-init:configure:workspace">
