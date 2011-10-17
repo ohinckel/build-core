@@ -5,6 +5,9 @@
    ! Documentation for svnant:
    ! http://subclipse.tigris.org/svnant/svntask.html
    !-->
+   
+  <!-- Global SVN settings -->
+  <svn id="global" svnkit="true" javahl="false" failonerror="true"/>
 
   <target name="-publish:tag:clean" depends="-publish:tag:gettagname">
     <delete dir="${build.target}/${xp.build.tag}"/>
@@ -66,7 +69,7 @@ Build with: ${xp.build.version}
     </echo>
 
     <!-- Merge changes (svn delete deleted, svn add added, then commit -->
-    <svn svnkit="true" javahl="true" failonerror="true">
+    <svn refid="global">
       <add force="true" recurse="true">
         <svnFileSet dir="${build.target}/${xp.build.tag}/"/>
       </add>
@@ -99,18 +102,18 @@ Build with: ${xp.build.version}
       <equals arg1="${targetexists}" arg2="false"/>
       <then>
         <echo>     Creating tag ${ivy.extra.repository}/${ivy.module}/${xp.build.tag}</echo>
-        <svn>
+        <svn refid="global">
           <mkdir url="${ivy.extra.repository}/${ivy.module}/${xp.build.tag}"/>
         </svn>
       </then>
     </if>
-    <svn>
+    <svn refid="global">
       <checkout url="${ivy.extra.repository}/${ivy.module}/${xp.build.tag}" destPath="${build.target}/${xp.build.tag}"/>
     </svn>
   </target>
 
   <target name="-publish:tag:update" depends="-publish:tag:gettagname" if="xp.publish.checkedout">
-    <svn>
+    <svn refid="global">
       <update dir="${build.target}/${xp.build.tag}"/>
     </svn>
   </target>
@@ -134,7 +137,7 @@ Build with: ${xp.build.version}
 
   <target name="-publish:tag:commit" unless="xp.simulate">
     <echo>---> Published volatile tag to: ${ivy.extra.repository}/${ivy.module}/${xp.build.tag}</echo>
-    <svn>
+    <svn refid="global">
       <commit dir="${build.target}/${xp.build.tag}" message="- Publishing ${ivy.module}-${ivy.revision} to ${xp.build.tag}"/>
     </svn>
   </target>
@@ -151,14 +154,14 @@ Build with: ${xp.build.version}
     <if>
       <equals arg1="true" arg2="${tagexists}"/>
       <then>
-        <svn>
+        <svn refid="global">
           <delete url="${ivy.extra.repository}/${ivy.module}/${tag.version}" message="- Undeploying for release ${tag.version}"/>
         </svn>
       </then>
     </if>
 
     <echo>---> Published fixed tag to:    ${ivy.extra.repository}/${ivy.module}/${tag.version}</echo>
-    <svn>
+    <svn refid="global">
       <copy
        srcUrl="${ivy.extra.repository}/${ivy.module}/${xp.build.tag}"
        destUrl="${ivy.extra.repository}/${ivy.module}/${tag.version}"
@@ -169,7 +172,7 @@ Build with: ${xp.build.version}
 
   <target name="publish:tagdiff" depends="-publish:tag:uselocalapp, -publish:tag:sync">
     <mkdir dir="${build.target.reports}"/>
-    <svn>
+    <svn refid="global">
       <diff oldPath="${build.target}/${xp.build.tag}" outfile="${build.target.reports}/tag.diff"/>
     </svn>
 
