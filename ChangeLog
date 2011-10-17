@@ -14,12 +14,12 @@ Bugfixes
 ~~~~~~~~
 - Fixed output for cached build number
   (kiesel)
-- Fixed skipping of resolving and retrieving build dependencies when ivy.xml
-  has not been changed
+- Fixed skipping of resolving and retrieving build dependencies when
+  ivy.xml has not been changed
   (kiesel)
 - Fixed out-of-date check routine for plugins and bootstrap paths
   (kiesel)
-- Enabled artifact-lock strategy for defaul repository cache
+- Enabled artifact-lock strategy for default repository cache
   to support concurrent builds of projects
   (kiesel)
 
@@ -44,9 +44,6 @@ Heads up!
 - Bail out with error when circular dependency detected
   (ohinckel)
 
-Bugfixes
-~~~~~~~~
-
 Features
 ~~~~~~~~
 - Used more generic file names for resolver reports
@@ -68,7 +65,6 @@ Bugfixes
   (kiesel)
 - Fixed bug when installing to local repo in `ant install`
   (kiesel)
-
 
 Features
 ~~~~~~~~
