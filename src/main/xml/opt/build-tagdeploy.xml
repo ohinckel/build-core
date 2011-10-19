@@ -6,8 +6,11 @@
    ! http://subclipse.tigris.org/svnant/svntask.html
    !-->
    
-  <!-- Global SVN settings -->
-  <svn id="global" svnkit="true" javahl="false" failonerror="true"/>
+  <target name="-publish:setup:svn">
+
+    <!-- Global SVN settings -->
+    <svn id="global" svnkit="true" javahl="false" failonerror="true"/>
+  </target>
 
   <target name="-publish:tag:clean" depends="-publish:tag:gettagname">
     <delete dir="${build.target}/${xp.build.tag}"/>
@@ -170,7 +173,7 @@ Build with: ${xp.build.version}
     </svn>
   </target>
 
-  <target name="publish:tagdiff" depends="-publish:tag:uselocalapp, -publish:tag:sync">
+  <target name="publish:tagdiff" depends="-publish:setup:svn, -publish:tag:uselocalapp, -publish:tag:sync">
     <mkdir dir="${build.target.reports}"/>
     <svn refid="global">
       <diff oldPath="${build.target}/${xp.build.tag}" outfile="${build.target.reports}/tag.diff"/>
@@ -180,5 +183,5 @@ Build with: ${xp.build.version}
     <echo>${diffoutput}</echo>
   </target>
 
-  <target name="publish:tag" depends="-publish:tag:sync, -publish:tag:commit, -publish:tag:copytag"/>
+  <target name="publish:tag" depends="-publish:setup:svn, -publish:tag:sync, -publish:tag:commit, -publish:tag:copytag"/>
 </project>
