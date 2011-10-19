@@ -22,13 +22,13 @@
      filter="local=false"
      onlyonce="false"
     />
-    <ant-call
+<!--    <ant-call
      target="-prepare:trigger:post-download-artifact"
      prefix="dep"
      event="post-download-artifact"
      filter="local=false"
      onlyonce="false"
-    />
+    />-->
   </triggers>
 
   <!-- global "ivy" local repository configuration -->

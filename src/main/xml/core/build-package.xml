@@ -11,6 +11,7 @@
      dir="${build.target.classes}"
      target="${build.target}/${ivy.module}-${ivy.new.revision}.xar"
     />
+    <echo>     * ${build.target}/${ivy.module}-${ivy.new.revision}.xar</echo>
   </target>
 
   <target name="-package:xar:check-test-classes">
@@ -23,10 +24,14 @@
      dir="${build.target.testClasses}"
      target="${build.target}/${ivy.module}-test-${ivy.new.revision}.xar"
     />
+    <echo>     * ${build.target}/${ivy.module}-test-${ivy.new.revision}.xar</echo>
   </target>
 
-  <target name="package:package" extensionOf="package" depends="-init:configure:ivy, prepare:number:determine, -package:xar:classes, -package:xar:test-classes">
+  <target name="-package:package:message">
     <echo>===> Packaging ${ivy.organisation}#${ivy.module}</echo>
+  </target>
+
+  <target name="package:package" extensionOf="package" depends="-package:package:message, prepare:number:determine, -package:xar:classes, -package:xar:test-classes">
   </target>
 
   <target name="-package:web:zip" extensionOf="package">
@@ -37,6 +42,7 @@
         <zip file="${build.target}/${ivy.module}-weblib-${ivy.new.revision}.zip">
           <zipfileset dir="${basedir}/doc_root/"/>
         </zip>
+        <echo>     * ${build.target}/${ivy.module}-weblib-${ivy.new.revision}.zip</echo>
       </then>
     </if>
   </target>
@@ -62,5 +68,6 @@
         <cutdirsmapper dirs="1"/>
       </mappedresources>
     </zip>
+    <echo>    * ${build.target}/${ivy.module}-${ivy.new.revision}-sources.zip</echo>
   </target>
 </project>

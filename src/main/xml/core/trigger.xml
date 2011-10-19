@@ -12,12 +12,6 @@
     <echo>--> Resolving ${dep.organisation}#${dep.module}
     @ ${dep.revision} (asked for: ${dep.req-revision})
     repo "${dep.resolver}" in ${dep.duration}ms, success: ${dep.resolved}</echo>
-    <if>
-      <equals arg1="${dep.resolved}" arg2="true"/>
-      <then>
-        <echo>    SUCCESSFUL!</echo>
-      </then>
-    </if>
     <echo></echo>
   </target>
 
@@ -27,7 +21,7 @@
   </target>
 
   <target name="-prepare:trigger:post-download-artifact">
-    <echo>    SUCCESS: ${dep.size} bytes d/l in ${dep.duration}ms</echo>
+    <echo>    [${dep.size}b / ${dep.duration}ms]</echo>
     <echo/>
   </target>
 </project>
