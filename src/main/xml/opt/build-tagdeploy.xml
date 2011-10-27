@@ -108,7 +108,7 @@ Build with: ${xp.build.version}
       <then>
         <echo>     Creating tag ${ivy.extra.repository}/${ivy.module}/${xp.build.tag}</echo>
         <svn refid="global">
-          <mkdir url="${ivy.extra.repository}/${ivy.module}/${xp.build.tag}" message="- Initial revision"/>
+          <mkdir url="${ivy.extra.repository}/${ivy.module}/${xp.build.tag}" makeParents="true" message="- Initial revision"/>
         </svn>
       </then>
     </if>
