@@ -70,7 +70,7 @@ The following (public) targets exist for being called:
 &gt; install
   Install package into local repository
 
-&gt; deploy
+&gt; publish
   Install package into shared / public repository
     </echo>
   </target>
