@@ -7,7 +7,7 @@
     <exclude name="src/installer.xml"/>
   </fileset>
 
-  <target name="-package:xar:classes" extensionOf="package" depends="prepare:number:determine">
+  <target name="-package:xar:classes" extensionOf="post-package" depends="prepare:number:determine">
     <zip destfile="${build.target}/${ivy.module}-${ivy.new.revision}.zip">
       <mappedresources>
         <zipfileset dir="${build.target}/classes" prefix="${ivy.module}-${ivy.new.revision}/src"/>
@@ -18,6 +18,7 @@
       </mappedresources>
       <zipfileset dir="${basedir}/lib" prefix="${ivy.module}-${ivy.new.revision}/lib"/>
     </zip>
+    <echo>     * ${build.target}/${ivy.module}-${ivy.new.revision}.zip</echo>
   </target>
 
   <property name="xp.publish.resolver" value="public-authenticated"/>
