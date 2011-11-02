@@ -12,6 +12,8 @@ Heads up!
 
 Bugfixes
 ~~~~~~~~
+- Added resolver mapping for net.xp_forge.*
+  (kiesel)
 - Fixed output for cached build number
   (kiesel)
 - Fixed skipping of resolving and retrieving build dependencies when
@@ -25,6 +27,19 @@ Bugfixes
 
 Features
 ~~~~~~~~
+- Upgraded svnant to 1.3.1
+  (kiesel)
+- Made tagging create parent directories in SVN repository, if needed
+  (kiesel)
+- Implemented deploying to SVN via "floating" tag, as well as "fixed" revision
+  tag
+  (kiesel)
+- Added initial support for "weblib" type artifacts
+  (kiesel, rledermueller)
+- Implemented trigger callbacks for Ivy to display resolving status
+  (kiesel)
+- Changed loader to include all build files recursively
+  (kiesel)
 - Improved output readability for ivy progress in resolve and download
   steps
   (kiesel)
