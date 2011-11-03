@@ -31,7 +31,7 @@
     <echo>===> Packaging ${ivy.organisation}#${ivy.module}</echo>
   </target>
 
-  <target name="package:package" extensionOf="package" depends="-package:package:message, prepare:number:determine, -package:xar:classes, -package:xar:test-classes">
+  <target name="package:package" extensionOf="package" depends="-package:package:message, prepare:number:determine:new, -package:xar:classes, -package:xar:test-classes">
   </target>
 
   <target name="-package:web:zip" extensionOf="package">
