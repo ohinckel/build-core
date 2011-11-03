@@ -6,7 +6,7 @@
    ! http://subclipse.tigris.org/svnant/svntask.html
    !-->
    
-  <target name="-publish:setup:svn" depends="-init:configure:workspace">
+  <target name="-publish:setup:svn" depends="-init:configure:ivy, -init:configure:workspace">
 
     <!-- Global SVN settings -->
     <svnSetting id="global" svnkit="false" javahl="true" failonerror="true"/>
