@@ -56,7 +56,7 @@
 
   <target name="-init:configure"
    extensionOf="prepare"
-   depends="-init:configure:ivy, -init:configure:workspace, -prepare:mode:determine-resolver, prepare:number:determine, prepare:prepare"
+   depends="-init:configure:ivy, -init:configure:workspace, -prepare:mode:determine-resolver, prepare:number:determine:new, prepare:prepare"
   />
   
   <target name="-clean:clean:cache" extensionOf="clean" depends="-init:configure:ivy">

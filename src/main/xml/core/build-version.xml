@@ -56,7 +56,7 @@
    depends="-prepare:number:for-release, -prepare:number:for-milestone, -prepare:number:for-integration"
    unless="xp.property.fromfile"
   >
-    <echo>Determining next build number...</echo>
+    <echo>Determining build number...</echo>
     <property name="tmp.xp.property.fromfile" value="(cached)"/>
     <echoproperties destfile="${build.target}/xp.properties">
       <propertyset>
@@ -76,9 +76,15 @@
     <property file="${build.target}/xp.properties"/>
   </target>
 
-  <target name="prepare:number:determine" depends="-prepare:number:load-cached, -prepare:number:do-evaluate">
+  <target name="prepare:number:determine:new" depends="-prepare:number:load-cached, -prepare:number:do-evaluate">
     <property name="xp.property.fromfile" value=""/>
     <echo>Current build version: ${ivy.new.revision} ${xp.property.fromfile}</echo>
+    <echo>Current build mode   : ${ivy.status} ${xp.property.fromfile}</echo>
+  </target>
+
+  <target name="prepare:number:determine:current" depends="-prepare:number:load-cached, -prepare:number:do-evaluate">
+    <property name="xp.property.fromfile" value=""/>
+    <echo>Current build version: ${ivy.revision} ${xp.property.fromfile}</echo>
     <echo>Current build mode   : ${ivy.status} ${xp.property.fromfile}</echo>
   </target>
 </project>

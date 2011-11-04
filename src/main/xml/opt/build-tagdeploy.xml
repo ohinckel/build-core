@@ -6,7 +6,7 @@
    ! http://subclipse.tigris.org/svnant/svntask.html
    !-->
    
-  <target name="-publish:setup:svn" depends="-init:load:ivy">
+  <target name="-publish:setup:svn" depends="-init:configure:ivy, -init:configure:workspace">
 
     <!-- Global SVN settings -->
     <svnSetting id="global" svnkit="false" javahl="true" failonerror="true"/>
@@ -16,7 +16,7 @@
     <delete dir="${build.target}/${xp.build.tag}"/>
   </target>
 
-  <target name="-publish:tag:fetchapp" depends="-init:load:ivy, -init:configure:ivy, -publish:tag:gettagname" unless="xp.tag.uselocal">
+  <target name="-publish:tag:fetchapp" depends="-init:load:ivy, -init:configure:ivy, prepare:number:determine:current, -publish:tag:gettagname" unless="xp.tag.uselocal">
     <echo>===> Deploying to tag ${xp.build.tag}</echo>
     <echo>     Repository: ${ivy.extra.repository}</echo>
     <echo>     Current version: ${tag.version}</echo>
@@ -33,7 +33,7 @@
     />
   </target>
 
-  <target name="-publish:tag:uselocalapp" depends="-init:load:ivy, -init:configure:ivy, prepare:number:determine, -publish:tag:gettagname">
+  <target name="-publish:tag:uselocalapp" depends="-init:load:ivy, -init:configure:ivy, prepare:number:determine:current, -publish:tag:gettagname">
     <property name="xp.tag.uselocal" value="true"/>
     <echo>===> Deploying to tag ${xp.build.tag}</echo>
     <echo>     Repository: ${ivy.extra.repository}</echo>
@@ -43,7 +43,7 @@
   </target>
 
   <target name="-publish:tag:sync" description="Publish latest app artifact into tag"
-   depends="-publish:tag:fetchapp, -publish:tag:gettagname, -publish:tag:getwc, prepare:number:determine"
+   depends="-publish:tag:fetchapp, -publish:tag:gettagname, -publish:tag:getwc, prepare:number:determine:current"
   >
 
     <!-- Extract application artifacts to SVN checkout -->
