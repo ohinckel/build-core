@@ -8,7 +8,7 @@
    organisation="net.xp_framework" 
    module="build"
    status="release"
-   revision="1.6.0"
+   revision="1.6.1"
   />
   <configurations>
     <conf name="default" description="Required for a build"/>
