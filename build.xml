@@ -7,7 +7,7 @@
     <exclude name="src/installer.xml"/>
   </fileset>
 
-  <target name="-package:xar:classes" extensionOf="post-package" depends="prepare:number:determine">
+  <target name="-package:xar:classes" extensionOf="post-package">
     <zip destfile="${build.target}/${ivy.module}-${ivy.new.revision}.zip">
       <mappedresources>
         <zipfileset dir="${build.target}/classes" prefix="${ivy.module}-${ivy.new.revision}/src"/>
