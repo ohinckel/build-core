@@ -70,6 +70,7 @@ Version:    ${tag.version}
 Date:       ${publish.date}
 Build with: ${xp.build.version}
     </echo>
+    <echo file="${build.target}/${xp.build.tag}/${tag.version}"/>
 
     <!-- Merge changes (svn delete deleted, svn add added, then commit -->
     <svn refid="global">
