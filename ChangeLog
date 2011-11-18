@@ -13,6 +13,8 @@ Bugfixes
 - Use present tense in commit messages when creating, publishing or
   releasing tags
   (ohinckel)
+- Only search for test cases in src/test and ignore src/main completely
+  (ohinckel)
 
 
 Version 1.6.0, released 2011-11-02
