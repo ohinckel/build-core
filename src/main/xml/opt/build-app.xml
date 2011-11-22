@@ -34,6 +34,15 @@
       <fileset dir="${build.target}/lib/default/xar"/>
       <flattenmapper/>
     </copy>
+    <if>
+      <available file="${build.target}/lib/default/overlay"/>
+      <then>
+        <copy todir="${build.target.app}/lib/overlay" failonerror="false">
+          <fileset dir="${build.target}/lib/default/overlay"/>
+          <flattenmapper/>
+        </copy>
+      </then>
+    </if>
 
     <!-- Retrieve bootstrap -->
     <unzip dest="${build.target.app}/lib/bootstrap">
@@ -42,9 +51,11 @@
 
     <!-- Build .pth file -->
     <fileset id="pth.fileset" dir="${build.target.app}" includes="lib/*.xar"/>
+    <fileset id="pth.overlay.fileset" dir="${build.target.app}" includes="lib/overlay/*.xar" erroronmissingdir="false"/>
 
     <pathconvert property="package.fileset" pathsep="&#10;" dirsep="/">
       <path>
+        <fileset refid="pth.overlay.fileset"/>
         <fileset refid="pth.fileset"/>
         <pathelement path="${build.target.app}/lib/bootstrap/"/>
         <pathelement path="${build.target.app}/src/"/>

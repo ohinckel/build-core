@@ -2,6 +2,20 @@ XP Framework Build System ChangeLog
 ========================================================================
 $Id$
 
+Version 1.6.2, released ????-??-??
+----------------------------------
+
+Bugfixes
+~~~~~~~~
+- Fixed support for overlays in app packaging
+  (rledermueller, kiesel)
+
+Features
+~~~~~~~~
+- Implemented file creation on svn tagging for puppet support
+  (kiesel)
+
+
 Version 1.6.1, released ????-??-??
 ----------------------------------
 
