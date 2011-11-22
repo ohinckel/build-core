@@ -109,7 +109,7 @@ Build with: ${xp.build.version}
       <then>
         <echo>     Creating tag ${ivy.extra.repository}/${ivy.module}/${xp.build.tag}</echo>
         <svn refid="global">
-          <mkdir url="${ivy.extra.repository}/${ivy.module}/${xp.build.tag}" makeParents="true" message="- Initial revision"/>
+          <mkdir url="${ivy.extra.repository}/${ivy.module}/${xp.build.tag}" makeParents="true" message="- Create tag ${ivy.module}-${xp.build.tag}"/>
         </svn>
       </then>
     </if>
@@ -144,7 +144,7 @@ Build with: ${xp.build.version}
   <target name="-publish:tag:commit" unless="xp.simulate">
     <echo>---> Published volatile tag to: ${ivy.extra.repository}/${ivy.module}/${xp.build.tag}</echo>
     <svn refid="global">
-      <commit dir="${build.target}/${xp.build.tag}" message="- Publishing ${ivy.module}-${ivy.revision} to ${xp.build.tag}"/>
+      <commit dir="${build.target}/${xp.build.tag}" message="- Publish ${ivy.module}-${ivy.revision} to ${xp.build.tag}"/>
     </svn>
   </target>
 
@@ -171,7 +171,7 @@ Build with: ${xp.build.version}
       <copy
        srcUrl="${ivy.extra.repository}/${ivy.module}/${xp.build.tag}"
        destUrl="${ivy.extra.repository}/${ivy.module}/${tag.version}"
-       message="- Released ${tag.version}"
+       message="- Release ${ivy.module}-${tag.version}"
       />
     </svn>
   </target>
