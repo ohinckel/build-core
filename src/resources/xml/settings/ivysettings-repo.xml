@@ -9,8 +9,11 @@
     <chain name="shared-lookup-integration" checkmodified="true" changingPattern=".*-SNAPSHOT">
       <resolver ref="local"/>
       <resolver ref="xp-shared-snapshots"/>
+      <resolver ref="xp-public-snapshots"/>
       <resolver ref="xp-shared-milestones"/>
+      <resolver ref="xp-public-milestones"/>
       <resolver ref="xp-shared-releases"/>
+      <resolver ref="xp-public-releases"/>
     </chain>
 
     <!-- Publish & lookup resolver for milestones -->
@@ -19,7 +22,9 @@
     </chain>
     <chain name="shared-lookup-milestone">
       <resolver ref="xp-shared-milestones"/>
+      <resolver ref="xp-public-milestones"/>
       <resolver ref="xp-shared-releases"/>
+      <resolver ref="xp-public-releases"/>
     </chain>
 
     <!-- Publish & lookup resolver for releases -->
@@ -28,6 +33,7 @@
     </chain>
     <chain name="shared-lookup-release">
       <resolver ref="xp-shared-releases"/>
+      <resolver ref="xp-public-releases"/>
     </chain>
 
     <!-- Lookup resolver - includes both artifactory repos -->

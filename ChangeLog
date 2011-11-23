@@ -2,6 +2,17 @@ XP Framework Build System ChangeLog
 ========================================================================
 $Id$
 
+
+Version 1.6.3, released ????-??-??
+----------------------------------
+
+Features
+~~~~~~~~
+- Split up public repositories into three for snapshot, milestone and
+  release builds
+  (kiesel, ohinckel)
+
+
 Version 1.6.2, released ????-??-??
 ----------------------------------
 

@@ -1,23 +1,43 @@
 <?xml version="1.0"?>
 <ivysettings>
   <resolvers>
-    <chain name="public">
-      <resolver ref="local"/>
-      <url name="public-anonymous">
-        <ivy pattern="http://xp-framework.net/repository/[organisation]/[module]/[revision]/ivy(-[branch])-[revision].xml"/>
-        <artifact pattern="http://xp-framework.net/repository/[organisation]/[module]/[revision]/[artifact](-[branch])-[revision](-[classifier]).[ext]"/>
-      </url>
-    </chain>
-
     <ssh name="public-authenticated"
      keyFile="${user.home}/.ssh/id_dsa"
      user="cgi"
      host="xpsrv.net"
      publishPermissions="0644"
     >
-      <ivy pattern="/home/httpd/xp.php3.de/doc_root/repository/[organisation]/[module]/[revision]/ivy(-[branch])-[revision].xml"/>
-      <artifact pattern="/home/httpd/xp.php3.de/doc_root/repository/[organisation]/[module]/[revision]/[artifact](-[branch])-[revision](-[classifier]).[ext]"/>
+      <ivy pattern="/home/httpd/xp.php3.de/doc_root/repository/${ivy.status}/[organisation]/[module]/[revision]/ivy(-[branch])-[revision].xml"/>
+      <artifact pattern="/home/httpd/xp.php3.de/doc_root/repository/${ivy.status}/[organisation]/[module]/[revision]/[artifact](-[branch])-[revision](-[classifier]).[ext]"/>
     </ssh>
+
+    <url name="xp-public-snapshots">
+      <ivy pattern="http://xp-framework.net/repository/integration/[organisation]/[module]/[revision]/ivy(-[branch])-[revision].xml"/>
+      <artifact pattern="http://xp-framework.net/repository/integration/[organisation]/[module]/[revision]/[artifact](-[branch])-[revision](-[classifier]).[ext]"/>
+    </url>
+
+    <url name="xp-public-milestones">
+      <ivy pattern="http://xp-framework.net/repository/milestone/[organisation]/[module]/[revision]/ivy(-[branch])-[revision].xml"/>
+      <artifact pattern="http://xp-framework.net/repository/milestone/[organisation]/[module]/[revision]/[artifact](-[branch])-[revision](-[classifier]).[ext]"/>
+    </url>
+
+    <url name="xp-public-releases">
+      <ivy pattern="http://xp-framework.net/repository/release/[organisation]/[module]/[revision]/ivy(-[branch])-[revision].xml"/>
+      <artifact pattern="http://xp-framework.net/repository/release/[organisation]/[module]/[revision]/[artifact](-[branch])-[revision](-[classifier]).[ext]"/>
+    </url>
+
+    <url name="xp-public-deprecated">
+      <ivy pattern="http://xp-framework.net/repository/[organisation]/[module]/[revision]/ivy(-[branch])-[revision].xml"/>
+      <artifact pattern="http://xp-framework.net/repository/[organisation]/[module]/[revision]/[artifact](-[branch])-[revision](-[classifier]).[ext]"/>
+    </url>
+
+    <chain name="public">
+      <resolver ref="local"/>
+      <resolver ref="xp-public-deprecated"/>
+      <resolver ref="xp-public-snapshots"/>
+      <resolver ref="xp-public-milestones"/>
+      <resolver ref="xp-public-releases"/>
+    </chain>
   </resolvers>
 
   <modules>
