@@ -2,6 +2,15 @@ XP Framework Build System ChangeLog
 ========================================================================
 $Id$
 
+Version 1.6.4, released 2011-11-24
+----------------------------------
+
+Bugfixes
+~~~~~~~~
+- Fixed tagging empty directories into svn tag w/ publish:tag target
+  (kiesel, rledermueller)
+
+
 Version 1.6.3, released 2011-11-24
 ----------------------------------
 

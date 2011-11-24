@@ -47,14 +47,19 @@
   >
 
     <!-- Extract application artifacts to SVN checkout -->
+    <!-- Note: first unzip, then sync - do not sync from a <zipfileset>
+     !   See https://issues.apache.org/bugzilla/show_bug.cgi?id=47168
+     !-->
+    <unzip dest="${build.target}/tmp-tagdeploy">
+      <zipfileset refid="xp.artifacts.app"/>
+    </unzip>
     <sync todir="${build.target}/${xp.build.tag}" includeEmptyDirs="true" overwrite="true">
-      <zipfileset>
-        <zipfileset refid="xp.artifacts.app"/>
-      </zipfileset>
+      <fileset dir="${build.target}/tmp-tagdeploy"/>
       <preserveintarget>
         <include name="**/.svn/**"/>
       </preserveintarget>
     </sync>
+    <delete dir="${build.target}/tmp-tagdeploy"/>
 
     <!-- Create build-version file -->
     <property name="logfile" value="${build.target}/${xp.build.tag}/${ivy.module}-info.txt"/>
