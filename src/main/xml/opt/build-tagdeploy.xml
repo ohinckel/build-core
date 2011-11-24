@@ -83,6 +83,9 @@ Build with: ${xp.build.version}
         <fileset dir="${build.target}/${xp.build.tag}" includes="**/*">
           <svnUnversioned/>
         </fileset>
+        <dirset dir="${build.target}/${xp.build.tag}">
+          <svnUnversioned/>
+        </dirset>
       </add>
       <delete>
         <svnFileSet dir="${build.target}/${xp.build.tag}">
