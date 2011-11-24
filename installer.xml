@@ -13,7 +13,7 @@
   <mkdir dir="${lib.dir}"/>
 
   <echo>===> Downloading build scripts</echo>
-  <get src="http://xp-framework.net/repository/net.xp_framework/build/${version}/build-${version}.zip" dest="${ant.base}/build-${version}.zip"/>
+  <get src="http://xp-framework.net/repository/release/net.xp_framework/build/${version}/build-${version}.zip" dest="${ant.base}/build-${version}.zip"/>
   <unzip dest="${install.dir}" src="${ant.base}/build-${version}.zip">
     <patternset>
       <include name="*/src/**"/>
