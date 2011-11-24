@@ -2,8 +2,7 @@ XP Framework Build System ChangeLog
 ========================================================================
 $Id$
 
-
-Version 1.6.3, released ????-??-??
+Version 1.6.3, released 2011-11-24
 ----------------------------------
 
 Features
@@ -13,7 +12,7 @@ Features
   (kiesel, ohinckel)
 
 
-Version 1.6.2, released ????-??-??
+Version 1.6.2, released 2011-11-23
 ----------------------------------
 
 Bugfixes
