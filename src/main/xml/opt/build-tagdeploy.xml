@@ -79,10 +79,12 @@ Build with: ${xp.build.version}
 
     <!-- Merge changes (svn delete deleted, svn add added, then commit -->
     <svn refid="global">
-      <add recurse="true">
+      <add>
         <fileset dir="${build.target}/${xp.build.tag}" includes="**/*">
           <svnUnversioned/>
         </fileset>
+      </add>
+      <add>
         <dirset dir="${build.target}/${xp.build.tag}">
           <svnUnversioned/>
         </dirset>

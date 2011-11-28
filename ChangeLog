@@ -2,6 +2,15 @@ XP Framework Build System ChangeLog
 ========================================================================
 $Id$
 
+Version ?.?.?, released ????-??-??
+----------------------------------
+
+Bugfixes
+~~~~~~~~
+- Fixed bug with svn tag that generates a conflict while adding
+  files and directories in the same command.
+  (rledermueller)
+
 Version 1.6.5, released 2011-11-24
 ----------------------------------
 
