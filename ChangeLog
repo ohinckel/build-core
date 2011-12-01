@@ -2,6 +2,14 @@ XP Framework Build System ChangeLog
 ========================================================================
 $Id$
 
+Version 1.6.7 released 2011-12-01
+----------------------------------
+
+Bugfixes
+~~~~~~~~
+- Added force flag to svn add to avoid errors if a directory was already added.
+  (rledermueller)
+
 Version 1.6.6 released 2011-11-28
 ----------------------------------
 
