@@ -74,4 +74,6 @@ The following (public) targets exist for being called:
   Install package into shared / public repository
     </echo>
   </target>
+  
+  <target name="info" depends="-init:configure:ivy"/>
 </project>
