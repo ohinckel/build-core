@@ -2,16 +2,19 @@ XP Framework Build System ChangeLog
 ========================================================================
 $Id$
 
-Version 1.6.8 released 2011-??-??
+Version 1.6.8, released 2011-??-??
 ----------------------------------
 
 Features
 ~~~~~~~~
 - Added new info target to dump out the current configuration
   (ohinckel)
+- Implement generation of .dot files, and use dot, if available,
+  to generate dependency graphs.
+  (kiesel)
 
 
-Version 1.6.7 released 2011-12-01
+Version 1.6.7, released 2011-12-01
 ----------------------------------
 
 Bugfixes
@@ -19,8 +22,7 @@ Bugfixes
 - Added force flag to svn add to avoid errors if a directory was already added.
   (rledermueller)
 
-
-Version 1.6.6 released 2011-11-28
+Version 1.6.6, released 2011-11-28
 ----------------------------------
 
 Bugfixes

@@ -21,7 +21,34 @@
     <ivy:report
      todir="${build.target.reports.resolve}"
      outputpattern="resolve-[conf].[ext]"
+     dot="true"
+     graph="false"
     />
+
+    <!-- Pick up .dot files and generate .pngs from it -->
+    <if>
+      <available file="dot" filepath="${env.PATH}"/>
+      <then>
+        <apply executable="dot" resolveexecutable="true" searchpath="true" failonerror="false" failifexecutionfails="false" outputproperty="dot.out" errorproperty="dot.err" resultproperty="dot.res">
+          <arg value="-O"/>
+          <arg value="-Tpng"/>
+          <fileset dir="${build.target.reports.resolve}" includes="*.dot"/>
+        </apply>
+        <if>
+          <equals arg1="0" arg2="${dot.res}"/>
+          <then>
+            <echo>Generated dotfiles to ${build.target.reports.resolve}</echo>
+          </then>
+          <else>
+            <echo>Error generating dotfiles: ${dot.out} - ${dot.err}</echo>
+          </else>
+        </if>
+      </then>
+      <else>
+        <echo>No dot (graphviz) found in path.</echo>
+      </else>
+    </if>
+
     <ivy:retrieve
      pattern="${build.target}/lib/[conf]/[type]/[artifact](-[branch])-[revision].[ext]"
     />
