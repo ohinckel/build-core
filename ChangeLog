@@ -9,8 +9,11 @@ Features
 ~~~~~~~~
 - Added new info target to dump out the current configuration
   (ohinckel)
-- Implement generation of .dot files, and use dot, if available,
+- Implemented generation of .dot files, and use dot, if available,
   to generate dependency graphs.
+  (kiesel)
+- Made creation of resolve process result html document be performed
+  also in case of failure - this is helpful for debugging!
   (kiesel)
 
 
