@@ -6,13 +6,28 @@
     <echo>==> Starting resolving ${dep.organisation}#${dep.module} @ ${dep.revision}</echo>
     <echo>    confs: [${dep.conf}]</echo>
     <echo></echo>
+
+    <delete file="${build.target}/cache-reports.ini"/>
   </target>
 
-  <target name="-prepare:trigger:post-resolve-dep">
+  <target name="-prepare:trigger:post-resolve-dep" depends="-prepare:trigger:record-dependencies">
     <echo>--> Resolving ${dep.organisation}#${dep.module}
     @ ${dep.revision} (asked for: ${dep.req-revision})
     repo "${dep.resolver}" in ${dep.duration}ms, success: ${dep.resolved}</echo>
     <echo></echo>
+  </target>
+
+  <target name="-prepare:trigger:record-dependencies" if="trigger.record.dependencies">
+    <mkdir dir="${build.target}"/>
+    <property file="${build.target}/cache-reports.ini"/>
+    <property name="ivy.dependencies.index" value="0"/>
+    <propertyfile file="${build.target}/cache-reports.ini">
+      <entry key="ivy.dependencies.index" type="int" operation="+" value="1"/>
+      <entry key="ivy.dependencies.${ivy.dependencies.index}.organisation" value="${dep.organisation}"/>
+      <entry key="ivy.dependencies.${ivy.dependencies.index}.module" value="${dep.module}"/>
+      <entry key="ivy.dependencies.${ivy.dependencies.index}.revision" value="${dep.revision}"/>
+      <entry key="ivy.dependencies.${ivy.dependencies.index}.req-revision" value="${dep.req-revision}"/>
+    </propertyfile>
   </target>
 
   <target name="-prepare:trigger:pre-download-artifact">

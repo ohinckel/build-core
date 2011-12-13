@@ -15,8 +15,8 @@
   </target>
 
   <target name="-prepare:prepare:dependencies" depends="-init:configure:ivy, -prepare:prepare:clear-dependencies" unless="-prepare:prepare:dependencies.exist">
-
     <!-- Fetch libs -->
+    <property name="trigger.record.dependencies" value="true"/>
     <ivy:resolve log="quiet"/>
     <ivy:report
      todir="${build.target.reports.resolve}"

@@ -7,27 +7,23 @@
      target="-prepare:trigger:start-resolve"
      prefix="dep"
      event="pre-resolve"
-     onlyonce="false"
     />
     <ant-call
      target="-prepare:trigger:post-resolve-dep"
      prefix="dep"
      event="post-resolve-dependency"
-     onlyonce="false"
     />
-    <ant-call
+<!--    <ant-call
      target="-prepare:trigger:pre-download-artifact"
      prefix="dep"
      event="pre-download-artifact"
      filter="local=false"
-     onlyonce="false"
-    />
+    />-->
 <!--    <ant-call
      target="-prepare:trigger:post-download-artifact"
      prefix="dep"
      event="post-download-artifact"
      filter="local=false"
-     onlyonce="false"
     />-->
   </triggers>
 
