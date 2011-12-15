@@ -14,7 +14,7 @@
     <available file="${build.target}/lib/.extracted" property="-prepare:prepare:dependencies.exist"/>
   </target>
 
-  <target name="-prepare:prepare:dependencies" depends="-init:configure:ivy, -prepare:prepare:clear-dependencies" unless="-prepare:prepare:dependencies.exist">
+  <target name="-prepare:prepare:resolve:dependencies" depends="-init:configure:ivy, -prepare:prepare:clear-dependencies" unless="-prepare:prepare:dependencies.exist">
     <!-- Fetch libs -->
     <property name="trigger.record.dependencies" value="true"/>
     <ivy:resolve log="quiet" haltonfailure="false" failureproperty="resolve.failed"/>
@@ -50,6 +50,9 @@
     </if>
 
     <fail if="resolve.failed">Could not find all dependencies, aborting.</fail>
+  </target>
+
+  <target name="-prepare:prepare:dependencies" depends="-prepare:prepare:resolve:dependencies" unless="-prepare:prepare:dependencies.exist">
     <ivy:retrieve
      pattern="${build.target}/lib/[conf]/[type]/[artifact](-[branch])-[revision].[ext]"
     />
@@ -59,6 +62,30 @@
     <touch>
       <fileset dir="${build.target}/lib" includes="**/*"/>
     </touch>
+  </target>
+
+  <target name="prepare:versions" depends="-prepare:prepare:resolve:dependencies">
+    <property file="${build.target}/cache-reports.ini"/>
+    <propertyselector property="dependencies" match="(ivy\.dependencies\.\d+)\.*\.module" select="\1"/>
+
+    <echo>* List of updateable dependencies:</echo>
+    <for list="${dependencies}" param="prefix">
+      <sequential>
+        <ivy:findrevision
+         organisation="${@{prefix}.organisation}"
+         module="${@{prefix}.module}"
+         revision="latest.integration"
+         property="module.new.revision"
+        />
+
+        <if>
+          <not><equals arg1="${module.new.revision}" arg2="${@{prefix}.revision}"></equals></not>
+          <then>
+            <echo>  ${@{prefix}.organisation}#${@{prefix}.module} @ ${@{prefix}.req-revision} --> ${module.new.revision}</echo>
+          </then>
+        </if>
+      </sequential>
+    </for>
   </target>
 
   <target name="-prepare:prepare:plugins" depends="-init:configure:ivy, -prepare:prepare:clear-dependencies" unless="-prepare:prepare:dependencies.exist">
