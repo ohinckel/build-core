@@ -2,7 +2,7 @@ XP Framework Build System ChangeLog
 ========================================================================
 $Id$
 
-Version 1.6.8, released 2011-??-??
+Version 1.6.8, released 2011-12-15
 ----------------------------------
 
 Features
@@ -14,6 +14,11 @@ Features
   (kiesel)
 - Made creation of resolve process result html document be performed
   also in case of failure - this is helpful for debugging!
+  (kiesel)
+- Added target "prepare:version" to show potentially upgradeable dependencies
+  *experimental*
+  (kiesel)
+- Record dependency information in properties
   (kiesel)
 
 

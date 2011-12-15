@@ -1,19 +1,23 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <ivy-module
  version="2.0"
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd"
 >
   <info
-   organisation="net.xp_framework" 
+   organisation="net.xp_framework"
    module="build"
    status="release"
-   revision="1.6.7"
+   revision="1.6.8"
   />
   <configurations>
     <conf name="default" description="Required for a build"/>
   </configurations>
   <publications>
-    <artifact name="build" ext="zip" type="zip"/>
+    <artifact
+     name="build"
+     ext="zip"
+     type="zip"
+    />
   </publications>
 </ivy-module>
