@@ -27,6 +27,7 @@
       <entry key="ivy.dependencies.${ivy.dependencies.index}.module" value="${dep.module}"/>
       <entry key="ivy.dependencies.${ivy.dependencies.index}.revision" value="${dep.revision}"/>
       <entry key="ivy.dependencies.${ivy.dependencies.index}.req-revision" value="${dep.req-revision}"/>
+      <entry key="ivy.dependencies.${ivy.dependencies.index}.resolver" value="${dep.resolver}"/>
     </propertyfile>
   </target>
 

@@ -33,15 +33,9 @@
 
     <chain name="public">
       <resolver ref="local"/>
-      <resolver ref="xp-public-deprecated"/>
       <resolver ref="xp-public-snapshots"/>
       <resolver ref="xp-public-milestones"/>
       <resolver ref="xp-public-releases"/>
     </chain>
   </resolvers>
-
-  <modules>
-    <module organisation="net.xp_framework.*" name="*" resolver="public"/>
-    <module organisation="net.xp_forge.*"     name="*" resolver="public"/>
-  </modules>
 </ivysettings>
