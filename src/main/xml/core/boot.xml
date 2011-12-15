@@ -32,7 +32,7 @@
       </classpath>
     </taskdef>
 
-    <taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
+    <taskdef resource="net/sf/antcontrib/antlib.xml"/>
   </target>
 
   <target name="-init:check:ant" unless="xp.ant.version">
