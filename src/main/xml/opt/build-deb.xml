@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="xp-framework-deb" basedir=".">
+
+  <property name="build.target.deb.data" value="${build.target.deb}/opt/ui/data/deploy/"/>
+  <property name="build.target.deb.ctl" value="${build.target.deb}/DEBIAN/"/>
+
+  <target name="-deb:compile:clear" depends="-app:compile:clear"/>
+
+  <target name="-deb:compile" extensionOf="pre-package" depends="-app:compile"/>
+
+  <target name="deb:pre-package" extensionOf="pre-package" depends="app:pre-package">
+  
+    <!-- Just copy all data from app build -->
+    <copy todir="${build.target.deb.data}/${ivy.module}-${ivy.new.revision}">
+      <fileset dir="${build.target.app}" excludes="**/.extracted"/>
+    </copy>
+    
+    <!-- Replace BASEPATH & MODULENAME in Apache configuration files -->
+    <!-- TODO: NODEHOST / BALANCEDHOST still missing! -->
+    <replace dir="${build.target.deb.data}/${ivy.module}-${ivy.new.revision}/conf" includes="*.conf">
+      <include name="**/*.conf"/>
+      <replacetoken>BASEPATH</replacetoken>
+      <replacevalue>/opt/ui/data/deploy</replacevalue>
+    </replace>
+    <replace dir="${build.target.deb.data}/${ivy.module}-${ivy.new.revision}/conf" includes="*.conf">
+      <include name="**/*.conf"/>
+      <replacetoken>MODULENAME</replacetoken>
+      <replacevalue>${ivy.module}</replacevalue>
+    </replace>
+  </target>
+  
+  <target name="deb:package:descriptor" extensionOf="pre-package" depends="app:package:descriptor">
+    
+    <!-- Create control file -->
+    <length property="deb.length" mode="all">
+      <fileset dir="${build.target.deb.data}" includes="**"/>
+    </length>
+    <echo file="${build.target.deb.ctl}/control">Package: ${ivy.module}
+Version: ${ivy.new.revision}
+Section: ${ivy.organisation}
+Priority: optional
+Architecture: i386
+Depends: ui-xprunner
+Installed-Size: ${deb.length}
+Maintainer: Developer &lt;noreply@example.com&gt;
+Description: Package for ${ivy.module}.
+</echo>
+    
+    <!-- Create postinst -->
+    <echo file="${build.target.deb.ctl}/postinst">#!/bin/sh
+# Nothing to do
+    </echo>
+    <chmod file="${build.target.deb.ctl}/postinst" perm="0775"/>
+    
+    <!-- Create prerm -->
+    <echo file="${build.target.deb.ctl}/prerm">#!/bin/sh
+# Nothing to do
+    </echo>
+    <chmod file="${build.target.deb.ctl}/prerm" perm="0775"/>
+  </target>
+
+  <target name="deb:package" extensionOf="package" depends="app:package">
+  
+    <!-- Build package using dpkg-deb -->
+    <exec executable="dpkg-deb">
+      <arg value="-b"/>
+      <arg value="${build.target.deb}"/>
+      <arg value="${build.target}/${ivy.module}-${ivy.new.revision}.deb"/>
+    </exec>
+  </target>
+</project>
