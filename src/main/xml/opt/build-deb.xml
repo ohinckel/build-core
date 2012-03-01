@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="xp-framework-deb" basedir=".">
-
-  <property name="build.target.deb.data" value="${build.target.deb}/opt/ui/data/deploy/"/>
+  
+  <property name="build.debdir" value="${build.origdir}/debian"/>
+  <property file="${build.debdir}/build.properties" prefix="deb.prop"/>
+  <property name="build.target.deb.data" value="${build.target.deb}${deb.prop.path}"/>
   <property name="build.target.deb.ctl" value="${build.target.deb}/DEBIAN/"/>
 
   <target name="-deb:compile:clear" depends="-app:compile:clear"/>
@@ -11,51 +13,44 @@
   <target name="deb:pre-package" extensionOf="pre-package" depends="app:pre-package">
   
     <!-- Just copy all data from app build -->
-    <copy todir="${build.target.deb.data}/${ivy.module}-${ivy.new.revision}">
-      <fileset dir="${build.target.app}" excludes="**/.extracted"/>
+    <copy todir="${build.target.deb.data}/${ivy.module}-${ivy.new.revision}/${ivy.module}">
+      <fileset dir="${build.target.app}" excludes="**/.extracted conf/apache/*.conf"/>
     </copy>
-    
-    <!-- Replace BASEPATH & MODULENAME in Apache configuration files -->
-    <!-- TODO: NODEHOST / BALANCEDHOST still missing! -->
-    <replace dir="${build.target.deb.data}/${ivy.module}-${ivy.new.revision}/conf" includes="*.conf">
-      <include name="**/*.conf"/>
-      <replacetoken>BASEPATH</replacetoken>
-      <replacevalue>/opt/ui/data/deploy</replacevalue>
-    </replace>
-    <replace dir="${build.target.deb.data}/${ivy.module}-${ivy.new.revision}/conf" includes="*.conf">
-      <include name="**/*.conf"/>
-      <replacetoken>MODULENAME</replacetoken>
-      <replacevalue>${ivy.module}</replacevalue>
-    </replace>
+
+    <!-- Copy Apache configuration, if exist -->
+    <copy todir="${build.target.deb}/etc/apache2/sites-available">
+      <fileset dir="${build.target.app}/conf/apache" includes="*.conf" erroronmissingdir="false"/>
+      <filterset>
+        <filter token="BASEPATH" value="${deb.prop.path}/${ivy.module}-${ivy.new.revision}"/>
+        <filter token="MODULENAME" value="${ivy.module}"/>
+      </filterset>
+    </copy>
   </target>
   
   <target name="deb:package:descriptor" extensionOf="pre-package" depends="app:package:descriptor">
-    
-    <!-- Create control file -->
+  
+    <!-- Calculate package installation size -->
     <length property="deb.length" mode="all">
       <fileset dir="${build.target.deb.data}" includes="**"/>
     </length>
-    <echo file="${build.target.deb.ctl}/control">Package: ${ivy.module}
-Version: ${ivy.new.revision}
-Section: ${ivy.organisation}
-Priority: optional
-Architecture: i386
-Depends: ui-xprunner
-Installed-Size: ${deb.length}
-Maintainer: Developer &lt;noreply@example.com&gt;
-Description: Package for ${ivy.module}.
-</echo>
+    <math result="deb.length.kb" operation="/" operand1="${deb.length}" operand2="1024" datatype="int"/>
     
-    <!-- Create postinst -->
-    <echo file="${build.target.deb.ctl}/postinst">#!/bin/sh
-# Nothing to do
-    </echo>
+    <!-- Copy debian control files and replace some tokens -->
+    <copy todir="${build.target.deb.ctl}">
+      <fileset dir="${build.debdir}">
+        <include name="control"/>
+        <include name="postinst"/>
+        <include name="prerm"/>
+      </fileset>
+      <filterset filtersfile="${build.debdir}/build.properties">
+        <filter token="size" value="${deb.length.kb}"/>
+        <filter token="module" value="${ivy.module}"/>
+        <filter token="version" value="${ivy.new.revision}"/>
+        <filter token="section" value="${ivy.organisation}"/>
+      </filterset>
+    </copy>
+    <chmod file="${build.target.deb.ctl}/preinst" perm="0775"/>
     <chmod file="${build.target.deb.ctl}/postinst" perm="0775"/>
-    
-    <!-- Create prerm -->
-    <echo file="${build.target.deb.ctl}/prerm">#!/bin/sh
-# Nothing to do
-    </echo>
     <chmod file="${build.target.deb.ctl}/prerm" perm="0775"/>
   </target>
 
