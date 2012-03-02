@@ -3,7 +3,7 @@
   
   <property name="build.debdir" value="${build.origdir}/debian"/>
   <property file="${build.debdir}/build.properties" prefix="deb.prop"/>
-  <property name="build.target.deb.data" value="${build.target.deb}${deb.prop.path}"/>
+  <property name="build.target.deb.data" value="${build.target.deb}${deb.prop.root}"/>
   <property name="build.target.deb.ctl" value="${build.target.deb}/DEBIAN/"/>
 
   <target name="-deb:compile:clear" depends="-app:compile:clear"/>
@@ -11,47 +11,63 @@
   <target name="-deb:compile" extensionOf="pre-package" depends="-app:compile"/>
 
   <target name="deb:pre-package" extensionOf="pre-package" depends="app:pre-package">
-  
+
     <!-- Just copy all data from app build -->
     <copy todir="${build.target.deb.data}/${ivy.module}-${ivy.new.revision}/${ivy.module}">
-      <fileset dir="${build.target.app}" excludes="**/.extracted conf/apache/*.conf"/>
+      <fileset dir="${build.target.app}" excludes="**/.extracted"/>
     </copy>
-
-    <!-- Copy Apache configuration, if exist -->
-    <copy todir="${build.target.deb}/etc/apache2/sites-available">
-      <fileset dir="${build.target.app}/conf/apache" includes="*.conf" erroronmissingdir="false"/>
-      <filterset>
-        <filter token="BASEPATH" value="${deb.prop.path}/${ivy.module}-${ivy.new.revision}"/>
-        <filter token="MODULENAME" value="${ivy.module}"/>
-      </filterset>
-    </copy>
-  </target>
-  
-  <target name="deb:package:descriptor" extensionOf="pre-package" depends="app:package:descriptor">
   
     <!-- Calculate package installation size -->
     <length property="deb.length" mode="all">
       <fileset dir="${build.target.deb.data}" includes="**"/>
     </length>
     <math result="deb.length.kb" operation="/" operand1="${deb.length}" operand2="1024" datatype="int"/>
+  
+    <!-- Declare tokens searched and replaced when copying files -->
+    <filterset id="copy.tokens">
+      <filter token="size" value="${deb.length.kb}"/>
+      <filter token="module" value="${ivy.module}"/>
+      <filter token="version" value="${ivy.new.revision}"/>
+      <filter token="section" value="${ivy.organisation}"/>
+      <filter token="BASEPATH" value="${deb.prop.root}/${ivy.module}-${ivy.new.revision}"/>
+      <filter token="MODULENAME" value="${ivy.module}"/>
+    </filterset>
+    
+    <!-- Copy configured paths -->
+    <propertyselector property="copy.list" match="deb\.prop\.copy\..*"/>
+    <if>
+      <isset property="copy.list"/>
+      <then>
+        <for list="${copy.list}" param="copy.list.item">
+          <sequential>
+            <propertycopy property="resource" from="@{copy.list.item}"/>
+            <propertyregex property="copy.from" input="${resource}" regexp="(.*):.*" select="\1"/>
+            <propertyregex property="copy.to"   input="${resource}" regexp=".*:(.*)" select="\1"/>
+            <copy todir="${build.target.deb}/${copy.to}">
+              <fileset dir="${build.target.app}/${copy.from}"/>
+              <filterset refid="copy.tokens"/>
+            </copy>
+          </sequential>
+        </for>
+      </then>
+    </if>
+  </target>
+  
+  <target name="deb:package:descriptor" extensionOf="pre-package" depends="app:package:descriptor">
     
     <!-- Copy debian control files and replace some tokens -->
     <copy todir="${build.target.deb.ctl}">
       <fileset dir="${build.debdir}">
-        <include name="control"/>
-        <include name="postinst"/>
-        <include name="prerm"/>
+        <exclude name="build.properties"/>
       </fileset>
-      <filterset filtersfile="${build.debdir}/build.properties">
-        <filter token="size" value="${deb.length.kb}"/>
-        <filter token="module" value="${ivy.module}"/>
-        <filter token="version" value="${ivy.new.revision}"/>
-        <filter token="section" value="${ivy.organisation}"/>
-      </filterset>
+      <filterset refid="copy.tokens"/>
     </copy>
+    
+    <!-- Explicitely set file permission to make them executable -->
     <chmod file="${build.target.deb.ctl}/preinst" perm="0775"/>
     <chmod file="${build.target.deb.ctl}/postinst" perm="0775"/>
     <chmod file="${build.target.deb.ctl}/prerm" perm="0775"/>
+    <chmod file="${build.target.deb.ctl}/postrm" perm="0775"/>
   </target>
 
   <target name="deb:package" extensionOf="package" depends="app:package">
