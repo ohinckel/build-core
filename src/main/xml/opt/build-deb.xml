@@ -40,13 +40,31 @@
       <then>
         <for list="${copy.list}" param="copy.list.item">
           <sequential>
-            <propertycopy property="resource" from="@{copy.list.item}"/>
-            <propertyregex property="copy.from" input="${resource}" regexp="(.*):.*" select="\1"/>
-            <propertyregex property="copy.to"   input="${resource}" regexp=".*:(.*)" select="\1"/>
-            <copy todir="${build.target.deb}/${copy.to}">
-              <fileset dir="${build.target.app}/${copy.from}"/>
-              <filterset refid="copy.tokens"/>
-            </copy>
+            <propertycopy property="resource" from="@{copy.list.item}" override="true"/>
+            <propertyregex property="copy.from" input="${resource}" regexp="(.*):.*" select="\1" override="true"/>
+            <propertyregex property="copy.to"   input="${resource}" regexp=".*:(.*)" select="\1" override="true"/>
+            <echo>Copy ... ${resource}</echo>
+            <if>
+              <matches string="${copy.to}" pattern="^/"/>
+              <then>
+                <!-- Copy into package root -->
+                <copy todir="${build.target.deb}/${copy.to}" overwrite="true">
+                  <fileset dir="${build.target.app}">
+                    <include name="${copy.from}"/>
+                  </fileset>
+                  <filterset refid="copy.tokens"/>
+                </copy>
+              </then>
+              <else>
+                <!-- Copy into application root -->
+                <copy todir="${build.target.deb.data}/${ivy.module}-${ivy.new.revision}/${ivy.module}/${copy.to}" overwrite="true">
+                  <fileset dir="${build.target.app}">
+                    <include name="${copy.from}"/>
+                  </fileset>
+                  <filterset refid="copy.tokens"/>
+                </copy>
+              </else>
+            </if>
           </sequential>
         </for>
       </then>
