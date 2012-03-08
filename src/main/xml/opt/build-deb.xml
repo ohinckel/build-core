@@ -43,28 +43,31 @@
             <propertycopy property="resource" from="@{copy.list.item}" override="true"/>
             <propertyregex property="copy.from" input="${resource}" regexp="(.*):.*" select="\1" override="true"/>
             <propertyregex property="copy.to"   input="${resource}" regexp=".*:(.*)" select="\1" override="true"/>
-            <echo>Copy ... ${resource}</echo>
+            
+            <!-- Check for copy root directory (file or directory specified) -->
+            <var name="copy.from.root" unset="true"/>
+            <var name="copy.from.selector" unset="true"/>
+            <var name="copy.to.root" unset="true"/>
             <if>
-              <matches string="${copy.to}" pattern="^/"/>
+              <matches string="${copy.from}" pattern="/$"/>
               <then>
-                <!-- Copy into package root -->
-                <copy todir="${build.target.deb}/${copy.to}" overwrite="true">
-                  <fileset dir="${build.target.app}">
-                    <include name="${copy.from}"/>
-                  </fileset>
-                  <filterset refid="copy.tokens"/>
-                </copy>
+                <var name="copy.from.root" value="${copy.from}"/>
+                <var name="copy.from.selector" value="**"/>
               </then>
               <else>
-                <!-- Copy into application root -->
-                <copy todir="${build.target.deb.data}/${ivy.module}-${ivy.new.revision}/${ivy.module}/${copy.to}" overwrite="true">
-                  <fileset dir="${build.target.app}">
-                    <include name="${copy.from}"/>
-                  </fileset>
-                  <filterset refid="copy.tokens"/>
-                </copy>
+                <propertyregex property="copy.from.root" input="${copy.from}" regexp="(.*)/[^/]+" select="\1"/>
+                <propertyregex property="copy.from.selector" input="${copy.from}" regexp=".*/([^/]+)" select="\1"/>
               </else>
             </if>
+            <if>
+              <matches string="${copy.to}" pattern="^/"/>
+              <then><var name="copy.to.root" value="${build.target.deb}/${copy.to}"/></then>
+              <else><var name="copy.to.root" value="${build.target.deb.data}/${ivy.module}-${ivy.new.revision}/${ivy.module}/${copy.to}"/></else>
+            </if>
+            <copy todir="${copy.to.root}" overwrite="true">
+              <fileset dir="${build.target.app}/${copy.from.root}" includes="${copy.from.selector}"/>
+              <filterset refid="copy.tokens"/>
+            </copy>
           </sequential>
         </for>
       </then>
