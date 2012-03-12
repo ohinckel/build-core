@@ -4,10 +4,10 @@
   <target name="-app:compile:clear">
     <dependset>
       <srcfilelist dir="${basedir}" files="ivy.xml"/>
-      <targetfileset dir="${build.target}/app"/>
+      <targetfileset dir="${build.target.app}"/>
     </dependset>
 
-    <available file="${build.target}/app/.extracted" property="xp.app.exist"/>
+    <available file="${build.target.app}/.extracted" property="xp.app.exist"/>
   </target>
 
   <target name="-app:compile" extensionOf="pre-package" depends="-app:compile:clear" unless="xp.app.exist">
@@ -91,7 +91,7 @@
 
   <target name="app:package" extensionOf="package">
     <zip destfile="${build.target}/${ivy.module}-app-${ivy.new.revision}.zip">
-      <zipfileset dir="${build.target}/app" prefix="${ivy.module}" excludes=".extracted"/>
+      <zipfileset dir="${build.target.app}" prefix="${ivy.module}" excludes=".extracted"/>
     </zip>
   </target>
 </project>

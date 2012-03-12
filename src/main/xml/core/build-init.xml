@@ -11,6 +11,7 @@
   <property name="build.target.reports.documentation" value="${build.target.reports}/apidoc"/>
   <property name="build.target.reports.testresults" value="${build.target}/test-results"/>
   <property name="build.target.app" value="${build.target}/app"/>
+  <property name="build.target.deb" value="${build.target}/deb"/>
   <property name="xp.build.version" value="@@xp.build.version@@"/>
 
   <target name="-init:configure:ivy" depends="-init:load:ivy">
