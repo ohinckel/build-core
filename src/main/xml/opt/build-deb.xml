@@ -41,8 +41,9 @@
         <for list="${copy.list}" param="copy.list.item">
           <sequential>
             <propertycopy property="resource" from="@{copy.list.item}" override="true"/>
-            <propertyregex property="copy.from" input="${resource}" regexp="(.*):.*" select="\1" override="true"/>
-            <propertyregex property="copy.to"   input="${resource}" regexp=".*:(.*)" select="\1" override="true"/>
+            <propertyregex property="copy.from" input="${resource}" regexp="([^:]+):.+" select="\1" override="true"/>
+            <propertyregex property="copy.to"   input="${resource}" regexp="[^:]+:([^:]+)" select="\1" override="true"/>
+            <propertyregex property="copy.perm" input="${resource}" regexp="[^:]+:[^:]+:([^:]+)" select="\1" override="true"/>
             
             <!-- Check for copy root directory (file or directory specified) -->
             <var name="copy.from.root" unset="true"/>
@@ -68,6 +69,14 @@
               <fileset dir="${build.target.app}/${copy.from.root}" includes="${copy.from.selector}"/>
               <filterset refid="copy.tokens"/>
             </copy>
+            <if>
+              <matches string="${copy.perm}" pattern="^.+$"/>
+              <then>
+                <chmod perm="${copy.perm}">
+                  <fileset dir="${copy.to.root}" includes="${copy.from.selector}"/>
+                </chmod>
+              </then>
+            </if>
           </sequential>
         </for>
       </then>
@@ -94,7 +103,8 @@
   <target name="deb:package" extensionOf="package" depends="app:package">
   
     <!-- Build package using dpkg-deb -->
-    <exec executable="dpkg-deb">
+    <exec executable="fakeroot">
+      <arg value="dpkg-deb"/>
       <arg value="-b"/>
       <arg value="${build.target.deb}"/>
       <arg value="${build.target}/${ivy.module}-${ivy.new.revision}.deb"/>

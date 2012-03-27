@@ -2,6 +2,19 @@ XP Framework Build System ChangeLog
 ========================================================================
 $Id$
 
+Version 1.6.10, released 2012-03-27
+----------------------------------
+
+Features
+~~~~~~~~
+- Add configuration for Debian packaging to change permission flags
+  when copying files
+  (ohinckel)
+- Make use of "fakeroot" command to be able to create Debian packages
+  with root owner permission
+  (ohinckel)
+
+
 Version 1.6.9, released 2012-03-13
 ----------------------------------
 
