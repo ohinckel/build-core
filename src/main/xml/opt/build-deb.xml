@@ -70,7 +70,7 @@
               <filterset refid="copy.tokens"/>
             </copy>
             <if>
-              <matches string="${copy.perm}" pattern="^.+$"/>
+              <isset property="copy.perm"/>
               <then>
                 <chmod perm="${copy.perm}">
                   <fileset dir="${copy.to.root}" includes="${copy.from.selector}"/>
