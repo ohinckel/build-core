@@ -109,5 +109,6 @@
       <arg value="${build.target.deb}"/>
       <arg value="${build.target}/${ivy.module}-${ivy.new.revision}.deb"/>
     </exec>
+    <echo>     * ${build.target}/${ivy.module}-${ivy.new.revision}.deb</echo>
   </target>
 </project>

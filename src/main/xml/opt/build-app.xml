@@ -93,5 +93,6 @@
     <zip destfile="${build.target}/${ivy.module}-app-${ivy.new.revision}.zip">
       <zipfileset dir="${build.target.app}" prefix="${ivy.module}" excludes=".extracted"/>
     </zip>
+    <echo>     * ${build.target}/${ivy.module}-app-${ivy.new.revision}.zip</echo>
   </target>
 </project>
