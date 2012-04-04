@@ -2,6 +2,15 @@ XP Framework Build System ChangeLog
 ========================================================================
 $Id$
 
+Version 1.6.11, released 2012-04-??
+----------------------------------
+
+Features
+~~~~~~~~
+- Show generated archive files for ZIP and DEB packaging
+  (ohinckel)
+
+
 Version 1.6.10, released 2012-03-27
 ----------------------------------
 
