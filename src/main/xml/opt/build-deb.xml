@@ -12,8 +12,11 @@
 
   <target name="deb:pre-package" extensionOf="pre-package" depends="app:pre-package">
 
-    <propertyregex property="ivy.new.deb.revision" input="${ivy.new.revision}" regexp="-(\w+)$"
-      replace="~\1" defaultValue="${ivy.new.revision}"
+    <propertyregex property="ivy.new.deb.revision" input="${ivy.new.revision}" regexp="-(SNAPSHOT)$"
+      replace="~0\1" defaultValue="${ivy.new.revision}"
+    />
+    <propertyregex property="ivy.new.deb.revision" input="${ivy.new.revision}" regexp="-(RC\d+)$"
+      replace="~1\1" defaultValue="${ivy.new.deb.revision}" override="true"
     />
 
     <!-- Just copy all data from app build -->
