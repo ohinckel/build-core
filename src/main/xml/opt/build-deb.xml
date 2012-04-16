@@ -12,6 +12,13 @@
 
   <target name="deb:pre-package" extensionOf="pre-package" depends="app:pre-package">
 
+    <propertyregex property="ivy.new.deb.revision" input="${ivy.new.revision}" regexp="-(SNAPSHOT)$"
+      replace="~0\1" defaultValue="${ivy.new.revision}"
+    />
+    <propertyregex property="ivy.new.deb.revision" input="${ivy.new.revision}" regexp="-(RC\d+)$"
+      replace="~1\1" defaultValue="${ivy.new.deb.revision}" override="true"
+    />
+
     <!-- Just copy all data from app build -->
     <copy todir="${build.target.deb.data}/${ivy.module}-${ivy.new.revision}/${ivy.module}">
       <fileset dir="${build.target.app}" excludes="**/.extracted"/>
@@ -27,7 +34,7 @@
     <filterset id="copy.tokens">
       <filter token="size" value="${deb.length.kb}"/>
       <filter token="module" value="${ivy.module}"/>
-      <filter token="version" value="${ivy.new.revision}"/>
+      <filter token="version" value="${ivy.new.deb.revision}"/>
       <filter token="organisation" value="${ivy.organisation}"/>
       <filter token="BASEPATH" value="${deb.prop.root}/${ivy.module}-${ivy.new.revision}"/>
       <filter token="MODULENAME" value="${ivy.module}"/>
