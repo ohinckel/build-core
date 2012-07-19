@@ -90,12 +90,22 @@
 
   <target name="-prepare:prepare:plugins" depends="-init:configure:ivy, -prepare:prepare:clear-dependencies" unless="-prepare:prepare:dependencies.exist">
     <ivy:resolve
+     resolveId="xp.plugins.resolve"
      organisation="net.xp_framework.build"
      module="plugins-core"
      revision="latest.integration"
      conf="compile"
      inline="true"
      log="quiet"
+    />
+
+    <ivy:report
+     resolveId="xp.plugins.resolve"
+     conf="compile"
+     todir="${build.target.reports.resolve}"
+     outputpattern="resolve-plugins-[conf].[ext]"
+     dot="false"
+     graph="false"
     />
 
     <ivy:retrieve
