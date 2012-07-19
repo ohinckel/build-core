@@ -35,6 +35,10 @@
     <run-plugins target="integration-test"/>
   </target>
 
+  <target name="plugin:ci-metrics" extensionOf="ci-metrics" depends="-plugin:registered" if="xp.plugin.registered">
+    <run-plugins target="ci-metrics"/>
+  </target>
+
   <target name="plugin:pre-package" extensionOf="pre-package" depends="-plugin:registered" if="xp.plugin.registered">
     <run-plugins target="pre-package"/>
   </target>

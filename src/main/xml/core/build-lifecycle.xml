@@ -25,6 +25,7 @@
 
   <extension-point name="test" depends="compile" description=" -> run unittests"/>
   <extension-point name="integration-test" depends="test" description=" -> run integration tests"/>
+  <extension-point name="ci-metrics" depends="compile" description=" -> run (expensive) CI metrics / validation tasks"/>
 
   <extension-point name="pre-package" depends="test"/>
   <extension-point name="package" depends="pre-package" description=" -> create package"/>
