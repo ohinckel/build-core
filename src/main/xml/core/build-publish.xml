@@ -14,6 +14,10 @@
   </target>
 
   <target name="publish:publish" extensionOf="publish" depends="-init:configure:ivy, -prepare:mode:determine-resolver">
+    <ant target="publish:-do-publish"/>
+  </target>
+
+  <target name="publish:-do-publish">
     <echo>===> Deploying ${ivy.organisation}#${ivy.module} @ ${xp.publish.resolver}</echo>
 
     <!-- Declare if not declared previously -->
@@ -28,15 +32,15 @@
     />
   </target>
 
-  <target name="publish:publish-if-integration" depends="-init:configure:ivy, -prepare:mode:determine-resolver, -prepare:mode:determine" if="xp.build.mode.integration">
-    <antcall target="publish:publish"/>
+  <target name="publish:if-integration" depends="-init:configure:ivy, -prepare:mode:determine-resolver, -prepare:mode:determine" if="xp.build.mode.integration">
+    <ant target="publish:-do-publish"/>
   </target>
 
-  <target name="publish:publish-if-milestone" depends="-init:configure:ivy, -prepare:mode:determine-resolver, -prepare:mode:determine" if="xp.build.mode.milestone">
-    <antcall target="publish:publish"/>
+  <target name="publish:if-milestone" depends="-init:configure:ivy, -prepare:mode:determine-resolver, -prepare:mode:determine" if="xp.build.mode.milestone">
+    <ant target="publish:-do-publish"/>
   </target>
 
-  <target name="publish:publish-if-release" depends="-init:configure:ivy, -prepare:mode:determine-resolver, -prepare:mode:determine" if="xp.build.mode.release">
-    <antcall target="publish:publish"/>
+  <target name="publish:if-release" depends="-init:configure:ivy, -prepare:mode:determine-resolver, -prepare:mode:determine" if="xp.build.mode.release">
+    <ant target="publish:-do-publish"/>
   </target>
 </project>

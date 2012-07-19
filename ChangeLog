@@ -9,6 +9,9 @@ Features
 ~~~~~~~~
 - Generate resolve report for plugins, too
   (kiesel)
+- Added targets publish:if-integration, publish:if-milestone, publish:if-release
+  to support publishing depending on status
+  (kiesel)
 
 
 Version 1.6.11, released 2012-07-19
