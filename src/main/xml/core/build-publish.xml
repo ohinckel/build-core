@@ -27,4 +27,16 @@
      publishivy="true"
     />
   </target>
+
+  <target name="publish:publish-if-integration" depends="-init:configure:ivy, -prepare:mode:determine-resolver, -prepare:mode:determine" if="xp.build.mode.integration">
+    <antcall target="publish:publish"/>
+  </target>
+
+  <target name="publish:publish-if-milestone" depends="-init:configure:ivy, -prepare:mode:determine-resolver, -prepare:mode:determine" if="xp.build.mode.milestone">
+    <antcall target="publish:publish"/>
+  </target>
+
+  <target name="publish:publish-if-release" depends="-init:configure:ivy, -prepare:mode:determine-resolver, -prepare:mode:determine" if="xp.build.mode.release">
+    <antcall target="publish:publish"/>
+  </target>
 </project>

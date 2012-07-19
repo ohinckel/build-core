@@ -2,8 +2,13 @@ XP Framework Build System ChangeLog
 ========================================================================
 $Id$
 
-Version 1.6.11, released 2012-04-??
+Version 1.6.11, released 2012-07-19
 ----------------------------------
+
+Features
+~~~~~~~~
+- Added phase "ci-metrics" for plugins such as sonar
+  (ohinckel, kiesel)
 
 
 Version 1.6.10, released 2012-04-18
