@@ -17,7 +17,7 @@
   <target name="-prepare:prepare:resolve:dependencies" depends="-init:configure:ivy, -prepare:prepare:clear-dependencies" unless="-prepare:prepare:dependencies.exist">
     <!-- Fetch libs -->
     <property name="trigger.record.dependencies" value="true"/>
-    <ivy:resolve log="quiet" haltonfailure="false" failureproperty="resolve.failed"/>
+    <ivy:resolve log="quiet" haltonfailure="false" failureproperty="resolve.failed" settingsRef="ivy.settings.local"/>
     <ivy:report
      todir="${build.target.reports.resolve}"
      outputpattern="resolve-[conf].[ext]"
@@ -55,6 +55,7 @@
   <target name="-prepare:prepare:dependencies" depends="-prepare:prepare:resolve:dependencies" unless="-prepare:prepare:dependencies.exist">
     <ivy:retrieve
      pattern="${build.target}/lib/[conf]/[type]/[artifact](-[branch])-[revision].[ext]"
+     settingsRef="ivy.settings.local"
     />
 
     <!-- Touch libs, so they are newer than ivy.xml -->
@@ -97,6 +98,7 @@
      conf="compile"
      inline="true"
      log="quiet"
+     settingsRef="ivy.settings.local"
     />
 
     <ivy:report
@@ -116,6 +118,7 @@
      inline="true"
      pattern="${build.target}/lib/[conf]/[type]/[artifact](-[branch])-[revision].[ext]"
      log="quiet"
+     settingsRef="ivy.settings.local"
     />
   </target>
 

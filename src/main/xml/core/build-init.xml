@@ -39,7 +39,7 @@
         <include name="resources/xml/settings/"/>
       </dirset>
     </pathconvert>
-    <ivy:configure file="${xp.build.settings}/ivysettings.xml" override="true"/>
+    <ivy:settings file="${xp.build.settings}/ivysettings.xml" id="ivy.settings.local"/>
 
     <echo>   * Publish resolver: ${xp.publish.resolver}</echo>
     <echo>   *  Lookup resolver: ${xp.lookup.resolver}</echo>
