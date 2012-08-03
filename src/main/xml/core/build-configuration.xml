@@ -15,8 +15,8 @@
     <include name="xsl/**"/>
   </fileset>
   <fileset id="build.testSourceDirectory" dir="${basedir}/src/test/" erroronmissingdir="false"/>
-  <fileset id="build.testConfigurations" dir="${basedir}/src/resources/" erroronmissingdir="false">
-    <include name="unittest/*.ini"/>
+  <fileset id="build.testConfigurations" dir="${basedir}/src/test/resources/" erroronmissingdir="false">
+    <include name="unittest*.ini"/>
   </fileset>
   <fileset id="build.resources" dir="${basedir}/src/main" erroronmissingdir="false">
     <include name="resources/**"/>
