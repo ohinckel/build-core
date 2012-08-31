@@ -10,10 +10,6 @@
       <resolver ref="local"/>
       <resolver ref="xp-shared-snapshots"/>
       <resolver ref="xp-public-snapshots"/>
-      <resolver ref="xp-shared-milestones"/>
-      <resolver ref="xp-public-milestones"/>
-      <resolver ref="xp-shared-releases"/>
-      <resolver ref="xp-public-releases"/>
     </chain>
 
     <!-- Publish & lookup resolver for milestones -->
